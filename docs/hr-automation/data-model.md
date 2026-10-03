@@ -1,6 +1,6 @@
 # HR Automation: Dataverse Data Model
 
-This is the agreed table design for the `hrautomation` solution (publisher prefix `hra`, choice value prefix `81799`).
+This is the agreed table design for the `HRAutomation` solution (publisher prefix `hra`, choice value prefix `81799`).
 Claude Code builds these tables phase by phase, as described in `PROMPT.md`. Change this file first if the design changes.
 
 **Conventions**
@@ -36,8 +36,8 @@ Claude Code builds these tables phase by phase, as described in `PROMPT.md`. Cha
 |---|---|---|---|
 | `hra_Department` | Org | Departments | Name, Code (alt key), Parent Department (self-lookup), Department Head → Employee, Cost Centre |
 | `hra_Designation` | Org | Job titles and grades | Name, Grade/Band (choice: L1–L8), Department |
-| `hra_Location` | Org | Office locations | Name, City, State (`hra_indianstate`), Address, Holiday Calendar → `hra_HolidayCalendar` (lookup added in Phase 2) |
-| `hra_Employee` | User | The employee master record | **Employee Number** (autonumber `EMP-{SEQNUM:4}`, alt key), First/Middle/Last Name, Full Name, Work Email (alt key), Personal Email, Mobile, Date of Birth, Gender, Date of Joining, Probation End Date, Confirmation Date, Employment Type, Employment Status, Department, Designation, Location, **Reporting Manager** (self-lookup), HR Business Partner → Employee, **System User** → `systemuser` (for self-service and security), Leave Policy → `hra_LeavePolicy` (lookup added in Phase 2), Notice Period (days), Last Working Day, Years of Service (formula), Gratuity Eligible (formula: ≥ 5 years). 🔒 PAN, 🔒 Aadhaar Last 4, 🔒 UAN, 🔒 ESIC Number, 🔒 Bank Account Number, 🔒 IFSC, 🔒 Bank Name, 🔒 Annual CTC (currency, INR) |
+| `hra_Location` | Org | Office locations | Name, City, State (`hra_indianstate`), Address, Weekly Off Pattern (Sat+Sun, Sun only, Sun + 2nd & 4th Sat, Sun + alternate Sat), Holiday Calendar → `hra_HolidayCalendar` (lookup added in Phase 2) |
+| `hra_Employee` | User | The employee master record | **Employee Number** (autonumber `EMP-{SEQNUM:4}`, alt key), First/Middle/Last Name, Full Name, Work Email (alt key), Personal Email, Mobile, Date of Birth, Gender, Date of Joining, Probation End Date, Confirmation Date, Employment Type, Employment Status, Department, Designation, Location, **Reporting Manager** (self-lookup), HR Business Partner → Employee, **System User** → `systemuser` (for self-service and security), Portal Contact → `contact` (only if the Phase 6 portal is built), Is People Manager (yes/no), Leave Policy → `hra_LeavePolicy` (lookup added in Phase 2), Notice Period (days), Last Working Day, Years of Service (formula), Gratuity Eligible (formula: ≥ 5 years). 🔒 PAN, 🔒 Aadhaar Last 4, 🔒 UAN, 🔒 ESIC Number, 🔒 Bank Account Number, 🔒 IFSC, 🔒 Bank Name, 🔒 Annual CTC (currency, INR) |
 | `hra_EmergencyContact` | User | Emergency contacts | Employee, Name, Relationship, Phone, Is Primary |
 | `hra_EmployeeDocument` | User | Employee documents | Employee, Document Type (`hra_documenttype`), File (file column), Issue Date, Expiry Date, Verified (yes/no), Verified By |
 | `hra_EmploymentHistory` | User | Audit trail of job changes | Employee, Change Type (Joining, Confirmation, Promotion, Transfer, Manager Change, Salary Revision, Separation), Effective Date, From/To Department, From/To Designation, From/To Location, From/To Manager, 🔒 From/To CTC, Remarks |
@@ -49,11 +49,12 @@ Claude Code builds these tables phase by phase, as described in `PROMPT.md`. Cha
 |---|---|---|---|
 | `hra_HolidayCalendar` | Org | One calendar per state per year | Name (for example "Karnataka 2026"), Year, State |
 | `hra_Holiday` | Org | Holiday dates | Holiday Calendar, Date, Name, Type (National, State, Optional/Restricted) |
-| `hra_LeaveType` | Org | Leave types | Name, Code (alt key: EL, CL, SL, ML, PTL, BL, CO, LOP), Is Paid, Allow Half Day, Applicable Gender, Max Consecutive Days, Document Required After (days), Is Encashable, Counts Sandwich Holidays (yes/no) |
-| `hra_LeavePolicy` | Org | A named set of leave rules | Name, Applicable Employment Type, Leave Year Start Month (default April), Is Default |
-| `hra_LeavePolicyLine` | Org | Entitlement per leave type in a policy | Leave Policy, Leave Type, Annual Entitlement (days), Accrual Frequency (Upfront, Monthly, Quarterly), Max Carry Forward, Max Encashment, Available During Probation |
-| `hra_LeaveBalance` | User | Balance per employee, leave type and year | Employee, Leave Type, Leave Year (text, for example "2026-27"), Opening, Accrued, Taken, Adjusted, Carried Forward, Encashed, **Available** (formula). Alt key: Employee + Leave Type + Leave Year |
-| `hra_LeaveRequest` | User | Leave applications | Request Number (autonumber), Employee, Leave Type, From Date, To Date, First Day Half / Last Day Half, **Number of Days** (set by plugin), Reason, Attachment (file), Status (`hra_approvalstatus`), Approver → Employee, Actioned On (date-time), Approver Comments, Leave Balance (lookup) |
+| `hra_LeaveType` | Org | Leave types | Name, Code (alt key: EL, CL, SL, ML, PTL, BL, CO, LOP, RH), Is Paid, Allow Half Day, Applicable Gender, Max Consecutive Days, Document Required After (days), Is Encashable, Counts Sandwich Holidays (yes/no), Min Notice (days) |
+| `hra_LeavePolicy` | Org | A named set of leave rules | Name, Applicable Employment Type, Is Default. (The leave year start month, April, is the environment variable `hra_LeaveYearStartMonth`.) |
+| `hra_LeavePolicyLine` | Org | Entitlement per leave type in a policy | Leave Policy, Leave Type, Annual Entitlement (days), Accrual Frequency (Upfront, Monthly, Quarterly), Max Carry Forward, Max Encashment, Max Balance, Available During Probation, Prorate on Joining |
+| `hra_LeaveBalance` | User | Balance per employee, leave type and year | Employee, Leave Type, Leave Year (text, for example "2026-27"), Opening, Accrued, Taken, Adjusted, Carried Forward, Encashed, Pending Approval, **Available** (formula). Changed only by plugins. Alt key: Employee + Leave Type + Leave Year |
+| `hra_LeaveRequest` | User | Leave applications | Request Number (autonumber), Employee, Leave Type, From Date, To Date, First Day Half / Last Day Half, **Number of Days** (set by plugin), Leave Year (set by plugin), Reason, Attachment (file), Status (`hra_approvalstatus`), Approver → Employee, Actioned On (date-time), Approver Comments, Cancellation Reason, Source (App, Portal, Teams Agent), Leave Balance (lookup) |
+| `hra_LeaveAdjustment` | User | Every manual or automatic balance change other than leave taken | Employee, Leave Type, Leave Year, Type (Comp-off Credit, Encashment, Correction, Carry Forward, Lapse), Days (+/−), Reason, Related Attendance → `hra_AttendanceRecord` |
 | `hra_AttendanceRecord` | User | Daily attendance | Employee, Date, Check-in / Check-out (date-time), Hours Worked (formula), Status (Present, Work From Home, Half Day, Absent, On Leave, Holiday, Weekly Off), Source (Manual, Device, Teams/Shift). Alt key: Employee + Date |
 
 ### Recruitment & Onboarding (Phase 3)
@@ -68,7 +69,7 @@ Claude Code builds these tables phase by phase, as described in `PROMPT.md`. Cha
 | `hra_Offer` | User | Job offer | Job Application, Designation, 🔒 Offered CTC, Proposed Join Date, Offer Letter (file), Approval Status, Status (Draft, Approved, Sent, Accepted, Declined, Revoked), Accepted On |
 | `hra_ChecklistTemplate` | Org | Onboarding or offboarding template | Name, Type (Onboarding, Offboarding), Applies To Employment Type, Is Default |
 | `hra_ChecklistTemplateItem` | Org | Template tasks | Checklist Template, Task Name, Responsible Team (`hra_responsibleteam`), Due Offset (days from joining date or last working day), Sequence, Is Mandatory |
-| `hra_EmployeeChecklist` | User | Checklist created for one employee | Employee, Checklist Template, Type, Start Date, Status (Not Started, In Progress, Completed), Completion % (rollup) |
+| `hra_EmployeeChecklist` | User | Checklist created for one employee | Employee, Checklist Template, Type, Separation (offboarding only), Start Date, Status (Not Started, In Progress, Completed), Completion % (rollup) |
 | `hra_ChecklistTask` | User/Team | A task assigned to a team or user | Employee Checklist, Task Name, Responsible Team, Owner (team or user), Due Date, Status (Open, Done, Not Applicable), Completed On, Remarks |
 | `hra_Separation` | User | Resignation or exit | Employee, Type (Resignation, Termination, Retirement, Absconding, End of Contract), Resignation Date, Requested Last Working Day, Approved Last Working Day, Notice Shortfall (days, formula), Reason, Approval Status, Exit Interview Notes, Full and Final Status (Pending, In Progress, Settled) |
 
@@ -84,7 +85,7 @@ Claude Code builds these tables phase by phase, as described in `PROMPT.md`. Cha
 | `hra_ExpenseClaim` | User | Reimbursement claim | Claim Number (autonumber), Employee, Title, Claim Date, Total Amount (rollup, INR), Status (`hra_approvalstatus` + Paid), Approver → Employee, Approved On, Paid On, Payment Reference |
 | `hra_ExpenseLine` | User | One expense item | Expense Claim, Expense Date, Category (Travel, Local Conveyance, Food, Lodging, Fuel, Internet/Phone, Client Entertainment, Other), Amount, GST Amount, Receipt (file), Description |
 
-That's 34 tables in total. They fit within Dataverse capacity for about 100 employees.
+That's 35 tables in total. They fit within Dataverse capacity for about 100 employees.
 
 ---
 
@@ -110,6 +111,7 @@ erDiagram
     hra_LeaveType ||--o{ hra_LeaveBalance : for
     hra_Employee ||--o{ hra_LeaveRequest : applies
     hra_LeaveType ||--o{ hra_LeaveRequest : of
+    hra_Employee ||--o{ hra_LeaveAdjustment : adjusts
     hra_Employee ||--o{ hra_AttendanceRecord : logs
 
     hra_JobRequisition ||--o{ hra_JobApplication : receives

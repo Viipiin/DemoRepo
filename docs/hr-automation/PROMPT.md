@@ -19,11 +19,12 @@ solution files that I can pack and import using the Power Platform CLI (pac).
 
 ## My environment
 - Dev environment URL: https://viipiin.crm.dynamics.com/  (Power Apps Developer environment, used only for building and testing)
-- Existing unmanaged solution (already created): hrautomation  (display name: HR Automation)
+- Environment display name: Viipiin-Dev (tenant them365dev.onmicrosoft.com)
+- Existing unmanaged solution (already created): HRAutomation  (display name: HR Automation)
 - Publisher: HR Automation (unique name: hrautomation), prefix: hra, choice value prefix: 81799
   (all schema names start with hra_, e.g. hra_Employee; choice values start at 817990000)
-- Other environments for ALM: Production environment is "Viipiin-Prod" (get its URL with `pac env list`)
-  and is where paid licences are assigned;
+- Other environments for ALM: Production will be "Viipiin-Prod". It does not exist in this tenant yet
+  (`pac env list` shows only Viipiin-Dev and other people's environments), and paid licences will live there;
   no Test environment yet. Design everything so the solution can be exported as MANAGED and imported
   into Test/Prod without changes (environment variables, connection references, deployment settings files).
 - Country: India. Apply Indian HR rules:
@@ -74,7 +75,7 @@ solution files that I can pack and import using the Power Platform CLI (pac).
   Column security profiles for salary, bank details, national ID, medical info.
 - Privacy: treat PII as sensitive; enable auditing on sensitive tables/columns; define data retention
   rules for candidates and leavers; never put real personal data in sample data.
-- ALM: everything inside the hrautomation solution; use environment variables and connection references
+- ALM: everything inside the HRAutomation solution; use environment variables and connection references
   (never hard-coded URLs, emails or connections); solution must import cleanly as MANAGED into Test/Prod.
   Provide a GitHub Actions (or Azure DevOps) pipeline for export -> unpack -> commit and pack -> import.
 - Quality: use a consistent naming convention (hra_ prefix, PascalCase schema names, singular
@@ -85,8 +86,14 @@ solution files that I can pack and import using the Power Platform CLI (pac).
 - Accessibility and responsive forms; meaningful views (Active, My, My Team, Pending Approval).
 
 ## How I want you to work
-- Before writing anything, inspect the repo and run `pac solution list` / `pac org who` to confirm context.
-- The Dataverse table design is in docs/hr-automation/data-model.md. Follow it (tables, columns, choices,
+- I RUN ALL COMMANDS MYSELF in the VS Code terminal (Windows PowerShell). You write and edit files only;
+  never run pac, dotnet, npm, git or scripts yourself. For every step, give me the exact commands to copy,
+  in order, in a PowerShell code block, with one line saying what each does and what output to expect.
+  Then wait for me to paste the output (or errors) back before continuing.
+- Before writing anything, ask me to run `pac org who` and `pac solution list` and paste the output, so you
+  can confirm I am connected to the Dev environment and the HRAutomation solution exists.
+- Decisions and the full design are in docs/architecture.md (all Phase 0 questions answered: "defaults,
+  simplest setup"). The Dataverse table design is in docs/hr-automation/data-model.md. Follow it (tables, columns, choices,
   relationships, ownership, security). If you need to change it, propose the change, update that file,
   and then build.
 - Work in PHASES. At the start of each phase, give me a short plan (tables, columns, relationships,
@@ -94,8 +101,11 @@ solution files that I can pack and import using the Power Platform CLI (pac).
 - Keep the solution source unpacked under `src/solution/` (pac solution unpack / clone format),
   plugins under `src/plugins/`, web resources under `src/webresources/`, flows inside the solution,
   Power BI under `src/powerbi/`, docs under `docs/`.
-- After each phase: pack the solution, import it into DEV (`pac solution import`), publish, run
-  `pac solution check` and fix all critical/high findings, then commit with a clear message.
+- After each phase: give me the commands to build plugins/web resources, pack the solution, import it into
+  DEV (`pac solution import`), publish, run `pac solution check` and commit. Fix all critical/high
+  checker findings from the output I paste back.
+- Prefer one PowerShell script per repeated task (for example `scripts/build-and-import.ps1`) so I only
+  run one command each time, and keep a `docs/commands.md` cheat sheet up to date.
 - If something cannot be created reliably via files/CLI (e.g. some Power BI or Copilot Studio steps),
   say so and give me exact manual maker-portal steps instead of guessing.
 - Never delete or overwrite components in my environment without asking first.
