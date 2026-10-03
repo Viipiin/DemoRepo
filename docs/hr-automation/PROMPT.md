@@ -2,7 +2,7 @@
 
 How to use this file:
 
-1. Environment, solution and publisher details are already filled in. Fill in the remaining `<<...>>` placeholders (ALM environments, country, company size, licences), or delete any lines you don't need.
+1. Environment, solution and publisher details are already filled in. Fill in the remaining `<<...>>` placeholders (country, company size, licences), or delete any lines you don't need.
 2. Paste **Section 1 (Master Prompt)** into Claude Code as the first message (or save it as `CLAUDE.md` at the repo root so every session loads it).
 3. Then run the **phase prompts in Section 2** one at a time. Review and test in your Dev environment after each phase before you continue.
 
@@ -18,11 +18,13 @@ Build a production-grade HR Automation solution on Dataverse, delivered as sourc
 solution files that I can pack and import using the Power Platform CLI (pac).
 
 ## My environment
-- Dev environment URL: https://viipiin.crm.dynamics.com/
+- Dev environment URL: https://viipiin.crm.dynamics.com/  (Power Apps Developer environment, used only for building and testing)
 - Existing unmanaged solution (already created): hrautomation  (display name: HR Automation)
 - Publisher: HR Automation (unique name: hrautomation), prefix: hra, choice value prefix: 81799
   (all schema names start with hra_, e.g. hra_Employee; choice values start at 817990000)
-- Other environments for ALM: <<Test URL>>, <<Prod URL>>  (Prod receives MANAGED solutions only)
+- Other environments for ALM: none yet. Test and Prod will be created later; design everything so the
+  solution can be exported as MANAGED and imported there without changes (environment variables,
+  connection references, deployment settings files).
 - Region / country rules for leave, holidays and payroll: <<India / UK / US ...>>
 - Company size: <<~500 employees>>, number of legal entities / business units: <<n>>
 - Licences available: <<Power Apps Premium / per-app, Power Automate Premium, Power BI Pro, Copilot Studio, Power Pages>>
