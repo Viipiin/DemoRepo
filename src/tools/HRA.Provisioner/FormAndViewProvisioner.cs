@@ -1,5 +1,6 @@
 using System.Security;
 using System.Text;
+using System.Xml.Linq;
 using HRA.Provisioner.Model;
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Messages;
@@ -28,9 +29,11 @@ public sealed class FormAndViewProvisioner
         _model = model;
     }
 
-    public void Run()
+    /// <summary>Returns a description of each form or view that failed. The others are still applied.</summary>
+    public List<string> Run()
     {
         Log.Step("Forms and views");
+        var failures = new List<string>();
         foreach (var table in _model.Tables)
         {
             var metadata = ((RetrieveEntityResponse)_service.Execute(new RetrieveEntityRequest
@@ -39,15 +42,34 @@ public sealed class FormAndViewProvisioner
                 EntityFilters = EntityFilters.Attributes,
             })).EntityMetadata;
 
-            UpdateMainForm(table, metadata);
-            foreach (var view in table.Views) UpsertView(table, metadata, view);
-            UpdateQuickFind(table, metadata);
+            Attempt(failures, $"{table.LogicalName} main form", () => UpdateMainForm(table, metadata));
+            foreach (var view in table.Views)
+            {
+                Attempt(failures, $"{table.LogicalName} view '{view.Name ?? "(default)"}'", () => UpsertView(table, metadata, view));
+            }
+            Attempt(failures, $"{table.LogicalName} quick find", () => UpdateQuickFind(table, metadata));
+        }
+        return failures;
+    }
+
+    private static void Attempt(List<string> failures, string what, Action action)
+    {
+        try
+        {
+            action();
+        }
+        catch (System.ServiceModel.FaultException<OrganizationServiceFault> ex)
+        {
+            var message = $"{what}: {Errors.Describe(ex)}";
+            failures.Add(message);
+            Log.Error(message);
+            Log.Detail(ex.Detail.TraceText ?? ex.ToString());
         }
     }
 
     private void UpdateMainForm(TableDef table, EntityMetadata metadata)
     {
-        var query = new QueryExpression("systemform") { ColumnSet = new ColumnSet("name", "isdefault") };
+        var query = new QueryExpression("systemform") { ColumnSet = new ColumnSet("name", "isdefault", "formxml") };
         query.Criteria.AddCondition("objecttypecode", ConditionOperator.Equal, table.LogicalName);
         query.Criteria.AddCondition("type", ConditionOperator.Equal, MainFormType);
         // systemform has no createdon column, so prefer the table's default main form ("Information").
@@ -59,14 +81,32 @@ public sealed class FormAndViewProvisioner
             return;
         }
 
-        var xml = BuildFormXml(table, metadata);
+        var xml = ReplaceTabs(form.GetAttributeValue<string>("formxml"), BuildTabsXml(table, metadata));
+        Log.Detail(xml);
         _service.Update(new Entity("systemform", form.Id) { ["formxml"] = xml });
         Log.Ok($"{table.LogicalName}: main form '{form.GetAttributeValue<string>("name")}' laid out ({table.Form.Count} tabs)");
     }
 
-    private static string BuildFormXml(TableDef table, EntityMetadata metadata)
+    /// <summary>
+    /// Keeps everything Dataverse put in the form (header, navigation, events, ...) and swaps only the tabs.
+    /// </summary>
+    private static string ReplaceTabs(string existingFormXml, string tabsXml)
     {
-        var sb = new StringBuilder("<form><tabs>");
+        var tabs = XElement.Parse(tabsXml);
+        if (string.IsNullOrWhiteSpace(existingFormXml))
+        {
+            return new XElement("form", tabs).ToString(SaveOptions.DisableFormatting);
+        }
+        var form = XElement.Parse(existingFormXml);
+        var existingTabs = form.Element("tabs");
+        if (existingTabs != null) existingTabs.ReplaceWith(tabs);
+        else form.AddFirst(tabs);
+        return form.ToString(SaveOptions.DisableFormatting);
+    }
+
+    private static string BuildTabsXml(TableDef table, EntityMetadata metadata)
+    {
+        var sb = new StringBuilder("<tabs>");
         foreach (var tab in table.Form)
         {
             sb.Append($"<tab name=\"tab_{tab.Name}\" id=\"{NewId()}\" IsUserDefined=\"0\" locklevel=\"0\" showlabel=\"true\" expanded=\"true\">");
@@ -76,7 +116,7 @@ public sealed class FormAndViewProvisioner
             if (tab.Right.Length > 0) AppendColumn(sb, table, metadata, tab.Name + "_right", tab.Label, tab.Right, "50%");
             sb.Append("</columns></tab>");
         }
-        sb.Append("</tabs></form>");
+        sb.Append("</tabs>");
         return sb.ToString();
     }
 

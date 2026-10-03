@@ -60,6 +60,24 @@ public static class Log
     }
 }
 
+public static class Errors
+{
+    /// <summary>Dataverse's message plus its error code, which identifies "An unexpected error occurred" faults.</summary>
+    public static string Describe(System.ServiceModel.FaultException<OrganizationServiceFault> ex)
+    {
+        var detail = ex.Detail;
+        var text = $"{detail.Message} (error 0x{detail.ErrorCode:X8})";
+        for (var inner = detail.InnerFault; inner != null; inner = inner.InnerFault)
+        {
+            if (!string.IsNullOrWhiteSpace(inner.Message) && inner.Message != detail.Message)
+            {
+                text += $" <- {inner.Message} (0x{inner.ErrorCode:X8})";
+            }
+        }
+        return text;
+    }
+}
+
 public static class ServiceExtensions
 {
     /// <summary>Runs a request, returning false instead of throwing when Dataverse reports the item does not exist.</summary>

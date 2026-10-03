@@ -75,10 +75,16 @@ try
         case "provision":
             var metadata = new MetadataProvisioner(client, model);
             metadata.Run();
-            new FormAndViewProvisioner(client, model).Run();
+            var formFailures = new FormAndViewProvisioner(client, model).Run();
             new SecurityProvisioner(client, model).Run();
             new EnvironmentSettings(client, model).Run();
             metadata.PublishAll();
+            if (formFailures.Count > 0)
+            {
+                Log.Error($"{formFailures.Count} form/view item(s) failed; everything else was applied:");
+                foreach (var failure in formFailures) Log.Error("  " + failure);
+                return 1;
+            }
             break;
         case "register-plugins":
             var assemblyPath = Option("assembly", Path.Combine(repoRoot, "src", "plugins", "HRAutomation.Plugins", "bin", "Release", "net462", "HRAutomation.Plugins.dll"));
@@ -91,6 +97,13 @@ try
             Log.Error($"Unknown command '{command}'. Run with 'help' to see the commands.");
             return 1;
     }
+}
+catch (System.ServiceModel.FaultException<Microsoft.Xrm.Sdk.OrganizationServiceFault> ex)
+{
+    Log.Error(Errors.Describe(ex));
+    Log.Detail(ex.Detail.TraceText ?? "");
+    Log.Detail(ex.ToString());
+    return 1;
 }
 catch (Exception ex)
 {
