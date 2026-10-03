@@ -29,11 +29,18 @@ public sealed class SecurityProvisioner
         var me = ((WhoAmIResponse)_service.Execute(new WhoAmIRequest())).UserId;
 
         Log.Step("Owner teams");
-        var teams = _model.OwnerTeams.ToDictionary(name => name, name => EnsureTeam(name, rootBusinessUnit, me));
-        AddMember(teams["HR"], me, "HR");
+        var teams = _model.OwnerTeams.ToDictionary(t => t.Name, t => EnsureTeam(t.Name, rootBusinessUnit, me));
+        if (teams.TryGetValue("HR", out var hrTeam)) AddMember(hrTeam, me, "HR");
 
         Log.Step("Security roles");
-        foreach (var role in _model.Roles) EnsureRole(role, rootBusinessUnit);
+        var roleIds = _model.Roles.ToDictionary(role => role.Name, role => EnsureRole(role, rootBusinessUnit));
+
+        Log.Step("Team roles");
+        foreach (var team in _model.OwnerTeams)
+        foreach (var roleName in team.Roles)
+        {
+            AssignTeamRole(teams[team.Name], team.Name, roleIds[roleName], roleName);
+        }
 
         Log.Step("Column security profiles");
         foreach (var profile in _model.FieldSecurityProfiles) EnsureFieldSecurityProfile(profile, teams[profile.TeamName]);
@@ -70,7 +77,7 @@ public sealed class SecurityProvisioner
         Log.Ok($"You were added to the '{teamName}' team");
     }
 
-    private void EnsureRole(RoleDef role, Guid businessUnit)
+    private Guid EnsureRole(RoleDef role, Guid businessUnit)
     {
         var existing = _service.FindOne("role", new[] { "roleid" }, ("name", role.Name), ("businessunitid", businessUnit));
         Guid roleId;
@@ -119,6 +126,23 @@ public sealed class SecurityProvisioner
 
         _service.Execute(new AddPrivilegesRoleRequest { RoleId = roleId, Privileges = privileges.ToArray() });
         Log.Ok($"Role '{role.Name}': {privileges.Count} privileges on {role.Tables.Count} tables");
+        return roleId;
+    }
+
+    /// <summary>Teams need a role to own records (plugin P-02 makes the HR team owner of some employees).</summary>
+    private void AssignTeamRole(Guid teamId, string teamName, Guid roleId, string roleName)
+    {
+        var query = new QueryExpression("teamroles") { ColumnSet = new ColumnSet(false), TopCount = 1 };
+        query.Criteria.AddCondition("teamid", ConditionOperator.Equal, teamId);
+        query.Criteria.AddCondition("roleid", ConditionOperator.Equal, roleId);
+        if (_service.RetrieveMultiple(query).Entities.Count > 0)
+        {
+            Log.Skip($"Team '{teamName}' has role '{roleName}'");
+            return;
+        }
+        _service.Associate("team", teamId, new Relationship("teamroles_association"),
+            new EntityReferenceCollection { new EntityReference("role", roleId) });
+        Log.Ok($"Team '{teamName}' given role '{roleName}'");
     }
 
     private static bool Grants(string letters, PrivilegeType type) => type switch

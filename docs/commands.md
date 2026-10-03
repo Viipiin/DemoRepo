@@ -11,7 +11,7 @@ Run these from the repo folder in the VS Code terminal (PowerShell).
 | Check the connection and solution | `./scripts/hra.ps1 check` |
 | Apply the JSON model in `model/` (tables, columns, choices, forms, views, roles, settings) | `./scripts/hra.ps1 provision` |
 | Upload plugins after a change | `./scripts/build-plugins.ps1; ./scripts/hra.ps1 register-plugins` |
-| Load synthetic sample data | `./scripts/hra.ps1 seed` |
+| Load the sample data in `model/sample-data.json` | `./scripts/hra.ps1 seed` |
 | Phase 1 in one go | `./scripts/run-phase1.ps1` |
 | Export the solution to Git | `./scripts/export-solution.ps1` |
 | Show detailed errors | `$env:HRA_VERBOSE = "1"` before running a command |

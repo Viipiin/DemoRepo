@@ -54,8 +54,26 @@ public static class ModelLoader
         var environmentVariables = variables.EnvironmentVariables
             .Select(v => new EnvironmentVariableDef(v.Name, v.Label, v.Default, v.Description)).ToList();
 
-        var model = new HrModel(choices, tables, security.OwnerTeams, roles, profiles, environmentVariables);
+        var ownerTeams = security.OwnerTeams.Select(t => new OwnerTeamDef(t.Name, t.Roles ?? Array.Empty<string>())).ToList();
+
+        var plugins = Read<PluginsFile>(Path.Combine(modelFolder, "plugins.json"), errors) ?? new PluginsFile();
+        var steps = plugins.Steps.Select(step => ToPluginStep(step, errors)).Where(step => step != null).ToList();
+
+        // Sample data is optional: without the file, 'seed' has nothing to load.
+        var samplePath = Path.Combine(modelFolder, "sample-data.json");
+        var sample = File.Exists(samplePath) ? Read<SampleFile>(samplePath, errors) ?? new SampleFile() : new SampleFile();
+        var sampleGroups = sample.Groups.Select(g => new SampleGroup
+        {
+            Table = g.Table?.ToLowerInvariant(),
+            Key = g.Key ?? Array.Empty<string>(),
+            Upsert = g.Upsert,
+            Rows = g.Rows ?? new(),
+        }).ToList();
+
+        var model = new HrModel(choices, tables, ownerTeams, roles, profiles, environmentVariables, plugins.Assembly, steps, sampleGroups);
         Validate(model, errors);
+        ValidatePluginSteps(model, errors);
+        SampleDataValidator.Validate(model, errors);
 
         if (errors.Count > 0)
         {
@@ -305,9 +323,15 @@ public static class ModelLoader
             errors.Add($"security.json: role \"{role.Name}\" refers to unknown table {table}.");
         }
 
+        foreach (var team in model.OwnerTeams)
+        foreach (var role in team.Roles.Where(r => model.Roles.All(x => x.Name != r)))
+        {
+            errors.Add($"security.json: team \"{team.Name}\" refers to unknown role \"{role}\".");
+        }
+
         foreach (var profile in model.FieldSecurityProfiles)
         {
-            if (!model.OwnerTeams.Contains(profile.TeamName)) errors.Add($"security.json: profile \"{profile.Name}\" team {profile.TeamName} is not in ownerTeams.");
+            if (model.OwnerTeams.All(t => t.Name != profile.TeamName)) errors.Add($"security.json: profile \"{profile.Name}\" team {profile.TeamName} is not in ownerTeams.");
             foreach (var (table, column) in profile.Columns)
             {
                 var def = model.Table(table)?.Column(column);
@@ -319,6 +343,67 @@ public static class ModelLoader
         foreach (var variable in model.EnvironmentVariables.Where(v => !v.SchemaName.StartsWith(Conventions.Prefix + "_")))
         {
             errors.Add($"environment-variables.json: {variable.SchemaName} must start with {Conventions.Prefix}_.");
+        }
+    }
+
+    private static readonly Dictionary<string, int> Stages = new()
+    {
+        ["PreValidation"] = 10,
+        ["PreOperation"] = 20,
+        ["PostOperation"] = 40,
+    };
+
+    private static PluginStepDef ToPluginStep(PluginStepJson json, List<string> errors)
+    {
+        if (!Stages.TryGetValue(json.Stage ?? "", out var stage))
+        {
+            errors.Add($"plugins.json: {json.Plugin} {json.Message}: stage must be PreValidation, PreOperation or PostOperation.");
+            return null;
+        }
+        return new PluginStepDef(
+            json.Plugin,
+            json.Message,
+            json.Table?.ToLowerInvariant(),
+            stage,
+            json.FilteringAttributes is { Length: > 0 } ? string.Join(",", json.FilteringAttributes) : null,
+            json.PreImage is { Length: > 0 } ? string.Join(",", json.PreImage) : null);
+    }
+
+    /// <summary>System columns plugin steps may filter on or include in images.</summary>
+    private static readonly HashSet<string> SystemColumns = new() { "ownerid", "statecode", "statuscode", "createdon", "modifiedon" };
+
+    private static void ValidatePluginSteps(HrModel model, List<string> errors)
+    {
+        if (string.IsNullOrWhiteSpace(model.PluginAssembly)) errors.Add("plugins.json: \"assembly\" is missing.");
+        foreach (var step in model.PluginSteps)
+        {
+            var where = $"plugins.json: {step.Plugin} {step.Message}";
+            if (string.IsNullOrWhiteSpace(step.Plugin) || !step.Plugin.StartsWith(model.PluginAssembly + "."))
+            {
+                errors.Add($"{where}: plugin must be a full class name in {model.PluginAssembly}.");
+            }
+            if (step.Message is not ("Create" or "Update" or "Delete"))
+            {
+                errors.Add($"{where}: message must be Create, Update or Delete.");
+            }
+            var table = model.Table(step.Table ?? "");
+            if (table == null)
+            {
+                errors.Add($"{where}: table {step.Table} is not in the model.");
+                continue;
+            }
+            var columns = table.AllColumns.Select(c => c.LogicalName).ToHashSet();
+            foreach (var column in (step.FilteringAttributes ?? "").Split(',', StringSplitOptions.RemoveEmptyEntries)
+                         .Concat((step.PreImageAttributes ?? "").Split(',', StringSplitOptions.RemoveEmptyEntries)))
+            {
+                if (!columns.Contains(column) && !SystemColumns.Contains(column)) errors.Add($"{where}: column {column} is not in {step.Table}.");
+            }
+            if (step.FilteringAttributes != null && step.Message != "Update") errors.Add($"{where}: filteringAttributes only apply to Update.");
+            if (step.PreImageAttributes != null && step.Message == "Create") errors.Add($"{where}: Create steps can't have a preImage.");
+        }
+        foreach (var duplicate in model.PluginSteps.GroupBy(s => (s.Plugin, s.Message, s.Table, s.Stage)).Where(g => g.Count() > 1))
+        {
+            errors.Add($"plugins.json: {duplicate.Key.Plugin} {duplicate.Key.Message} on {duplicate.Key.Table} is listed twice.");
         }
     }
 
@@ -388,13 +473,41 @@ public static class ModelLoader
 
     private sealed class SecurityFile
     {
-        public string[] OwnerTeams { get; set; } = Array.Empty<string>();
+        public List<OwnerTeamJson> OwnerTeams { get; set; } = new();
         public List<RoleJson> Roles { get; set; } = new();
         public List<ProfileJson> ColumnSecurityProfiles { get; set; } = new();
     }
 
     private sealed class RoleJson { public string Name { get; set; } public string Description { get; set; } public Dictionary<string, string> Tables { get; set; } = new(); }
     private sealed class ProfileJson { public string Name { get; set; } public string Description { get; set; } public string Team { get; set; } public string[] Columns { get; set; } = Array.Empty<string>(); }
+
+    private sealed class OwnerTeamJson { public string Name { get; set; } public string[] Roles { get; set; } }
+
+    private sealed class PluginsFile
+    {
+        public string Assembly { get; set; }
+        public List<PluginStepJson> Steps { get; set; } = new();
+    }
+
+    private sealed class PluginStepJson
+    {
+        public string Plugin { get; set; }
+        public string Message { get; set; }
+        public string Table { get; set; }
+        public string Stage { get; set; }
+        public string[] FilteringAttributes { get; set; }
+        public string[] PreImage { get; set; }
+    }
+
+    private sealed class SampleFile { public List<SampleGroupJson> Groups { get; set; } = new(); }
+
+    private sealed class SampleGroupJson
+    {
+        public string Table { get; set; }
+        public string[] Key { get; set; }
+        public bool Upsert { get; set; }
+        public List<Dictionary<string, JsonElement>> Rows { get; set; }
+    }
 
     private sealed class EnvironmentVariablesFile { public List<VariableJson> EnvironmentVariables { get; set; } = new(); }
     private sealed class VariableJson { public string Name { get; set; } public string Label { get; set; } public string Type { get; set; } public string Default { get; set; } public string Description { get; set; } }

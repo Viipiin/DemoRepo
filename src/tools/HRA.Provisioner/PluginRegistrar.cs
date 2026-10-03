@@ -6,31 +6,17 @@ using Microsoft.Xrm.Sdk.Query;
 
 namespace HRA.Provisioner;
 
-/// <summary>Uploads HRAutomation.Plugins.dll and registers its steps. Re-run after every plugin build.</summary>
+/// <summary>Uploads the plugin assembly and registers the steps listed in model/plugins.json. Re-run after every plugin build.</summary>
 public sealed class PluginRegistrar
 {
-    private const int PreOperation = 20;
-    private const int PostOperation = 40;
-
-    private sealed record StepDef(string TypeName, string Message, int Stage, string FilteringAttributes, string PreImageAttributes);
-
-    private static readonly StepDef[] Steps =
-    {
-        new("HRAutomation.Plugins.EmployeePreOperation", "Create", PreOperation, null, null),
-        new("HRAutomation.Plugins.EmployeePreOperation", "Update", PreOperation,
-            "hra_firstname,hra_middlename,hra_lastname,hra_pan,hra_ifsc,hra_aadhaarlast4,hra_uan,hra_dateofjoining",
-            "hra_firstname,hra_middlename,hra_lastname,hra_dateofjoining"),
-        new("HRAutomation.Plugins.EmployeePostOperation", "Create", PostOperation, null, null),
-        new("HRAutomation.Plugins.EmployeePostOperation", "Update", PostOperation,
-            "hra_reportingmanager,hra_systemuser,hra_department,hra_designation,hra_location,hra_annualctc",
-            "hra_reportingmanager,hra_systemuser,hra_department,hra_designation,hra_location,hra_annualctc,ownerid"),
-    };
-
-    private const string PrimaryEntity = "hra_employee";
-
     private readonly IOrganizationService _service;
+    private readonly HrModel _model;
 
-    public PluginRegistrar(IOrganizationService service) => _service = service;
+    public PluginRegistrar(IOrganizationService service, HrModel model)
+    {
+        _service = service;
+        _model = model;
+    }
 
     public void Run(string assemblyPath)
     {
@@ -44,8 +30,8 @@ public sealed class PluginRegistrar
         var assemblyId = UpsertAssembly(assemblyPath);
 
         Log.Step("Plugin types and steps");
-        var typeIds = Steps.Select(s => s.TypeName).Distinct().ToDictionary(t => t, t => EnsurePluginType(assemblyId, t));
-        foreach (var step in Steps) EnsureStep(step, typeIds[step.TypeName]);
+        var typeIds = _model.PluginSteps.Select(s => s.Plugin).Distinct().ToDictionary(t => t, t => EnsurePluginType(assemblyId, t));
+        foreach (var step in _model.PluginSteps) EnsureStep(step, typeIds[step.Plugin]);
     }
 
     private Guid UpsertAssembly(string path)
@@ -101,16 +87,16 @@ public sealed class PluginRegistrar
         return id;
     }
 
-    private void EnsureStep(StepDef step, Guid pluginTypeId)
+    private void EnsureStep(PluginStepDef step, Guid pluginTypeId)
     {
-        var shortType = step.TypeName.Split('.').Last();
-        var stepName = $"{shortType}: {step.Message} of {PrimaryEntity}";
+        var shortType = step.Plugin.Split('.').Last();
+        var stepName = $"{shortType}: {step.Message} of {step.Table}";
 
         var messageId = _service.FindOne("sdkmessage", new[] { "sdkmessageid" }, ("name", step.Message))?.Id
             ?? throw new InvalidOperationException($"SDK message {step.Message} not found.");
         var filterId = _service.FindOne("sdkmessagefilter", new[] { "sdkmessagefilterid" },
-            ("sdkmessageid", messageId), ("primaryobjecttypecode", PrimaryEntity))?.Id
-            ?? throw new InvalidOperationException($"{step.Message} is not available for {PrimaryEntity}. Run 'provision' first.");
+            ("sdkmessageid", messageId), ("primaryobjecttypecode", step.Table))?.Id
+            ?? throw new InvalidOperationException($"{step.Message} is not available for {step.Table}. Run 'provision' first.");
 
         var values = new Entity("sdkmessageprocessingstep")
         {
