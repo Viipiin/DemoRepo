@@ -5,11 +5,32 @@
   <IntroducedVersion>1.0.0.0</IntroducedVersion>
   <FileName>/PluginAssemblies/HRAutomationPlugins-2693BC0A-2ABF-F111-A059-7C1E520028F7/HRAutomationPlugins.dll</FileName>
   <PluginTypes>
+    <PluginType AssemblyQualifiedName="HRAutomation.Plugins.AttendancePreOperation, HRAutomation.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=704025cfe0f64e34" PluginTypeId="c8b7d1d2-32bf-f111-a059-7c1e520028f7" Name="HRAutomation.Plugins.AttendancePreOperation">
+      <FriendlyName>AttendancePreOperation</FriendlyName>
+    </PluginType>
     <PluginType AssemblyQualifiedName="HRAutomation.Plugins.EmployeePostOperation, HRAutomation.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=704025cfe0f64e34" PluginTypeId="2a93bc0a-2abf-f111-a059-7c1e520028f7" Name="HRAutomation.Plugins.EmployeePostOperation">
       <FriendlyName>EmployeePostOperation</FriendlyName>
     </PluginType>
     <PluginType AssemblyQualifiedName="HRAutomation.Plugins.EmployeePreOperation, HRAutomation.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=704025cfe0f64e34" PluginTypeId="2993bc0a-2abf-f111-a059-7c1e520028f7" Name="HRAutomation.Plugins.EmployeePreOperation">
       <FriendlyName>EmployeePreOperation</FriendlyName>
+    </PluginType>
+    <PluginType AssemblyQualifiedName="HRAutomation.Plugins.InitializeLeaveBalancesApi, HRAutomation.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=704025cfe0f64e34" PluginTypeId="af86d6d8-32bf-f111-a059-7c1e520028f7" Name="HRAutomation.Plugins.InitializeLeaveBalancesApi">
+      <FriendlyName>InitializeLeaveBalancesApi</FriendlyName>
+    </PluginType>
+    <PluginType AssemblyQualifiedName="HRAutomation.Plugins.LeaveAdjustmentPostOperation, HRAutomation.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=704025cfe0f64e34" PluginTypeId="c6b7d1d2-32bf-f111-a059-7c1e520028f7" Name="HRAutomation.Plugins.LeaveAdjustmentPostOperation">
+      <FriendlyName>LeaveAdjustmentPostOperation</FriendlyName>
+    </PluginType>
+    <PluginType AssemblyQualifiedName="HRAutomation.Plugins.LeaveBalancePreOperation, HRAutomation.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=704025cfe0f64e34" PluginTypeId="c7b7d1d2-32bf-f111-a059-7c1e520028f7" Name="HRAutomation.Plugins.LeaveBalancePreOperation">
+      <FriendlyName>LeaveBalancePreOperation</FriendlyName>
+    </PluginType>
+    <PluginType AssemblyQualifiedName="HRAutomation.Plugins.LeaveRequestPostOperation, HRAutomation.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=704025cfe0f64e34" PluginTypeId="c5b7d1d2-32bf-f111-a059-7c1e520028f7" Name="HRAutomation.Plugins.LeaveRequestPostOperation">
+      <FriendlyName>LeaveRequestPostOperation</FriendlyName>
+    </PluginType>
+    <PluginType AssemblyQualifiedName="HRAutomation.Plugins.LeaveRequestPreOperation, HRAutomation.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=704025cfe0f64e34" PluginTypeId="c4b7d1d2-32bf-f111-a059-7c1e520028f7" Name="HRAutomation.Plugins.LeaveRequestPreOperation">
+      <FriendlyName>LeaveRequestPreOperation</FriendlyName>
+    </PluginType>
+    <PluginType AssemblyQualifiedName="HRAutomation.Plugins.RunLeaveAccrualApi, HRAutomation.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=704025cfe0f64e34" PluginTypeId="b086d6d8-32bf-f111-a059-7c1e520028f7" Name="HRAutomation.Plugins.RunLeaveAccrualApi">
+      <FriendlyName>RunLeaveAccrualApi</FriendlyName>
     </PluginType>
   </PluginTypes>
 </PluginAssembly>

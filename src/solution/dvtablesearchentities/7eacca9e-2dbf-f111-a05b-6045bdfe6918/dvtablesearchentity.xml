@@ -4,6 +4,7 @@
   </dvtablesearch>
   <entitylogicalname>hra_department</entitylogicalname>
   <iscustomizable>1</iscustomizable>
+  <name>Department</name>
   <statecode>0</statecode>
   <statuscode>1</statuscode>
 </dvtablesearchentity>

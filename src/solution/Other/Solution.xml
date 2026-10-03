@@ -78,13 +78,22 @@
       </Addresses>
     </Publisher>
     <RootComponents>
+      <RootComponent type="1" schemaName="hra_attendancerecord" behavior="0" />
       <RootComponent type="1" schemaName="hra_department" behavior="0" />
       <RootComponent type="1" schemaName="hra_designation" behavior="0" />
       <RootComponent type="1" schemaName="hra_emergencycontact" behavior="0" />
       <RootComponent type="1" schemaName="hra_employee" behavior="0" />
       <RootComponent type="1" schemaName="hra_employeedocument" behavior="0" />
       <RootComponent type="1" schemaName="hra_employmenthistory" behavior="0" />
+      <RootComponent type="1" schemaName="hra_holiday" behavior="0" />
+      <RootComponent type="1" schemaName="hra_holidaycalendar" behavior="0" />
       <RootComponent type="1" schemaName="hra_hrcase" behavior="0" />
+      <RootComponent type="1" schemaName="hra_leaveadjustment" behavior="0" />
+      <RootComponent type="1" schemaName="hra_leavebalance" behavior="0" />
+      <RootComponent type="1" schemaName="hra_leavepolicy" behavior="0" />
+      <RootComponent type="1" schemaName="hra_leavepolicyline" behavior="0" />
+      <RootComponent type="1" schemaName="hra_leaverequest" behavior="0" />
+      <RootComponent type="1" schemaName="hra_leavetype" behavior="0" />
       <RootComponent type="1" schemaName="hra_location" behavior="0" />
       <RootComponent type="1" schemaName="systemuser" behavior="1" />
       <RootComponent type="1" schemaName="team" behavior="1" />
@@ -95,6 +104,7 @@
       <RootComponent type="20" id="{dbe435cb-28bf-f111-a059-7c1e520028f7}" behavior="0" />
       <RootComponent type="20" id="{e470b1c3-28bf-f111-a059-7c1e520028f7}" behavior="0" />
       <RootComponent type="20" id="{efe435cb-28bf-f111-a059-7c1e520028f7}" behavior="0" />
+      <RootComponent type="29" id="{2653a55b-34bf-f111-a059-7c1e520028f7}" behavior="0" />
       <RootComponent type="62" schemaName="hra_HRHub" behavior="0" />
       <RootComponent type="70" id="{daad53d2-28bf-f111-a059-7c1e520028f7}" behavior="0" />
       <RootComponent type="80" schemaName="hra_HRHub" behavior="0" />
@@ -111,6 +121,15 @@
       <RootComponent type="92" id="{2e93bc0a-2abf-f111-a059-7c1e520028f7}" behavior="0" />
       <RootComponent type="92" id="{3493bc0a-2abf-f111-a059-7c1e520028f7}" behavior="0" />
       <RootComponent type="92" id="{3793bc0a-2abf-f111-a059-7c1e520028f7}" behavior="0" />
+      <RootComponent type="92" id="{a12e01df-32bf-f111-a059-7c1e520028f7}" behavior="0" />
+      <RootComponent type="92" id="{a42e01df-32bf-f111-a059-7c1e520028f7}" behavior="0" />
+      <RootComponent type="92" id="{a82e01df-32bf-f111-a059-7c1e520028f7}" behavior="0" />
+      <RootComponent type="92" id="{ab2e01df-32bf-f111-a059-7c1e520028f7}" behavior="0" />
+      <RootComponent type="92" id="{ae2e01df-32bf-f111-a059-7c1e520028f7}" behavior="0" />
+      <RootComponent type="92" id="{b186d6d8-32bf-f111-a059-7c1e520028f7}" behavior="0" />
+      <RootComponent type="92" id="{b22e01df-32bf-f111-a059-7c1e520028f7}" behavior="0" />
+      <RootComponent type="92" id="{b486d6d8-32bf-f111-a059-7c1e520028f7}" behavior="0" />
+      <RootComponent type="92" id="{b52e01df-32bf-f111-a059-7c1e520028f7}" behavior="0" />
     </RootComponents>
     <MissingDependencies>
       <MissingDependency>

@@ -1,0 +1,11 @@
+<customapiresponseproperty uniquename="Updated">
+  <description default="Number of balances that received accrual.">
+    <label description="Number of balances that received accrual." languagecode="1033" />
+  </description>
+  <displayname default="Updated">
+    <label description="Updated" languagecode="1033" />
+  </displayname>
+  <iscustomizable>1</iscustomizable>
+  <name>hra_RunLeaveAccrual.Updated</name>
+  <type>7</type>
+</customapiresponseproperty>

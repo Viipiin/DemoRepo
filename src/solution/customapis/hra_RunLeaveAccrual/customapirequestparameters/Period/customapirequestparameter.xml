@@ -1,0 +1,12 @@
+<customapirequestparameter uniquename="Period">
+  <description default="Month as yyyy-MM. Empty = the current month (IST).">
+    <label description="Month as yyyy-MM. Empty = the current month (IST)." languagecode="1033" />
+  </description>
+  <displayname default="Period">
+    <label description="Period" languagecode="1033" />
+  </displayname>
+  <iscustomizable>1</iscustomizable>
+  <isoptional>1</isoptional>
+  <name>hra_RunLeaveAccrual.Period</name>
+  <type>10</type>
+</customapirequestparameter>

@@ -4,26 +4,44 @@
   <IsAutoAssigned>0</IsAutoAssigned>
   <Description>Self-service for licensed staff: own profile, contacts, documents and HR cases.</Description>
   <RolePrivileges>
+    <RolePrivilege name="prvAppendhra_AttendanceRecord" level="Basic" />
     <RolePrivilege name="prvAppendhra_EmergencyContact" level="Basic" />
     <RolePrivilege name="prvAppendhra_EmployeeDocument" level="Basic" />
     <RolePrivilege name="prvAppendhra_HRCase" level="Basic" />
+    <RolePrivilege name="prvAppendhra_LeaveRequest" level="Basic" />
     <RolePrivilege name="prvAppendTohra_Department" level="Global" />
     <RolePrivilege name="prvAppendTohra_Designation" level="Global" />
     <RolePrivilege name="prvAppendTohra_Employee" level="Basic" />
+    <RolePrivilege name="prvAppendTohra_Holiday" level="Global" />
+    <RolePrivilege name="prvAppendTohra_HolidayCalendar" level="Global" />
+    <RolePrivilege name="prvAppendTohra_LeavePolicy" level="Global" />
+    <RolePrivilege name="prvAppendTohra_LeavePolicyLine" level="Global" />
+    <RolePrivilege name="prvAppendTohra_LeaveRequest" level="Basic" />
+    <RolePrivilege name="prvAppendTohra_LeaveType" level="Global" />
     <RolePrivilege name="prvAppendTohra_Location" level="Global" />
+    <RolePrivilege name="prvCreatehra_AttendanceRecord" level="Basic" />
     <RolePrivilege name="prvCreatehra_EmergencyContact" level="Basic" />
     <RolePrivilege name="prvCreatehra_EmployeeDocument" level="Basic" />
     <RolePrivilege name="prvCreatehra_HRCase" level="Basic" />
+    <RolePrivilege name="prvCreatehra_LeaveRequest" level="Basic" />
     <RolePrivilege name="prvCreateSharePointData" level="Global" />
     <RolePrivilege name="prvDeletehra_EmergencyContact" level="Basic" />
     <RolePrivilege name="prvDeletehra_EmployeeDocument" level="Basic" />
+    <RolePrivilege name="prvReadhra_AttendanceRecord" level="Basic" />
     <RolePrivilege name="prvReadhra_Department" level="Global" />
     <RolePrivilege name="prvReadhra_Designation" level="Global" />
     <RolePrivilege name="prvReadhra_EmergencyContact" level="Basic" />
     <RolePrivilege name="prvReadhra_Employee" level="Basic" />
     <RolePrivilege name="prvReadhra_EmployeeDocument" level="Basic" />
     <RolePrivilege name="prvReadhra_EmploymentHistory" level="Basic" />
+    <RolePrivilege name="prvReadhra_Holiday" level="Global" />
+    <RolePrivilege name="prvReadhra_HolidayCalendar" level="Global" />
     <RolePrivilege name="prvReadhra_HRCase" level="Basic" />
+    <RolePrivilege name="prvReadhra_LeaveBalance" level="Basic" />
+    <RolePrivilege name="prvReadhra_LeavePolicy" level="Global" />
+    <RolePrivilege name="prvReadhra_LeavePolicyLine" level="Global" />
+    <RolePrivilege name="prvReadhra_LeaveRequest" level="Basic" />
+    <RolePrivilege name="prvReadhra_LeaveType" level="Global" />
     <RolePrivilege name="prvReadhra_Location" level="Global" />
     <RolePrivilege name="prvReadPluginAssembly" level="Global" />
     <RolePrivilege name="prvReadPluginType" level="Global" />
@@ -32,8 +50,10 @@
     <RolePrivilege name="prvReadSdkMessageProcessingStepImage" level="Global" />
     <RolePrivilege name="prvReadSharePointData" level="Global" />
     <RolePrivilege name="prvReadSharePointDocument" level="Global" />
+    <RolePrivilege name="prvWritehra_AttendanceRecord" level="Basic" />
     <RolePrivilege name="prvWritehra_EmergencyContact" level="Basic" />
     <RolePrivilege name="prvWritehra_EmployeeDocument" level="Basic" />
+    <RolePrivilege name="prvWritehra_LeaveRequest" level="Basic" />
     <RolePrivilege name="prvWriteSharePointData" level="Global" />
   </RolePrivileges>
 </Role>

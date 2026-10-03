@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>1</CanBeDeleted>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>0</isdefault>
+    <savedqueryid>{ff99e08d-32bf-f111-a059-7c1e520028f7}</savedqueryid>
+    <layoutxml>
+      <grid name="resultset" jump="hra_name" select="1" icon="1" preview="1">
+        <row name="result" id="hra_leaverequestid">
+          <cell name="hra_name" width="200" />
+          <cell name="hra_leavetype" width="150" />
+          <cell name="hra_fromdate" width="150" />
+          <cell name="hra_todate" width="150" />
+          <cell name="hra_numberofdays" width="150" />
+          <cell name="hra_status" width="150" />
+        </row>
+      </grid>
+    </layoutxml>
+    <querytype>0</querytype>
+    <fetchxml>
+      <fetch version="1.0" mapping="logical">
+        <entity name="hra_leaverequest">
+          <attribute name="hra_leaverequestid" />
+          <attribute name="hra_name" />
+          <attribute name="hra_leavetype" />
+          <attribute name="hra_fromdate" />
+          <attribute name="hra_todate" />
+          <attribute name="hra_numberofdays" />
+          <attribute name="hra_status" />
+          <order attribute="hra_fromdate" descending="false" />
+          <filter type="and">
+            <condition attribute="statecode" operator="eq" value="0" />
+          </filter>
+          <link-entity name="hra_employee" from="hra_employeeid" to="hra_employee" link-type="inner" alias="me">
+            <filter>
+              <condition attribute="hra_systemuser" operator="eq-userid" />
+            </filter>
+          </link-entity>
+        </entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>1.0.0.0</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="My Leave Requests" languagecode="1033" />
+    </LocalizedNames>
+    <Descriptions>
+      <Description description="Requests of the employee linked to my user." languagecode="1033" />
+    </Descriptions>
+  </savedquery>
+</savedqueries>

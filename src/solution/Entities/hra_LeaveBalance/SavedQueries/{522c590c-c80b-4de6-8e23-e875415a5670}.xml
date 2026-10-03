@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>0</CanBeDeleted>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>1</isdefault>
+    <savedqueryid>{522c590c-c80b-4de6-8e23-e875415a5670}</savedqueryid>
+    <layoutxml>
+      <grid name="resultset" jump="hra_name" select="1" icon="1" preview="1">
+        <row name="result" id="hra_leavebalanceid">
+          <cell name="hra_name" width="200" />
+          <cell name="hra_employee" width="150" />
+          <cell name="hra_leavetype" width="150" />
+          <cell name="hra_leaveyear" width="150" />
+          <cell name="hra_available" width="150" />
+          <cell name="hra_taken" width="150" />
+          <cell name="hra_pendingapproval" width="150" />
+        </row>
+      </grid>
+    </layoutxml>
+    <querytype>0</querytype>
+    <fetchxml>
+      <fetch version="1.0" mapping="logical">
+        <entity name="hra_leavebalance">
+          <attribute name="hra_leavebalanceid" />
+          <attribute name="hra_name" />
+          <attribute name="hra_employee" />
+          <attribute name="hra_leavetype" />
+          <attribute name="hra_leaveyear" />
+          <attribute name="hra_available" />
+          <attribute name="hra_taken" />
+          <attribute name="hra_pendingapproval" />
+          <order attribute="hra_name" descending="false" />
+          <filter type="and">
+            <condition attribute="statecode" operator="eq" value="0" />
+          </filter>
+        </entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="Active Leave Balances" languagecode="1033" />
+    </LocalizedNames>
+  </savedquery>
+</savedqueries>

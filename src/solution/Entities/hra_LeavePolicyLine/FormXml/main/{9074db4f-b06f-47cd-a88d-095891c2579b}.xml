@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <systemform>
+    <formid>{9074db4f-b06f-47cd-a88d-095891c2579b}</formid>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <FormPresentation>1</FormPresentation>
+    <FormActivationState>1</FormActivationState>
+    <form>
+      <tabs>
+        <tab name="tab_general" id="{20f3a13d-3115-4f69-b4ec-2d3ad00f58b8}" IsUserDefined="0" locklevel="0" showlabel="true" expanded="true">
+          <labels>
+            <label description="General" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="50%">
+              <sections>
+                <section name="sec_general_left" showlabel="false" showbar="false" locklevel="0" id="{907948fd-6054-409d-a096-fed8b2714a60}" IsUserDefined="0" layout="varwidth" columns="1" labelwidth="140" celllabelalignment="Left" celllabelposition="Left">
+                  <labels>
+                    <label description="General" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{d79d0424-620c-4bae-9658-dae93a993c49}" showlabel="true" locklevel="0">
+                        <labels>
+                          <label description="Name" languagecode="1033" />
+                        </labels>
+                        <control id="hra_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="hra_name" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{61eb1d57-9621-4312-85ec-be16ae701e2c}" showlabel="true" locklevel="0">
+                        <labels>
+                          <label description="Leave Policy" languagecode="1033" />
+                        </labels>
+                        <control id="hra_leavepolicy" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="hra_leavepolicy" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{4a2755de-09bf-4479-8fd0-2b0f4751f05c}" showlabel="true" locklevel="0">
+                        <labels>
+                          <label description="Leave Type" languagecode="1033" />
+                        </labels>
+                        <control id="hra_leavetype" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="hra_leavetype" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{cc005c3e-5728-4c7e-9763-d62f277a8ef2}" showlabel="true" locklevel="0">
+                        <labels>
+                          <label description="Annual Entitlement (days)" languagecode="1033" />
+                        </labels>
+                        <control id="hra_annualentitlement" classid="{C3EFE0C3-0EC6-42be-8349-CBD9079DFD8E}" datafieldname="hra_annualentitlement" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{c2deae8d-daad-401a-8f37-704f304d00fe}" showlabel="true" locklevel="0">
+                        <labels>
+                          <label description="Accrual Frequency" languagecode="1033" />
+                        </labels>
+                        <control id="hra_accrualfrequency" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="hra_accrualfrequency" disabled="false" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+            <column width="50%">
+              <sections>
+                <section name="sec_general_right" showlabel="false" showbar="false" locklevel="0" id="{882dadd1-5966-40e4-b578-b498ec288e9e}" IsUserDefined="0" layout="varwidth" columns="1" labelwidth="140" celllabelalignment="Left" celllabelposition="Left">
+                  <labels>
+                    <label description="General" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{8a02706a-a23b-4c55-b8fa-e1a7255bb5d0}" showlabel="true" locklevel="0">
+                        <labels>
+                          <label description="Max Carry Forward" languagecode="1033" />
+                        </labels>
+                        <control id="hra_maxcarryforward" classid="{C3EFE0C3-0EC6-42be-8349-CBD9079DFD8E}" datafieldname="hra_maxcarryforward" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{603ec3d1-a8ed-4683-9b8b-b883d2bf9078}" showlabel="true" locklevel="0">
+                        <labels>
+                          <label description="Max Encashment" languagecode="1033" />
+                        </labels>
+                        <control id="hra_maxencashment" classid="{C3EFE0C3-0EC6-42be-8349-CBD9079DFD8E}" datafieldname="hra_maxencashment" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{25b4c718-2151-4730-bf2d-72f0c52903bf}" showlabel="true" locklevel="0">
+                        <labels>
+                          <label description="Max Balance" languagecode="1033" />
+                        </labels>
+                        <control id="hra_maxbalance" classid="{C3EFE0C3-0EC6-42be-8349-CBD9079DFD8E}" datafieldname="hra_maxbalance" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{f686a07e-6d2e-4a13-830a-bcef166499e7}" showlabel="true" locklevel="0">
+                        <labels>
+                          <label description="Available During Probation" languagecode="1033" />
+                        </labels>
+                        <control id="hra_availableduringprobation" classid="{67FAC785-CD58-4f9f-ABB3-4B7DDC6ED5ED}" datafieldname="hra_availableduringprobation" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{0308e475-e0fd-45b3-8d2f-89867b339126}" showlabel="true" locklevel="0">
+                        <labels>
+                          <label description="Prorate on Joining" languagecode="1033" />
+                        </labels>
+                        <control id="hra_prorateonjoining" classid="{67FAC785-CD58-4f9f-ABB3-4B7DDC6ED5ED}" datafieldname="hra_prorateonjoining" disabled="false" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+      </tabs>
+    </form>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>1</CanBeDeleted>
+    <LocalizedNames>
+      <LocalizedName description="Information" languagecode="1033" />
+    </LocalizedNames>
+    <Descriptions>
+      <Description description="A form for this entity." languagecode="1033" />
+    </Descriptions>
+  </systemform>
+</forms>

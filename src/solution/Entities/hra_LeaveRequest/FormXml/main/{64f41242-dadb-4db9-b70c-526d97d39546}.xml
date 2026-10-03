@@ -1,0 +1,178 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <systemform>
+    <formid>{64f41242-dadb-4db9-b70c-526d97d39546}</formid>
+    <IntroducedVersion>1.0.0.0</IntroducedVersion>
+    <FormPresentation>1</FormPresentation>
+    <FormActivationState>1</FormActivationState>
+    <form>
+      <tabs>
+        <tab name="tab_general" id="{484b2ab0-4a40-4795-b69f-087ff00aa3ef}" IsUserDefined="0" locklevel="0" showlabel="true" expanded="true">
+          <labels>
+            <label description="General" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="50%">
+              <sections>
+                <section name="sec_general_left" showlabel="false" showbar="false" locklevel="0" id="{84e124a3-1716-4e9a-9dbf-babd62976032}" IsUserDefined="0" layout="varwidth" columns="1" labelwidth="140" celllabelalignment="Left" celllabelposition="Left">
+                  <labels>
+                    <label description="General" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{14365581-08ed-4da5-89c5-3a071d493612}" showlabel="true" locklevel="0">
+                        <labels>
+                          <label description="Employee" languagecode="1033" />
+                        </labels>
+                        <control id="hra_employee" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="hra_employee" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{c0251ed0-08e1-4dc3-b366-ef606de72818}" showlabel="true" locklevel="0">
+                        <labels>
+                          <label description="Leave Type" languagecode="1033" />
+                        </labels>
+                        <control id="hra_leavetype" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="hra_leavetype" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{70aafdea-3e8c-4627-bc67-302be04f5069}" showlabel="true" locklevel="0">
+                        <labels>
+                          <label description="From Date" languagecode="1033" />
+                        </labels>
+                        <control id="hra_fromdate" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="hra_fromdate" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{2b6b8c71-7018-4f30-aa3b-82950c115cd0}" showlabel="true" locklevel="0">
+                        <labels>
+                          <label description="To Date" languagecode="1033" />
+                        </labels>
+                        <control id="hra_todate" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="hra_todate" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{49c276e9-fc93-424b-9938-759109474dc1}" showlabel="true" locklevel="0">
+                        <labels>
+                          <label description="First Day Half" languagecode="1033" />
+                        </labels>
+                        <control id="hra_firstdayhalf" classid="{67FAC785-CD58-4f9f-ABB3-4B7DDC6ED5ED}" datafieldname="hra_firstdayhalf" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{458c438f-9536-49cb-8586-9b0cd5e20643}" showlabel="true" locklevel="0">
+                        <labels>
+                          <label description="Last Day Half" languagecode="1033" />
+                        </labels>
+                        <control id="hra_lastdayhalf" classid="{67FAC785-CD58-4f9f-ABB3-4B7DDC6ED5ED}" datafieldname="hra_lastdayhalf" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{19889204-4efb-472d-9b34-21f1e601183b}" showlabel="true" locklevel="0">
+                        <labels>
+                          <label description="Reason" languagecode="1033" />
+                        </labels>
+                        <control id="hra_reason" classid="{E0DECE4B-6FC8-4a8f-A065-082708572369}" datafieldname="hra_reason" disabled="false" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+            <column width="50%">
+              <sections>
+                <section name="sec_general_right" showlabel="false" showbar="false" locklevel="0" id="{0344dc5c-530f-422a-b121-2c49a17cba81}" IsUserDefined="0" layout="varwidth" columns="1" labelwidth="140" celllabelalignment="Left" celllabelposition="Left">
+                  <labels>
+                    <label description="General" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{65bcf242-b98a-45f0-be0d-a876351ae96a}" showlabel="true" locklevel="0">
+                        <labels>
+                          <label description="Request Number" languagecode="1033" />
+                        </labels>
+                        <control id="hra_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="hra_name" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{8a4b184e-0c28-4f19-89f6-ee290c178b67}" showlabel="true" locklevel="0">
+                        <labels>
+                          <label description="Status" languagecode="1033" />
+                        </labels>
+                        <control id="hra_status" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="hra_status" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{3a48d307-7c66-45a1-9057-5284d659a794}" showlabel="true" locklevel="0">
+                        <labels>
+                          <label description="Number of Days" languagecode="1033" />
+                        </labels>
+                        <control id="hra_numberofdays" classid="{C3EFE0C3-0EC6-42be-8349-CBD9079DFD8E}" datafieldname="hra_numberofdays" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{9182ef07-7870-4e64-bdc7-1e9e675412f4}" showlabel="true" locklevel="0">
+                        <labels>
+                          <label description="Leave Year" languagecode="1033" />
+                        </labels>
+                        <control id="hra_leaveyear" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="hra_leaveyear" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{87463e19-61b3-4cd2-ba1a-d1fedece316e}" showlabel="true" locklevel="0">
+                        <labels>
+                          <label description="Approver" languagecode="1033" />
+                        </labels>
+                        <control id="hra_approver" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="hra_approver" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{7d4f8fe6-38b3-46fb-a854-c1b63ee9cf3e}" showlabel="true" locklevel="0">
+                        <labels>
+                          <label description="Actioned On" languagecode="1033" />
+                        </labels>
+                        <control id="hra_actionedon" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="hra_actionedon" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{5599aef5-2ed0-46e8-a409-69397c918546}" showlabel="true" locklevel="0">
+                        <labels>
+                          <label description="Approver Comments" languagecode="1033" />
+                        </labels>
+                        <control id="hra_approvercomments" classid="{E0DECE4B-6FC8-4a8f-A065-082708572369}" datafieldname="hra_approvercomments" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{34c1b96c-94ed-4c47-862b-d1645cc08953}" showlabel="true" locklevel="0">
+                        <labels>
+                          <label description="Cancellation Reason" languagecode="1033" />
+                        </labels>
+                        <control id="hra_cancellationreason" classid="{E0DECE4B-6FC8-4a8f-A065-082708572369}" datafieldname="hra_cancellationreason" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{16731e72-cf73-471a-9824-6aff256d3c58}" showlabel="true" locklevel="0">
+                        <labels>
+                          <label description="Source" languagecode="1033" />
+                        </labels>
+                        <control id="hra_source" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="hra_source" disabled="false" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+      </tabs>
+    </form>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>1</CanBeDeleted>
+    <LocalizedNames>
+      <LocalizedName description="Information" languagecode="1033" />
+    </LocalizedNames>
+    <Descriptions>
+      <Description description="A form for this entity." languagecode="1033" />
+    </Descriptions>
+  </systemform>
+</forms>

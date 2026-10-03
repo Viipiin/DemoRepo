@@ -1,0 +1,12 @@
+<customapirequestparameter uniquename="LeaveYear">
+  <description default="For example 2026-27. Empty = the current leave year.">
+    <label description="For example 2026-27. Empty = the current leave year." languagecode="1033" />
+  </description>
+  <displayname default="LeaveYear">
+    <label description="LeaveYear" languagecode="1033" />
+  </displayname>
+  <iscustomizable>1</iscustomizable>
+  <isoptional>1</isoptional>
+  <name>hra_InitializeLeaveBalances.LeaveYear</name>
+  <type>10</type>
+</customapirequestparameter>

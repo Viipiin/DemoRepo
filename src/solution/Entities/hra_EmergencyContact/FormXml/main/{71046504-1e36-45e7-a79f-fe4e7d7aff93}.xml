@@ -7,20 +7,20 @@
     <FormActivationState>1</FormActivationState>
     <form>
       <tabs>
-        <tab name="tab_general" id="{c9893923-be55-4417-b618-405d982080e8}" IsUserDefined="0" locklevel="0" showlabel="true" expanded="true">
+        <tab name="tab_general" id="{03824105-56f1-493f-9227-0652f0a995c6}" IsUserDefined="0" locklevel="0" showlabel="true" expanded="true">
           <labels>
             <label description="General" languagecode="1033" />
           </labels>
           <columns>
             <column width="50%">
               <sections>
-                <section name="sec_general_left" showlabel="false" showbar="false" locklevel="0" id="{db6b711b-bb88-44bd-bebb-e8f584966597}" IsUserDefined="0" layout="varwidth" columns="1" labelwidth="140" celllabelalignment="Left" celllabelposition="Left">
+                <section name="sec_general_left" showlabel="false" showbar="false" locklevel="0" id="{5605123c-5b73-4bcf-9314-e05aab42f1b1}" IsUserDefined="0" layout="varwidth" columns="1" labelwidth="140" celllabelalignment="Left" celllabelposition="Left">
                   <labels>
                     <label description="General" languagecode="1033" />
                   </labels>
                   <rows>
                     <row>
-                      <cell id="{4f0ce158-71e5-4d38-ab32-cde146dfcd65}" showlabel="true" locklevel="0">
+                      <cell id="{106a7b27-81d3-4abd-b314-f1dd4ab70252}" showlabel="true" locklevel="0">
                         <labels>
                           <label description="Employee" languagecode="1033" />
                         </labels>
@@ -28,7 +28,7 @@
                       </cell>
                     </row>
                     <row>
-                      <cell id="{6247fb2c-d9de-4a76-b05a-7a2ef1401c04}" showlabel="true" locklevel="0">
+                      <cell id="{468cc3d3-ef5e-499c-b2ab-35781bb13ef9}" showlabel="true" locklevel="0">
                         <labels>
                           <label description="Name" languagecode="1033" />
                         </labels>
@@ -36,7 +36,7 @@
                       </cell>
                     </row>
                     <row>
-                      <cell id="{4bb638c2-1915-4053-be3d-5e86d4df8863}" showlabel="true" locklevel="0">
+                      <cell id="{65d00911-4e93-4faf-87b2-eae8243fd62b}" showlabel="true" locklevel="0">
                         <labels>
                           <label description="Relationship" languagecode="1033" />
                         </labels>
@@ -49,13 +49,13 @@
             </column>
             <column width="50%">
               <sections>
-                <section name="sec_general_right" showlabel="false" showbar="false" locklevel="0" id="{68cc9262-6588-4828-a5fb-f6542a8eab95}" IsUserDefined="0" layout="varwidth" columns="1" labelwidth="140" celllabelalignment="Left" celllabelposition="Left">
+                <section name="sec_general_right" showlabel="false" showbar="false" locklevel="0" id="{c7c0fa06-2091-4b42-bcd7-2457f60f9e5e}" IsUserDefined="0" layout="varwidth" columns="1" labelwidth="140" celllabelalignment="Left" celllabelposition="Left">
                   <labels>
                     <label description="General" languagecode="1033" />
                   </labels>
                   <rows>
                     <row>
-                      <cell id="{5010c5b0-8ae1-486c-bbe6-017a3c486e80}" showlabel="true" locklevel="0">
+                      <cell id="{6f469a0a-4565-4efe-9a6c-d2d580714f89}" showlabel="true" locklevel="0">
                         <labels>
                           <label description="Phone" languagecode="1033" />
                         </labels>
@@ -63,7 +63,7 @@
                       </cell>
                     </row>
                     <row>
-                      <cell id="{20ee0724-36b4-41b6-adad-2ead1efcdc46}" showlabel="true" locklevel="0">
+                      <cell id="{f98c05e2-6cae-4dfb-915b-d80bb522ac48}" showlabel="true" locklevel="0">
                         <labels>
                           <label description="Is Primary" languagecode="1033" />
                         </labels>

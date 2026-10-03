@@ -4,6 +4,7 @@
   </dvtablesearch>
   <entitylogicalname>hra_hrcase</entitylogicalname>
   <iscustomizable>1</iscustomizable>
+  <name>HR Case</name>
   <statecode>0</statecode>
   <statuscode>1</statuscode>
 </dvtablesearchentity>
