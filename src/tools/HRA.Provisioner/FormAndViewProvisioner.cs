@@ -253,7 +253,14 @@ public sealed class FormAndViewProvisioner
                 new XAttribute("attribute", column), new XAttribute("operator", "like"), new XAttribute("value", "{0}")));
         }
 
-        _service.Update(new Entity("savedquery", quickFind.Id) { ["fetchxml"] = fetch.ToString(SaveOptions.DisableFormatting) });
+        // Quick find updates must say which table they belong to; without it Dataverse fails with a
+        // NullReferenceException in QuickFindUtil.FixQuickFindFilter (no entity metadata to check against).
+        _service.Update(new Entity("savedquery", quickFind.Id)
+        {
+            ["fetchxml"] = fetch.ToString(SaveOptions.DisableFormatting),
+            ["returnedtypecode"] = table.LogicalName,
+            ["querytype"] = QuickFindViewType,
+        });
         Log.Ok($"{table.LogicalName}: quick find also searches {string.Join(", ", added)}");
     }
 
