@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<optionset Name="hra_responsibleteam" localizedName="Responsible Team" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <OptionSetType>picklist</OptionSetType>
+  <IsGlobal>1</IsGlobal>
+  <IntroducedVersion>1.0.0.0</IntroducedVersion>
+  <IsCustomizable>1</IsCustomizable>
+  <displaynames>
+    <displayname description="Responsible Team" languagecode="1033" />
+  </displaynames>
+  <options>
+    <option value="817990000" IsHidden="0">
+      <labels>
+        <label description="HR" languagecode="1033" />
+      </labels>
+    </option>
+    <option value="817990001" IsHidden="0">
+      <labels>
+        <label description="IT" languagecode="1033" />
+      </labels>
+    </option>
+    <option value="817990002" IsHidden="0">
+      <labels>
+        <label description="Admin/Facilities" languagecode="1033" />
+      </labels>
+    </option>
+    <option value="817990003" IsHidden="0">
+      <labels>
+        <label description="Finance" languagecode="1033" />
+      </labels>
+    </option>
+    <option value="817990004" IsHidden="0">
+      <labels>
+        <label description="Reporting Manager" languagecode="1033" />
+      </labels>
+    </option>
+    <option value="817990005" IsHidden="0">
+      <labels>
+        <label description="Employee" languagecode="1033" />
+      </labels>
+    </option>
+  </options>
+</optionset>

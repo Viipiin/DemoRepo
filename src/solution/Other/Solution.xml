@@ -1,0 +1,138 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ImportExportXml version="9.2.26093.131" SolutionPackageVersion="9.2" languagecode="1033" generatedBy="CrmLive" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" OrganizationVersion="9.2.26093.131" OrganizationSchemaType="Standard" CRMServerServiceabilityVersion="9.2.26093.00139">
+  <SolutionManifest>
+    <UniqueName>HRAutomation</UniqueName>
+    <LocalizedNames>
+      <LocalizedName description="HR Automation" languagecode="1033" />
+    </LocalizedNames>
+    <Descriptions />
+    <Version>1.0.0.0</Version>
+    <Managed>0</Managed>
+    <Publisher>
+      <UniqueName>hrautomation</UniqueName>
+      <LocalizedNames>
+        <LocalizedName description="HR Automation" languagecode="1033" />
+      </LocalizedNames>
+      <Descriptions />
+      <EMailAddress xsi:nil="true"></EMailAddress>
+      <SupportingWebsiteUrl xsi:nil="true"></SupportingWebsiteUrl>
+      <CustomizationPrefix>hra</CustomizationPrefix>
+      <CustomizationOptionValuePrefix>81799</CustomizationOptionValuePrefix>
+      <Addresses>
+        <Address>
+          <AddressNumber>1</AddressNumber>
+          <AddressTypeCode>1</AddressTypeCode>
+          <City xsi:nil="true"></City>
+          <County xsi:nil="true"></County>
+          <Country xsi:nil="true"></Country>
+          <Fax xsi:nil="true"></Fax>
+          <FreightTermsCode xsi:nil="true"></FreightTermsCode>
+          <ImportSequenceNumber xsi:nil="true"></ImportSequenceNumber>
+          <Latitude xsi:nil="true"></Latitude>
+          <Line1 xsi:nil="true"></Line1>
+          <Line2 xsi:nil="true"></Line2>
+          <Line3 xsi:nil="true"></Line3>
+          <Longitude xsi:nil="true"></Longitude>
+          <Name xsi:nil="true"></Name>
+          <PostalCode xsi:nil="true"></PostalCode>
+          <PostOfficeBox xsi:nil="true"></PostOfficeBox>
+          <PrimaryContactName xsi:nil="true"></PrimaryContactName>
+          <ShippingMethodCode>1</ShippingMethodCode>
+          <StateOrProvince xsi:nil="true"></StateOrProvince>
+          <Telephone1 xsi:nil="true"></Telephone1>
+          <Telephone2 xsi:nil="true"></Telephone2>
+          <Telephone3 xsi:nil="true"></Telephone3>
+          <TimeZoneRuleVersionNumber xsi:nil="true"></TimeZoneRuleVersionNumber>
+          <UPSZone xsi:nil="true"></UPSZone>
+          <UTCOffset xsi:nil="true"></UTCOffset>
+          <UTCConversionTimeZoneCode xsi:nil="true"></UTCConversionTimeZoneCode>
+        </Address>
+        <Address>
+          <AddressNumber>2</AddressNumber>
+          <AddressTypeCode>1</AddressTypeCode>
+          <City xsi:nil="true"></City>
+          <County xsi:nil="true"></County>
+          <Country xsi:nil="true"></Country>
+          <Fax xsi:nil="true"></Fax>
+          <FreightTermsCode xsi:nil="true"></FreightTermsCode>
+          <ImportSequenceNumber xsi:nil="true"></ImportSequenceNumber>
+          <Latitude xsi:nil="true"></Latitude>
+          <Line1 xsi:nil="true"></Line1>
+          <Line2 xsi:nil="true"></Line2>
+          <Line3 xsi:nil="true"></Line3>
+          <Longitude xsi:nil="true"></Longitude>
+          <Name xsi:nil="true"></Name>
+          <PostalCode xsi:nil="true"></PostalCode>
+          <PostOfficeBox xsi:nil="true"></PostOfficeBox>
+          <PrimaryContactName xsi:nil="true"></PrimaryContactName>
+          <ShippingMethodCode>1</ShippingMethodCode>
+          <StateOrProvince xsi:nil="true"></StateOrProvince>
+          <Telephone1 xsi:nil="true"></Telephone1>
+          <Telephone2 xsi:nil="true"></Telephone2>
+          <Telephone3 xsi:nil="true"></Telephone3>
+          <TimeZoneRuleVersionNumber xsi:nil="true"></TimeZoneRuleVersionNumber>
+          <UPSZone xsi:nil="true"></UPSZone>
+          <UTCOffset xsi:nil="true"></UTCOffset>
+          <UTCConversionTimeZoneCode xsi:nil="true"></UTCConversionTimeZoneCode>
+        </Address>
+      </Addresses>
+    </Publisher>
+    <RootComponents>
+      <RootComponent type="1" schemaName="hra_department" behavior="0" />
+      <RootComponent type="1" schemaName="hra_designation" behavior="0" />
+      <RootComponent type="1" schemaName="hra_emergencycontact" behavior="0" />
+      <RootComponent type="1" schemaName="hra_employee" behavior="0" />
+      <RootComponent type="1" schemaName="hra_employeedocument" behavior="0" />
+      <RootComponent type="1" schemaName="hra_employmenthistory" behavior="0" />
+      <RootComponent type="1" schemaName="hra_hrcase" behavior="0" />
+      <RootComponent type="1" schemaName="hra_location" behavior="0" />
+      <RootComponent type="1" schemaName="systemuser" behavior="1" />
+      <RootComponent type="1" schemaName="team" behavior="1" />
+      <RootComponent type="20" id="{09e535cb-28bf-f111-a059-7c1e520028f7}" behavior="0" />
+      <RootComponent type="20" id="{2271b1c3-28bf-f111-a059-7c1e520028f7}" behavior="0" />
+      <RootComponent type="20" id="{b2ad53d2-28bf-f111-a059-7c1e520028f7}" behavior="0" />
+      <RootComponent type="20" id="{c6ad53d2-28bf-f111-a059-7c1e520028f7}" behavior="0" />
+      <RootComponent type="20" id="{dbe435cb-28bf-f111-a059-7c1e520028f7}" behavior="0" />
+      <RootComponent type="20" id="{e470b1c3-28bf-f111-a059-7c1e520028f7}" behavior="0" />
+      <RootComponent type="20" id="{efe435cb-28bf-f111-a059-7c1e520028f7}" behavior="0" />
+      <RootComponent type="62" schemaName="hra_HRHub" behavior="0" />
+      <RootComponent type="70" id="{daad53d2-28bf-f111-a059-7c1e520028f7}" behavior="0" />
+      <RootComponent type="80" schemaName="hra_HRHub" behavior="0" />
+      <RootComponent type="9" schemaName="hra_approvalstatus" behavior="0" />
+      <RootComponent type="9" schemaName="hra_documenttype" behavior="0" />
+      <RootComponent type="9" schemaName="hra_employmentstatus" behavior="0" />
+      <RootComponent type="9" schemaName="hra_employmenttype" behavior="0" />
+      <RootComponent type="9" schemaName="hra_gender" behavior="0" />
+      <RootComponent type="9" schemaName="hra_indianstate" behavior="0" />
+      <RootComponent type="9" schemaName="hra_rating" behavior="0" />
+      <RootComponent type="9" schemaName="hra_responsibleteam" behavior="0" />
+      <RootComponent type="91" id="{2693bc0a-2abf-f111-a059-7c1e520028f7}" schemaName="HRAutomation.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=704025cfe0f64e34" behavior="0" />
+      <RootComponent type="92" id="{2b93bc0a-2abf-f111-a059-7c1e520028f7}" behavior="0" />
+      <RootComponent type="92" id="{2e93bc0a-2abf-f111-a059-7c1e520028f7}" behavior="0" />
+      <RootComponent type="92" id="{3493bc0a-2abf-f111-a059-7c1e520028f7}" behavior="0" />
+      <RootComponent type="92" id="{3793bc0a-2abf-f111-a059-7c1e520028f7}" behavior="0" />
+    </RootComponents>
+    <MissingDependencies>
+      <MissingDependency>
+        <Required type="1" schemaName="systemuser" displayName="SystemUser" parentSchemaName="" solution="msdyn_PowerAdminSettingsEmail (2.2.3538.1)" />
+        <Dependent type="1" schemaName="systemuser" displayName="SystemUser" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="1" schemaName="team" displayName="Team" parentSchemaName="" solution="msdynce_AppCommonPatch (9.0.1904.4006)" />
+        <Dependent type="1" schemaName="team" displayName="Team" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="61" schemaName="msdyn_/Images/AppModule_Default_Icon.png" displayName="msdyn_/Images/AppModule_Default_Icon.png" solution="AppModuleWebResources (2.5)">
+          <package appName="AppModule Web Resources Package" version="2.5">AppModuleWebResources (2.5)</package>
+        </Required>
+        <Dependent type="80" schemaName="hra_HRHub" displayName="HR Hub" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="SettingDefinition" displayName="AppChannel" solution="msdyn_AppFrameworkInfraExtensions (1.0.0.20)" id.uniquename="AppChannel">
+          <package appName="PowerAppsAppFramework Package" version="1.0.0.26">PowerAppsAppFramework_Anchor (1.0.0.26)</package>
+        </Required>
+        <Dependent type="AppSetting" displayName="parentappmoduleid.uniquename=hra_HRHub,settingdefinitionid.uniquename=AppChannel" id.parentappmoduleid.uniquename="hra_HRHub" id.settingdefinitionid.uniquename="AppChannel" />
+      </MissingDependency>
+    </MissingDependencies>
+  </SolutionManifest>
+</ImportExportXml>

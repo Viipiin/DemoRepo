@@ -1,0 +1,14 @@
+<environmentvariabledefinition schemaname="hra_LeaveEscalationDays">
+  <defaultvalue>2</defaultvalue>
+  <description default="Working days before an unapproved leave request escalates to HR.">
+    <label description="Working days before an unapproved leave request escalates to HR." languagecode="1033" />
+  </description>
+  <displayname default="Leave Escalation Days">
+    <label description="Leave Escalation Days" languagecode="1033" />
+  </displayname>
+  <introducedversion>1.0.0.0</introducedversion>
+  <iscustomizable>1</iscustomizable>
+  <isrequired>0</isrequired>
+  <secretstore>0</secretstore>
+  <type>100000001</type>
+</environmentvariabledefinition>

@@ -1,0 +1,192 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<optionset Name="hra_indianstate" localizedName="Indian State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <OptionSetType>picklist</OptionSetType>
+  <IsGlobal>1</IsGlobal>
+  <IntroducedVersion>1.0.0.0</IntroducedVersion>
+  <IsCustomizable>1</IsCustomizable>
+  <displaynames>
+    <displayname description="Indian State" languagecode="1033" />
+  </displaynames>
+  <options>
+    <option value="817990000" IsHidden="0">
+      <labels>
+        <label description="Andhra Pradesh" languagecode="1033" />
+      </labels>
+    </option>
+    <option value="817990001" IsHidden="0">
+      <labels>
+        <label description="Arunachal Pradesh" languagecode="1033" />
+      </labels>
+    </option>
+    <option value="817990002" IsHidden="0">
+      <labels>
+        <label description="Assam" languagecode="1033" />
+      </labels>
+    </option>
+    <option value="817990003" IsHidden="0">
+      <labels>
+        <label description="Bihar" languagecode="1033" />
+      </labels>
+    </option>
+    <option value="817990004" IsHidden="0">
+      <labels>
+        <label description="Chhattisgarh" languagecode="1033" />
+      </labels>
+    </option>
+    <option value="817990005" IsHidden="0">
+      <labels>
+        <label description="Goa" languagecode="1033" />
+      </labels>
+    </option>
+    <option value="817990006" IsHidden="0">
+      <labels>
+        <label description="Gujarat" languagecode="1033" />
+      </labels>
+    </option>
+    <option value="817990007" IsHidden="0">
+      <labels>
+        <label description="Haryana" languagecode="1033" />
+      </labels>
+    </option>
+    <option value="817990008" IsHidden="0">
+      <labels>
+        <label description="Himachal Pradesh" languagecode="1033" />
+      </labels>
+    </option>
+    <option value="817990009" IsHidden="0">
+      <labels>
+        <label description="Jharkhand" languagecode="1033" />
+      </labels>
+    </option>
+    <option value="817990010" IsHidden="0">
+      <labels>
+        <label description="Karnataka" languagecode="1033" />
+      </labels>
+    </option>
+    <option value="817990011" IsHidden="0">
+      <labels>
+        <label description="Kerala" languagecode="1033" />
+      </labels>
+    </option>
+    <option value="817990012" IsHidden="0">
+      <labels>
+        <label description="Madhya Pradesh" languagecode="1033" />
+      </labels>
+    </option>
+    <option value="817990013" IsHidden="0">
+      <labels>
+        <label description="Maharashtra" languagecode="1033" />
+      </labels>
+    </option>
+    <option value="817990014" IsHidden="0">
+      <labels>
+        <label description="Manipur" languagecode="1033" />
+      </labels>
+    </option>
+    <option value="817990015" IsHidden="0">
+      <labels>
+        <label description="Meghalaya" languagecode="1033" />
+      </labels>
+    </option>
+    <option value="817990016" IsHidden="0">
+      <labels>
+        <label description="Mizoram" languagecode="1033" />
+      </labels>
+    </option>
+    <option value="817990017" IsHidden="0">
+      <labels>
+        <label description="Nagaland" languagecode="1033" />
+      </labels>
+    </option>
+    <option value="817990018" IsHidden="0">
+      <labels>
+        <label description="Odisha" languagecode="1033" />
+      </labels>
+    </option>
+    <option value="817990019" IsHidden="0">
+      <labels>
+        <label description="Punjab" languagecode="1033" />
+      </labels>
+    </option>
+    <option value="817990020" IsHidden="0">
+      <labels>
+        <label description="Rajasthan" languagecode="1033" />
+      </labels>
+    </option>
+    <option value="817990021" IsHidden="0">
+      <labels>
+        <label description="Sikkim" languagecode="1033" />
+      </labels>
+    </option>
+    <option value="817990022" IsHidden="0">
+      <labels>
+        <label description="Tamil Nadu" languagecode="1033" />
+      </labels>
+    </option>
+    <option value="817990023" IsHidden="0">
+      <labels>
+        <label description="Telangana" languagecode="1033" />
+      </labels>
+    </option>
+    <option value="817990024" IsHidden="0">
+      <labels>
+        <label description="Tripura" languagecode="1033" />
+      </labels>
+    </option>
+    <option value="817990025" IsHidden="0">
+      <labels>
+        <label description="Uttar Pradesh" languagecode="1033" />
+      </labels>
+    </option>
+    <option value="817990026" IsHidden="0">
+      <labels>
+        <label description="Uttarakhand" languagecode="1033" />
+      </labels>
+    </option>
+    <option value="817990027" IsHidden="0">
+      <labels>
+        <label description="West Bengal" languagecode="1033" />
+      </labels>
+    </option>
+    <option value="817990028" IsHidden="0">
+      <labels>
+        <label description="Andaman and Nicobar Islands" languagecode="1033" />
+      </labels>
+    </option>
+    <option value="817990029" IsHidden="0">
+      <labels>
+        <label description="Chandigarh" languagecode="1033" />
+      </labels>
+    </option>
+    <option value="817990030" IsHidden="0">
+      <labels>
+        <label description="Dadra and Nagar Haveli and Daman and Diu" languagecode="1033" />
+      </labels>
+    </option>
+    <option value="817990031" IsHidden="0">
+      <labels>
+        <label description="Delhi" languagecode="1033" />
+      </labels>
+    </option>
+    <option value="817990032" IsHidden="0">
+      <labels>
+        <label description="Jammu and Kashmir" languagecode="1033" />
+      </labels>
+    </option>
+    <option value="817990033" IsHidden="0">
+      <labels>
+        <label description="Ladakh" languagecode="1033" />
+      </labels>
+    </option>
+    <option value="817990034" IsHidden="0">
+      <labels>
+        <label description="Lakshadweep" languagecode="1033" />
+      </labels>
+    </option>
+    <option value="817990035" IsHidden="0">
+      <labels>
+        <label description="Puducherry" languagecode="1033" />
+      </labels>
+    </option>
+  </options>
+</optionset>

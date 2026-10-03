@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Role id="{efe435cb-28bf-f111-a059-7c1e520028f7}" name="HR Line Manager" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <IsCustomizable>1</IsCustomizable>
+  <IsAutoAssigned>0</IsAutoAssigned>
+  <Description>Sees and approves for their own team through ownership and the manager hierarchy.</Description>
+  <RolePrivileges>
+    <RolePrivilege name="prvAppendhra_Employee" level="Basic" />
+    <RolePrivilege name="prvAppendTohra_Department" level="Global" />
+    <RolePrivilege name="prvAppendTohra_Designation" level="Global" />
+    <RolePrivilege name="prvAppendTohra_Employee" level="Basic" />
+    <RolePrivilege name="prvAppendTohra_Location" level="Global" />
+    <RolePrivilege name="prvCreateSharePointData" level="Global" />
+    <RolePrivilege name="prvReadhra_Department" level="Global" />
+    <RolePrivilege name="prvReadhra_Designation" level="Global" />
+    <RolePrivilege name="prvReadhra_EmergencyContact" level="Basic" />
+    <RolePrivilege name="prvReadhra_Employee" level="Basic" />
+    <RolePrivilege name="prvReadhra_EmployeeDocument" level="Basic" />
+    <RolePrivilege name="prvReadhra_EmploymentHistory" level="Basic" />
+    <RolePrivilege name="prvReadhra_HRCase" level="Basic" />
+    <RolePrivilege name="prvReadhra_Location" level="Global" />
+    <RolePrivilege name="prvReadPluginAssembly" level="Global" />
+    <RolePrivilege name="prvReadPluginType" level="Global" />
+    <RolePrivilege name="prvReadSdkMessage" level="Global" />
+    <RolePrivilege name="prvReadSdkMessageProcessingStep" level="Global" />
+    <RolePrivilege name="prvReadSdkMessageProcessingStepImage" level="Global" />
+    <RolePrivilege name="prvReadSharePointData" level="Global" />
+    <RolePrivilege name="prvReadSharePointDocument" level="Global" />
+    <RolePrivilege name="prvWritehra_Employee" level="Basic" />
+    <RolePrivilege name="prvWriteSharePointData" level="Global" />
+  </RolePrivileges>
+</Role>

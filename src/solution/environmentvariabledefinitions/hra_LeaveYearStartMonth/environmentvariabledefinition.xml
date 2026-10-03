@@ -1,0 +1,14 @@
+<environmentvariabledefinition schemaname="hra_LeaveYearStartMonth">
+  <defaultvalue>4</defaultvalue>
+  <description default="Month the leave year starts (4 = April).">
+    <label description="Month the leave year starts (4 = April)." languagecode="1033" />
+  </description>
+  <displayname default="Leave Year Start Month">
+    <label description="Leave Year Start Month" languagecode="1033" />
+  </displayname>
+  <introducedversion>1.0.0.0</introducedversion>
+  <iscustomizable>1</iscustomizable>
+  <isrequired>0</isrequired>
+  <secretstore>0</secretstore>
+  <type>100000001</type>
+</environmentvariabledefinition>

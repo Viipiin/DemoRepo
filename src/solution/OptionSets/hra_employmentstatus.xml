@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<optionset Name="hra_employmentstatus" localizedName="Employment Status" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <OptionSetType>picklist</OptionSetType>
+  <IsGlobal>1</IsGlobal>
+  <IntroducedVersion>1.0.0.0</IntroducedVersion>
+  <IsCustomizable>1</IsCustomizable>
+  <displaynames>
+    <displayname description="Employment Status" languagecode="1033" />
+  </displaynames>
+  <options>
+    <option value="817990000" IsHidden="0">
+      <labels>
+        <label description="Active" languagecode="1033" />
+      </labels>
+    </option>
+    <option value="817990001" IsHidden="0">
+      <labels>
+        <label description="On Notice" languagecode="1033" />
+      </labels>
+    </option>
+    <option value="817990002" IsHidden="0">
+      <labels>
+        <label description="Separated" languagecode="1033" />
+      </labels>
+    </option>
+    <option value="817990003" IsHidden="0">
+      <labels>
+        <label description="Absconding" languagecode="1033" />
+      </labels>
+    </option>
+    <option value="817990004" IsHidden="0">
+      <labels>
+        <label description="Retired" languagecode="1033" />
+      </labels>
+    </option>
+  </options>
+</optionset>

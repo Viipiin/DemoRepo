@@ -1,0 +1,14 @@
+<environmentvariabledefinition schemaname="hra_CandidateRetentionMonths">
+  <defaultvalue>12</defaultvalue>
+  <description default="Months to keep unsuccessful candidates before anonymising (DPDP Act).">
+    <label description="Months to keep unsuccessful candidates before anonymising (DPDP Act)." languagecode="1033" />
+  </description>
+  <displayname default="Candidate Retention Months">
+    <label description="Candidate Retention Months" languagecode="1033" />
+  </displayname>
+  <introducedversion>1.0.0.0</introducedversion>
+  <iscustomizable>1</iscustomizable>
+  <isrequired>0</isrequired>
+  <secretstore>0</secretstore>
+  <type>100000001</type>
+</environmentvariabledefinition>

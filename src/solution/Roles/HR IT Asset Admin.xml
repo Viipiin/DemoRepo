@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Role id="{b2ad53d2-28bf-f111-a059-7c1e520028f7}" name="HR IT Asset Admin" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <IsCustomizable>1</IsCustomizable>
+  <IsAutoAssigned>0</IsAutoAssigned>
+  <Description>Assets and IT onboarding/offboarding tasks.</Description>
+  <RolePrivileges>
+    <RolePrivilege name="prvAppendTohra_Department" level="Global" />
+    <RolePrivilege name="prvAppendTohra_Designation" level="Global" />
+    <RolePrivilege name="prvAppendTohra_Employee" level="Global" />
+    <RolePrivilege name="prvAppendTohra_Location" level="Global" />
+    <RolePrivilege name="prvCreateSharePointData" level="Global" />
+    <RolePrivilege name="prvReadhra_Department" level="Global" />
+    <RolePrivilege name="prvReadhra_Designation" level="Global" />
+    <RolePrivilege name="prvReadhra_Employee" level="Global" />
+    <RolePrivilege name="prvReadhra_Location" level="Global" />
+    <RolePrivilege name="prvReadPluginAssembly" level="Global" />
+    <RolePrivilege name="prvReadPluginType" level="Global" />
+    <RolePrivilege name="prvReadSdkMessage" level="Global" />
+    <RolePrivilege name="prvReadSdkMessageProcessingStep" level="Global" />
+    <RolePrivilege name="prvReadSdkMessageProcessingStepImage" level="Global" />
+    <RolePrivilege name="prvReadSharePointData" level="Global" />
+    <RolePrivilege name="prvReadSharePointDocument" level="Global" />
+    <RolePrivilege name="prvWriteSharePointData" level="Global" />
+  </RolePrivileges>
+</Role>
