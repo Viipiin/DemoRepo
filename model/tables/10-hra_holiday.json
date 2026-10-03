@@ -1,0 +1,80 @@
+{
+  "phase": 2,
+  "name": "hra_Holiday",
+  "label": "Holiday",
+  "pluralLabel": "Holidays",
+  "description": "A holiday in a calendar. National and State holidays are skipped when counting leave days; Optional holidays are taken as Restricted Holiday (RH) leave.",
+  "ownership": "Organization",
+  "primaryName": {
+    "name": "hra_Name",
+    "label": "Name",
+    "type": "Text",
+    "required": "Required",
+    "maxLength": 100
+  },
+  "columns": [
+    {
+      "name": "hra_HolidayCalendar",
+      "label": "Holiday Calendar",
+      "type": "Lookup",
+      "required": "Required",
+      "target": "hra_holidaycalendar",
+      "onDelete": "Cascade"
+    },
+    {
+      "name": "hra_Date",
+      "label": "Date",
+      "type": "DateOnly",
+      "required": "Required"
+    },
+    {
+      "name": "hra_Type",
+      "label": "Type",
+      "type": "Choice",
+      "required": "Required",
+      "_note": "Option order must match HolidayType in src/plugins/HRAutomation.Plugins/LeaveSchema.cs.",
+      "options": [
+        "National",
+        "State",
+        "Optional/Restricted"
+      ],
+      "default": "State"
+    }
+  ],
+  "keys": [
+    {
+      "name": "hra_key_holiday_calendardate",
+      "label": "Calendar and Date",
+      "columns": [
+        "hra_holidaycalendar",
+        "hra_date"
+      ]
+    }
+  ],
+  "form": [
+    {
+      "tab": "general",
+      "label": "General",
+      "left": [
+        "hra_name",
+        "hra_date"
+      ],
+      "right": [
+        "hra_holidaycalendar",
+        "hra_type"
+      ]
+    }
+  ],
+  "views": [
+    {
+      "default": true,
+      "columns": [
+        "hra_date",
+        "hra_name",
+        "hra_type",
+        "hra_holidaycalendar"
+      ],
+      "sort": "hra_date"
+    }
+  ]
+}

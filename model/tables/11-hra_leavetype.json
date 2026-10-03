@@ -1,0 +1,127 @@
+{
+  "phase": 2,
+  "name": "hra_LeaveType",
+  "label": "Leave Type",
+  "pluralLabel": "Leave Types",
+  "description": "Types of leave (EL, CL, SL, ...). Rules here apply to every policy.",
+  "ownership": "Organization",
+  "primaryName": {
+    "name": "hra_Name",
+    "label": "Name",
+    "type": "Text",
+    "required": "Required",
+    "maxLength": 100
+  },
+  "columns": [
+    {
+      "name": "hra_Code",
+      "label": "Code",
+      "type": "Text",
+      "required": "Required",
+      "maxLength": 5
+    },
+    {
+      "name": "hra_IsPaid",
+      "label": "Is Paid",
+      "type": "YesNo",
+      "description": "Unpaid types (Loss of Pay) don't use a balance."
+    },
+    {
+      "name": "hra_AllowHalfDay",
+      "label": "Allow Half Day",
+      "type": "YesNo"
+    },
+    {
+      "name": "hra_ApplicableGender",
+      "label": "Applicable Gender",
+      "type": "Choice",
+      "required": "Required",
+      "options": [
+        "All",
+        "Female",
+        "Male"
+      ],
+      "default": "All",
+      "_note": "Option order must match ApplicableGender in LeaveSchema.cs."
+    },
+    {
+      "name": "hra_MaxConsecutiveDays",
+      "label": "Max Consecutive Days",
+      "type": "WholeNumber",
+      "min": 0,
+      "max": 400,
+      "description": "0 or empty = no limit."
+    },
+    {
+      "name": "hra_DocumentRequiredAfterDays",
+      "label": "Document Required After (days)",
+      "type": "WholeNumber",
+      "min": 0,
+      "max": 400
+    },
+    {
+      "name": "hra_IsEncashable",
+      "label": "Is Encashable",
+      "type": "YesNo"
+    },
+    {
+      "name": "hra_CountSandwichedHolidays",
+      "label": "Count All Calendar Days",
+      "type": "YesNo",
+      "description": "Yes = weekends and holidays inside the leave count as leave (e.g. maternity leave)."
+    },
+    {
+      "name": "hra_MinNoticeDays",
+      "label": "Min Notice (days)",
+      "type": "WholeNumber",
+      "min": 0,
+      "max": 365
+    }
+  ],
+  "keys": [
+    {
+      "name": "hra_key_leavetype_code",
+      "label": "Code",
+      "columns": [
+        "hra_code"
+      ]
+    }
+  ],
+  "form": [
+    {
+      "tab": "general",
+      "label": "General",
+      "left": [
+        "hra_name",
+        "hra_code",
+        "hra_ispaid",
+        "hra_allowhalfday",
+        "hra_applicablegender"
+      ],
+      "right": [
+        "hra_maxconsecutivedays",
+        "hra_documentrequiredafterdays",
+        "hra_isencashable",
+        "hra_countsandwichedholidays",
+        "hra_minnoticedays"
+      ]
+    }
+  ],
+  "views": [
+    {
+      "default": true,
+      "columns": [
+        "hra_name",
+        "hra_code",
+        "hra_ispaid",
+        "hra_allowhalfday",
+        "hra_applicablegender",
+        "hra_maxconsecutivedays"
+      ],
+      "sort": "hra_code"
+    }
+  ],
+  "quickFind": [
+    "hra_code"
+  ]
+}

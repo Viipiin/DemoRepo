@@ -9,6 +9,7 @@ model/
   security.json                 owner teams (and their roles), security roles, column security profiles
   environment-variables.json    configurable settings
   plugins.json                  which plugin runs on which table, message and stage
+  custom-apis.json              callable actions backed by plugins (e.g. leave accrual)
   sample-data.json              SYNTHETIC test data loaded by 'seed'
 ```
 
@@ -101,6 +102,32 @@ Teams own records, for example the HR team owns employees whose manager has no D
 | `preImage` | The columns the plugin reads from the record's values before the change (available as "PreImage") |
 
 After changing plugin code or this file, run `./scripts/build-plugins.ps1` and then `./scripts/hra.ps1 register-plugins`.
+
+## Views that filter on a related record
+
+A view's `filter` holds FetchXML conditions on the table itself. `join` adds a `link-entity`, for example "requests of the employee linked to my user":
+
+```json
+{ "name": "My Leave Requests", "columns": ["hra_name", "hra_status"],
+  "join": "<link-entity name=\"hra_employee\" from=\"hra_employeeid\" to=\"hra_employee\" link-type=\"inner\" alias=\"me\"><filter><condition attribute=\"hra_systemuser\" operator=\"eq-userid\" /></filter></link-entity>" }
+```
+
+`validate` checks that `filter` and `join` are well-formed XML.
+
+## Custom APIs (`custom-apis.json`)
+
+A Custom API is an action you (or a flow) can call. Its logic lives in a plugin class:
+
+```json
+{ "uniqueName": "hra_RunLeaveAccrual", "displayName": "Run Leave Accrual",
+  "plugin": "HRAutomation.Plugins.RunLeaveAccrualApi",
+  "parameters": [ { "name": "Period", "type": "String", "optional": true } ],
+  "responses":  [ { "name": "Updated", "type": "Integer" } ] }
+```
+
+- **Types:** Boolean, DateTime, Decimal, Integer, Money, String, StringArray, Guid.
+- **Registration:** `register-plugins` creates the API, its parameters and its responses.
+- **Running it:** `./scripts/hra.ps1 run-api hra_RunLeaveAccrual --param Period=2026-10`, or use **Perform an unbound action** in Power Automate.
 
 ## Sample data (`sample-data.json`)
 

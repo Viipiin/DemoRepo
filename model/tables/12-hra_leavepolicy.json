@@ -1,0 +1,59 @@
+{
+  "phase": 2,
+  "name": "hra_LeavePolicy",
+  "label": "Leave Policy",
+  "pluralLabel": "Leave Policies",
+  "description": "A named set of leave entitlements. New employees get the default policy.",
+  "ownership": "Organization",
+  "primaryName": {
+    "name": "hra_Name",
+    "label": "Name",
+    "type": "Text",
+    "required": "Required",
+    "maxLength": 100
+  },
+  "columns": [
+    {
+      "name": "hra_ApplicableEmploymentType",
+      "label": "Applicable Employment Type",
+      "type": "GlobalChoice",
+      "choice": "hra_employmenttype"
+    },
+    {
+      "name": "hra_IsDefault",
+      "label": "Is Default",
+      "type": "YesNo"
+    },
+    {
+      "name": "hra_Description",
+      "label": "Description",
+      "type": "Memo",
+      "maxLength": 2000
+    }
+  ],
+  "form": [
+    {
+      "tab": "general",
+      "label": "General",
+      "left": [
+        "hra_name",
+        "hra_isdefault"
+      ],
+      "right": [
+        "hra_applicableemploymenttype",
+        "hra_description"
+      ]
+    }
+  ],
+  "views": [
+    {
+      "default": true,
+      "columns": [
+        "hra_name",
+        "hra_isdefault",
+        "hra_applicableemploymenttype"
+      ],
+      "sort": "hra_name"
+    }
+  ]
+}

@@ -1,0 +1,66 @@
+{
+  "phase": 2,
+  "name": "hra_HolidayCalendar",
+  "label": "Holiday Calendar",
+  "pluralLabel": "Holiday Calendars",
+  "description": "One holiday calendar per state per year. Leave days skip the holidays of the employee's work location state.",
+  "ownership": "Organization",
+  "primaryName": {
+    "name": "hra_Name",
+    "label": "Name",
+    "type": "Text",
+    "required": "Required",
+    "maxLength": 100
+  },
+  "columns": [
+    {
+      "name": "hra_Year",
+      "label": "Year",
+      "type": "WholeNumber",
+      "required": "Required",
+      "min": 2000,
+      "max": 2100
+    },
+    {
+      "name": "hra_State",
+      "label": "State",
+      "type": "GlobalChoice",
+      "required": "Required",
+      "choice": "hra_indianstate"
+    }
+  ],
+  "keys": [
+    {
+      "name": "hra_key_holidaycalendar_stateyear",
+      "label": "State and Year",
+      "columns": [
+        "hra_state",
+        "hra_year"
+      ]
+    }
+  ],
+  "form": [
+    {
+      "tab": "general",
+      "label": "General",
+      "left": [
+        "hra_name",
+        "hra_year"
+      ],
+      "right": [
+        "hra_state"
+      ]
+    }
+  ],
+  "views": [
+    {
+      "default": true,
+      "columns": [
+        "hra_name",
+        "hra_state",
+        "hra_year"
+      ],
+      "sort": "hra_name"
+    }
+  ]
+}

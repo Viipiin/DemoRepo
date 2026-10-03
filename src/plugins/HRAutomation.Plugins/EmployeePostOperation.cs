@@ -96,6 +96,13 @@ namespace HRAutomation.Plugins
 
             // 5. Employment history.
             WriteHistory(local, employeeId, owner, managerChanged);
+
+            // 6. Leave balances for a new joiner (current leave year, from their leave policy).
+            if (local.IsCreate)
+            {
+                var leave = new LeaveService(local);
+                leave.InitializeBalances(employeeId, leave.CurrentLeaveYear());
+            }
         }
 
         private static void WriteHistory(LocalContext local, Guid employeeId, EntityReference owner, bool managerChanged)

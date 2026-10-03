@@ -1,0 +1,135 @@
+{
+  "phase": 2,
+  "name": "hra_LeavePolicyLine",
+  "label": "Leave Policy Line",
+  "pluralLabel": "Leave Policy Lines",
+  "description": "Entitlement for one leave type in a policy.",
+  "ownership": "Organization",
+  "primaryName": {
+    "name": "hra_Name",
+    "label": "Name",
+    "type": "Text",
+    "required": "Required",
+    "maxLength": 100
+  },
+  "columns": [
+    {
+      "name": "hra_LeavePolicy",
+      "label": "Leave Policy",
+      "type": "Lookup",
+      "required": "Required",
+      "target": "hra_leavepolicy",
+      "onDelete": "Cascade"
+    },
+    {
+      "name": "hra_LeaveType",
+      "label": "Leave Type",
+      "type": "Lookup",
+      "required": "Required",
+      "target": "hra_leavetype",
+      "onDelete": "Restrict"
+    },
+    {
+      "name": "hra_AnnualEntitlement",
+      "label": "Annual Entitlement (days)",
+      "type": "Decimal",
+      "required": "Required",
+      "min": 0,
+      "max": 400,
+      "precision": 1
+    },
+    {
+      "name": "hra_AccrualFrequency",
+      "label": "Accrual Frequency",
+      "type": "Choice",
+      "required": "Required",
+      "options": [
+        "Upfront",
+        "Monthly",
+        "Quarterly"
+      ],
+      "default": "Upfront",
+      "_note": "Option order must match AccrualFrequency in LeaveSchema.cs."
+    },
+    {
+      "name": "hra_MaxCarryForward",
+      "label": "Max Carry Forward",
+      "type": "Decimal",
+      "min": 0,
+      "max": 400,
+      "precision": 1
+    },
+    {
+      "name": "hra_MaxEncashment",
+      "label": "Max Encashment",
+      "type": "Decimal",
+      "min": 0,
+      "max": 400,
+      "precision": 1
+    },
+    {
+      "name": "hra_MaxBalance",
+      "label": "Max Balance",
+      "type": "Decimal",
+      "min": 0,
+      "max": 400,
+      "precision": 1,
+      "description": "Accrual stops at this balance. 0 or empty = no cap."
+    },
+    {
+      "name": "hra_AvailableDuringProbation",
+      "label": "Available During Probation",
+      "type": "YesNo"
+    },
+    {
+      "name": "hra_ProrateOnJoining",
+      "label": "Prorate on Joining",
+      "type": "YesNo",
+      "description": "Upfront entitlement is reduced for people who join during the leave year."
+    }
+  ],
+  "keys": [
+    {
+      "name": "hra_key_leavepolicyline_policytype",
+      "label": "Policy and Leave Type",
+      "columns": [
+        "hra_leavepolicy",
+        "hra_leavetype"
+      ]
+    }
+  ],
+  "form": [
+    {
+      "tab": "general",
+      "label": "General",
+      "left": [
+        "hra_name",
+        "hra_leavepolicy",
+        "hra_leavetype",
+        "hra_annualentitlement",
+        "hra_accrualfrequency"
+      ],
+      "right": [
+        "hra_maxcarryforward",
+        "hra_maxencashment",
+        "hra_maxbalance",
+        "hra_availableduringprobation",
+        "hra_prorateonjoining"
+      ]
+    }
+  ],
+  "views": [
+    {
+      "default": true,
+      "columns": [
+        "hra_name",
+        "hra_leavepolicy",
+        "hra_leavetype",
+        "hra_annualentitlement",
+        "hra_accrualfrequency",
+        "hra_maxbalance"
+      ],
+      "sort": "hra_name"
+    }
+  ]
+}

@@ -43,7 +43,16 @@
         "hra_emergencycontact": "Org:CRWDATS",
         "hra_employeedocument": "Org:CRWDATS",
         "hra_employmenthistory": "Org:R",
-        "hra_hrcase": "Org:CRWDATS"
+        "hra_hrcase": "Org:CRWDATS",
+        "hra_holidaycalendar": "Org:CRWDATS",
+        "hra_holiday": "Org:CRWDATS",
+        "hra_leavetype": "Org:CRWDATS",
+        "hra_leavepolicy": "Org:CRWDATS",
+        "hra_leavepolicyline": "Org:CRWDATS",
+        "hra_leavebalance": "Org:CRWATS",
+        "hra_leaveadjustment": "Org:CRWATS",
+        "hra_leaverequest": "Org:CRWDATS",
+        "hra_attendancerecord": "Org:CRWDATS"
       }
     },
     {
@@ -57,7 +66,16 @@
         "hra_emergencycontact": "Org:CRWATS",
         "hra_employeedocument": "Org:CRWATS",
         "hra_employmenthistory": "Org:R",
-        "hra_hrcase": "Org:CRWATS"
+        "hra_hrcase": "Org:CRWATS",
+        "hra_holidaycalendar": "Org:RT",
+        "hra_holiday": "Org:RT",
+        "hra_leavetype": "Org:RT",
+        "hra_leavepolicy": "Org:RT",
+        "hra_leavepolicyline": "Org:RT",
+        "hra_leavebalance": "Org:CRWATS",
+        "hra_leaveadjustment": "Org:CRWATS",
+        "hra_leaverequest": "Org:CRWATS",
+        "hra_attendancerecord": "Org:CRWATS"
       }
     },
     {
@@ -67,7 +85,12 @@
         "hra_department": "Org:RT",
         "hra_designation": "Org:RT",
         "hra_location": "Org:RT",
-        "hra_employee": "Org:RT"
+        "hra_employee": "Org:RT",
+        "hra_holidaycalendar": "Org:RT",
+        "hra_holiday": "Org:RT",
+        "hra_leavetype": "Org:RT",
+        "hra_leavepolicy": "Org:RT",
+        "hra_leavepolicyline": "Org:RT"
       }
     },
     {
@@ -81,7 +104,16 @@
         "hra_emergencycontact": "User:R",
         "hra_employeedocument": "User:R",
         "hra_employmenthistory": "User:R",
-        "hra_hrcase": "User:R"
+        "hra_hrcase": "User:R",
+        "hra_holidaycalendar": "Org:RT",
+        "hra_holiday": "Org:RT",
+        "hra_leavetype": "Org:RT",
+        "hra_leavepolicy": "Org:RT",
+        "hra_leavepolicyline": "Org:RT",
+        "hra_leavebalance": "User:R",
+        "hra_leaveadjustment": "User:R",
+        "hra_leaverequest": "User:RWAT",
+        "hra_attendancerecord": "User:RWAT"
       }
     },
     {
@@ -95,7 +127,15 @@
         "hra_emergencycontact": "User:CRWDA",
         "hra_employeedocument": "User:CRWDA",
         "hra_employmenthistory": "User:R",
-        "hra_hrcase": "User:CRA"
+        "hra_hrcase": "User:CRA",
+        "hra_holidaycalendar": "Org:RT",
+        "hra_holiday": "Org:RT",
+        "hra_leavetype": "Org:RT",
+        "hra_leavepolicy": "Org:RT",
+        "hra_leavepolicyline": "Org:RT",
+        "hra_leavebalance": "User:R",
+        "hra_leaverequest": "User:CRWAT",
+        "hra_attendancerecord": "User:CRWA"
       }
     },
     {
@@ -105,7 +145,12 @@
         "hra_department": "Org:RT",
         "hra_designation": "Org:RT",
         "hra_location": "Org:RT",
-        "hra_employee": "Org:RT"
+        "hra_employee": "Org:RT",
+        "hra_holidaycalendar": "Org:RT",
+        "hra_holiday": "Org:RT",
+        "hra_leavetype": "Org:RT",
+        "hra_leavepolicy": "Org:RT",
+        "hra_leavepolicyline": "Org:RT"
       }
     },
     {
@@ -115,7 +160,13 @@
         "hra_department": "Org:RT",
         "hra_designation": "Org:RT",
         "hra_location": "Org:RT",
-        "hra_employee": "Org:RT"
+        "hra_employee": "Org:RT",
+        "hra_holidaycalendar": "Org:RT",
+        "hra_holiday": "Org:RT",
+        "hra_leavetype": "Org:RT",
+        "hra_leavepolicy": "Org:RT",
+        "hra_leavepolicyline": "Org:RT",
+        "hra_leavebalance": "Org:R"
       }
     }
   ],

@@ -1,0 +1,109 @@
+{
+  "phase": 2,
+  "name": "hra_LeaveAdjustment",
+  "label": "Leave Adjustment",
+  "pluralLabel": "Leave Adjustments",
+  "description": "Every balance change other than leave taken: comp-off credits, encashment, corrections, carry forward and lapse. Don't edit; add an opposite Correction to undo.",
+  "ownership": "User",
+  "audited": true,
+  "primaryName": {
+    "name": "hra_Name",
+    "label": "Reference",
+    "type": "Text",
+    "maxLength": 20,
+    "autoNumber": "LA-{SEQNUM:6}"
+  },
+  "columns": [
+    {
+      "name": "hra_Employee",
+      "label": "Employee",
+      "type": "Lookup",
+      "required": "Required",
+      "target": "hra_employee",
+      "onDelete": "Restrict"
+    },
+    {
+      "name": "hra_LeaveType",
+      "label": "Leave Type",
+      "type": "Lookup",
+      "required": "Required",
+      "target": "hra_leavetype",
+      "onDelete": "Restrict"
+    },
+    {
+      "name": "hra_LeaveYear",
+      "label": "Leave Year",
+      "type": "Text",
+      "required": "Required",
+      "maxLength": 7
+    },
+    {
+      "name": "hra_Type",
+      "label": "Type",
+      "type": "Choice",
+      "required": "Required",
+      "options": [
+        "Comp-off Credit",
+        "Encashment",
+        "Correction",
+        "Carry Forward",
+        "Lapse"
+      ],
+      "_note": "Option order must match AdjustmentType in LeaveSchema.cs."
+    },
+    {
+      "name": "hra_Days",
+      "label": "Days",
+      "type": "Decimal",
+      "required": "Required",
+      "min": -400,
+      "max": 400,
+      "precision": 1
+    },
+    {
+      "name": "hra_Reason",
+      "label": "Reason",
+      "type": "Memo",
+      "required": "Required",
+      "maxLength": 500
+    },
+    {
+      "name": "hra_RelatedAttendance",
+      "label": "Related Attendance",
+      "type": "Lookup",
+      "target": "hra_attendancerecord"
+    }
+  ],
+  "form": [
+    {
+      "tab": "general",
+      "label": "General",
+      "left": [
+        "hra_name",
+        "hra_employee",
+        "hra_leavetype",
+        "hra_leaveyear"
+      ],
+      "right": [
+        "hra_type",
+        "hra_days",
+        "hra_reason",
+        "hra_relatedattendance"
+      ]
+    }
+  ],
+  "views": [
+    {
+      "default": true,
+      "columns": [
+        "hra_name",
+        "hra_employee",
+        "hra_leavetype",
+        "hra_leaveyear",
+        "hra_type",
+        "hra_days"
+      ],
+      "sort": "hra_name"
+    }
+  ]
+}
