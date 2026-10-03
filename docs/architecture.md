@@ -2,10 +2,10 @@
 
 | | |
 |---|---|
-| Solution | `hrautomation` (HR Automation), publisher prefix `hra`, choice value prefix `81799` |
-| Environments | Dev: `https://viipiin.crm.dynamics.com/` (Developer). Prod: **Viipiin-Prod**. Test: none yet |
+| Solution | `HRAutomation` (HR Automation), publisher prefix `hra`, choice value prefix `81799` |
+| Environments | Dev: **Viipiin-Dev**, `https://viipiin.crm.dynamics.com/` (Developer, tenant them365dev.onmicrosoft.com). Prod: **Viipiin-Prod**, not created yet. Test: none |
 | Company | India, about 100 employees, 1 legal entity |
-| Status | **Draft for review.** Nothing has been built yet. Answer the questions in section 9, and then `data-model.md` is updated with the agreed changes in section 2.3 |
+| Status | **Approved: defaults, simplest setup** (see section 0). The section 2.3 changes are applied to `data-model.md`. Next: Phase 1 |
 
 This document covers the six Phase 0 deliverables:
 1. Key design decisions
@@ -15,6 +15,35 @@ This document covers the six Phase 0 deliverables:
 5. App design
 6. ALM, environment variables and connection references
 7. Licensing, risks and open questions
+
+---
+
+## 0. Confirmed decisions: defaults and simplest setup
+
+The questions in section 9 were answered "go with defaults and simplest setup possible".
+
+| Question | Decision |
+|---|---|
+| Q1 Self-service | Option (b), staged. **v1 builds only the model-driven app for licensed users.** For testing in Viipiin-Dev, every test user is a licensed user. The portal and Teams agent for non-licensed employees are optional (Phase 6) |
+| Q2 Licensed users | About 20 |
+| Q3 States | **Karnataka only.** Other states are added later as data (holiday calendar + location), with no code changes |
+| Q4 Prod region and currency | Prod doesn't exist yet. Dev's base currency is checked in Phase 1, and INR is added if it isn't the base currency |
+| Q5 Leave policy | EL 18/year (1.5 monthly, carry forward 30, encash 15), CL 8 and SL 8 (upfront, lapse at year end), RH 2, ML 26 weeks, PTL 5 days, BL 3 days, no sandwich rule |
+| Q6 Accounts | Dev uses `admin@them365dev.onmicrosoft.com` for flow connections. A service account and HR shared mailbox are created later for Prod |
+| Q7 Teams | Yes |
+| Q8 Candidate retention | Anonymise after 12 months |
+| Q9 Documents | Dataverse file columns |
+| Q10 Attendance | Manual entry only |
+
+**Simplifications for the simplest setup**
+
+| # | Simplification | Replaces |
+|---|---|---|
+| S1 | **One app, "HR Hub", for everyone.** Areas a user has no access to are hidden automatically by their security role | The separate Manager Self-Service app (section 5.2) |
+| S2 | **No pipeline or Test environment until go-live.** One PowerShell script (`scripts/build-and-import.ps1`) builds and imports to Dev. Source is saved to Git with `pac solution export` + `unpack`. Phase 7 adds the pipeline | GitHub Actions in Phases 1–6 (section 6.2) |
+| S3 | **Tables are created by a small provisioning tool** (`src/tools/HRA.Provisioner`, .NET 8 console app) that you run with one command. It creates choices, tables, columns, relationships, keys and roles directly in `HRAutomation`, skips anything that already exists, and is safe to re-run | Hand-editing solution XML, which is error-prone |
+| S4 | **Reporting uses model-driven dashboards first.** Power BI, Power Pages and Copilot Studio are optional later phases | Power BI in Phase 5 as a must-have |
+| S5 | **Nice-to-have flows are deferred** until after go-live: F-13 (attendance rows from leave), F-14 (daily digest), F-23 (interview invitations), F-27 (document expiry), F-41 (appraisal reminders) | Building all flows in v1 |
 
 ---
 
@@ -310,7 +339,7 @@ The tables are as listed in `data-model.md`, with these specifications added:
 
 **Why "Cascade All" on assign matters:** when an employee's reporting manager changes, a plugin reassigns the Employee record to the new manager. The cascade then moves their leave, expenses and reviews too, so the new manager sees them immediately.
 
-### 2.3 Proposed changes to `data-model.md` (need your OK)
+### 2.3 Changes to `data-model.md` (approved and applied)
 
 1. **Add `hra_LeaveAdjustment`** so comp-off credits, encashment, corrections and carry-forward are recorded as transactions (D5).
 2. **Add a Weekly Off Pattern column on Location.** Many Indian offices work 5½ or 6 days (for example 2nd and 4th Saturdays working), which changes the leave day count.
@@ -453,8 +482,8 @@ All flows live in the solution, use connection references, run as the service ac
 | **Assets & Expenses** | Assets, Asset Assignments, Expense Claims |
 | **Settings** (HR Admin only) | Leave Types, Leave Policies, Checklist Templates |
 
-### 5.2 "Manager Self-Service" model-driven app (Line Managers, licensed staff)
-Areas:
+### 5.2 Manager features inside HR Hub (S1: no separate app)
+These areas appear in HR Hub for users with the Line Manager role:
 - **My Team:** Employees with My Team / My Indirect Team views
 - **Approvals:** Leave, Expenses and Requisitions pending me
 - **Team Leave Calendar**
@@ -486,7 +515,7 @@ Areas:
 
 ### 6.1 Repository layout
 ```
-/src/solution/            unpacked hrautomation solution (pac solution clone/sync)
+/src/solution/            unpacked HRAutomation solution (pac solution clone/sync)
 /src/plugins/             C# plugin project + tests
 /src/webresources/        TypeScript sources -> compiled JS
 /src/powerbi/             Power BI project (.pbip)
@@ -497,7 +526,7 @@ Areas:
 ```
 
 ### 6.2 Environments and pipeline
-1. **Dev** (`viipiin.crm.dynamics.com`, Developer): all changes are made here, inside `hrautomation` only.
+1. **Dev** (`viipiin.crm.dynamics.com`, Developer): all changes are made here, inside `HRAutomation` only.
 2. **Export workflow** (manual run): `pac solution export` (unmanaged + managed) → `pac solution unpack` → pull request.
 3. **Build and deploy workflow** (on merge to `master`):
    - build plugins and web resources
@@ -572,7 +601,7 @@ Areas:
 
 ---
 
-## 9. Questions for you (answers needed before Phase 1)
+## 9. Questions for you (answered: see section 0)
 
 | # | Question | Default if you don't answer |
 |---|---|---|
