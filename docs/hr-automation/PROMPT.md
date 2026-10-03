@@ -2,7 +2,7 @@
 
 How to use this file:
 
-1. Environment, solution and publisher details are already filled in. Fill in the remaining `<<...>>` placeholders (Production URL, list of Production licences), or delete any lines you don't need.
+1. Environment, solution and publisher details are already filled in. Fill in the remaining `<<...>>` placeholder (the SharePoint HR policy site, needed only in Phase 6), or delete any lines you don't need.
 2. Paste **Section 1 (Master Prompt)** into Claude Code as the first message (or save it as `CLAUDE.md` at the repo root so every session loads it).
 3. Then run the **phase prompts in Section 2** one at a time. Review and test in your Dev environment after each phase before you continue.
 
@@ -22,7 +22,8 @@ solution files that I can pack and import using the Power Platform CLI (pac).
 - Existing unmanaged solution (already created): hrautomation  (display name: HR Automation)
 - Publisher: HR Automation (unique name: hrautomation), prefix: hra, choice value prefix: 81799
   (all schema names start with hra_, e.g. hra_Employee; choice values start at 817990000)
-- Other environments for ALM: Production exists (<<Prod URL>>) and is where paid licences are assigned;
+- Other environments for ALM: Production environment is "Viipiin-Prod" (get its URL with `pac env list`)
+  and is where paid licences are assigned;
   no Test environment yet. Design everything so the solution can be exported as MANAGED and imported
   into Test/Prod without changes (environment variables, connection references, deployment settings files).
 - Country: India. Apply Indian HR rules:
@@ -40,8 +41,10 @@ solution files that I can pack and import using the Power Platform CLI (pac).
   - Currency INR; date format dd-MM-yyyy; time zone IST (UTC+05:30).
 - Company size: ~100 employees, 1 legal entity (assumed). Keep the design simple: a single business unit
   with teams per department plus manager hierarchy security, rather than many business units.
-- Licences: paid licences exist only in Production (<<list them: Power Apps Premium / per-app, Power Automate
-  Premium, Power BI Pro, Copilot Studio, Power Pages>>). The Developer environment runs on the free
+- Licences: paid licences exist only in Production (exact list not confirmed yet). Assume Power Apps
+  Premium (required for Dataverse and model-driven apps) and Power Automate flows that run in the context
+  of the app. Treat Copilot Studio, Power Pages and Power BI Pro as NOT confirmed: build them only after I
+  confirm, and tell me which licence each one needs. The Developer environment runs on the free
   Power Apps Developer Plan. Before using any premium connector or feature, check it is covered by the
   Production licences above; flag anything that would need a new licence or a trial, and prefer
   standard/Dataverse capabilities where they do the job.
@@ -83,6 +86,9 @@ solution files that I can pack and import using the Power Platform CLI (pac).
 
 ## How I want you to work
 - Before writing anything, inspect the repo and run `pac solution list` / `pac org who` to confirm context.
+- The Dataverse table design is in docs/hr-automation/data-model.md. Follow it (tables, columns, choices,
+  relationships, ownership, security). If you need to change it, propose the change, update that file,
+  and then build.
 - Work in PHASES. At the start of each phase, give me a short plan (tables, columns, relationships,
   forms, views, flows, roles) and wait for my "go" before generating files.
 - Keep the solution source unpacked under `src/solution/` (pac solution unpack / clone format),
@@ -104,8 +110,9 @@ solution files that I can pack and import using the Power Platform CLI (pac).
 ### Phase 0: Architecture and design (no build yet)
 ```text
 Phase 0. Do not create components yet. Produce docs/architecture.md containing:
-1) Full data model for all modules: tables, key columns with types, relationships (1:N / N:N),
-   cascade behaviour, alternate keys, global choices. Include a Mermaid ERD.
+1) A review of docs/hr-automation/data-model.md: complete every table with exact column data types,
+   lengths, required levels, relationship cascade behaviour and alternate keys. List any gaps or
+   improvements you recommend, and update data-model.md once I agree.
 2) Security model: roles x tables privilege matrix, business unit/team design,
    hierarchy security, column security profiles.
 3) Automation catalogue: every flow/plugin with trigger, logic, and owner.
@@ -130,7 +137,7 @@ Phase 2: Leave & Attendance. Build Leave Type, Leave Policy, Leave Balance, Leav
 Public Holiday, Timesheet. Logic:
 - C# plugin on Leave Request: calculate working days excluding weekends/public holidays,
   block overlapping requests and insufficient balance, update balance on approval/cancellation.
-- Power Automate: approval to line manager (escalate to HR after <<2>> days), Outlook/Teams
+- Power Automate: approval to line manager (escalate to HR after 2 working days, stored in an environment variable), Outlook/Teams
   notifications, scheduled monthly accrual flow, year-end carry-forward flow.
 - Views: My Leave, My Team's Leave, Pending My Approval; a team leave calendar.
 Include unit tests for the plugin (FakeXrmEasy or similar). Pack, import, test, commit.
