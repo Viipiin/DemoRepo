@@ -30,20 +30,20 @@ public sealed class ApiRunner
     }
 
     /// <summary>
-    /// Calls hra_InitializeLeaveBalances once per active employee, so each call stays well inside the
-    /// 2-minute plugin limit.
+    /// Calls a per-employee Custom API (with an EmployeeId parameter) once for each active employee, so each
+    /// call stays well inside the 2-minute plugin limit.
     /// </summary>
-    public void InitializeBalancesForAll(IDictionary<string, string> parameters)
+    public void RunForEachEmployee(string apiName, string outputName, string outputLabel, IDictionary<string, string> parameters)
     {
-        var api = _model.CustomApis.FirstOrDefault(a => a.UniqueName == "hra_InitializeLeaveBalances")
-            ?? throw new ArgumentException("hra_InitializeLeaveBalances is not in model/custom-apis.json.");
+        var api = _model.CustomApis.FirstOrDefault(a => a.UniqueName == apiName)
+            ?? throw new ArgumentException($"{apiName} is not in model/custom-apis.json.");
 
         var query = new QueryExpression("hra_employee") { ColumnSet = new ColumnSet("hra_fullname") };
         query.Criteria.AddCondition("statecode", ConditionOperator.Equal, 0);
         query.AddOrder("hra_fullname", OrderType.Ascending);
         var employees = _service.RetrieveMultiple(query).Entities;
 
-        Log.Step($"Initializing leave balances for {employees.Count} active employees");
+        Log.Step($"{api.DisplayName}: {employees.Count} active employees");
         var total = 0;
         foreach (var employee in employees)
         {
@@ -51,12 +51,13 @@ public sealed class ApiRunner
             {
                 ["EmployeeId"] = employee.Id.ToString(),
             };
-            var created = (int)Execute(api, values).Results["Created"];
-            total += created;
-            if (created > 0) Log.Ok($"{employee.GetAttributeValue<string>("hra_fullname")}: {created} balance(s)");
-            else Log.Skip($"{employee.GetAttributeValue<string>("hra_fullname")}: already has balances");
+            var count = (int)Execute(api, values).Results[outputName];
+            total += count;
+            var name = employee.GetAttributeValue<string>("hra_fullname");
+            if (count > 0) Log.Ok($"{name}: {count} {outputLabel}");
+            else Log.Skip($"{name}: nothing to do");
         }
-        Log.Ok($"{total} balance(s) created");
+        Log.Ok($"Total: {total} {outputLabel}");
     }
 
     private OrganizationResponse Execute(CustomApiDef api, IDictionary<string, string> parameters)

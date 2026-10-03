@@ -329,6 +329,80 @@ namespace HRAutomation.Plugins
             return updated;
         }
 
+        /// <summary>
+        /// Closes a leave year: for each balance not yet rolled over, carries forward up to the policy line's
+        /// Max Carry Forward into the next year's balance and records the rest as a Lapse. Both are written as
+        /// Leave Adjustments, so the balance plugins do the arithmetic and there's an audit trail.
+        /// Returns the number of balances rolled over.
+        /// </summary>
+        public int RunYearEndRollover(Guid? employeeId, string fromYear)
+        {
+            var toYear = LeaveRules.NextLeaveYear(fromYear);
+            var defaultPolicy = GetDefaultPolicy();
+            var lines = new Dictionary<(Guid Policy, Guid LeaveType), Entity>();
+            var employees = new Dictionary<Guid, EmployeeInfo>();
+            var rolled = 0;
+
+            var query = new QueryExpression(LeaveBalance.EntityName) { ColumnSet = new ColumnSet(true) };
+            query.Criteria.AddCondition(LeaveBalance.LeaveYear, ConditionOperator.Equal, fromYear);
+            // Balances created before the Rolled Over column existed hold null, so match null as well as No.
+            var notRolled = new FilterExpression(LogicalOperator.Or);
+            notRolled.AddCondition(LeaveBalance.RolledOver, ConditionOperator.Equal, false);
+            notRolled.AddCondition(LeaveBalance.RolledOver, ConditionOperator.Null);
+            query.Criteria.AddFilter(notRolled);
+            query.Criteria.AddCondition("statecode", ConditionOperator.Equal, 0);
+            if (employeeId.HasValue) query.Criteria.AddCondition(LeaveBalance.Employee, ConditionOperator.Equal, employeeId.Value);
+
+            foreach (var balance in RetrieveAll(query).ToList())
+            {
+                var id = balance.GetAttributeValue<EntityReference>(LeaveBalance.Employee).Id;
+                if (!employees.TryGetValue(id, out var employee))
+                {
+                    employee = employees[id] = GetEmployee(id);
+                    if (employee.IsActive) InitializeBalances(id, toYear); // next year's opening balances
+                }
+
+                var leaveTypeId = balance.GetAttributeValue<EntityReference>(LeaveBalance.LeaveType).Id;
+                var policy = employee.LeavePolicy ?? defaultPolicy;
+                Entity line = null;
+                if (policy != null)
+                {
+                    var key = (policy.Id, leaveTypeId);
+                    if (!lines.TryGetValue(key, out line)) line = lines[key] = GetPolicyLine(policy.Id, leaveTypeId);
+                }
+
+                var maxCarry = employee.IsActive ? line?.GetAttributeValue<decimal?>(LeavePolicyLine.MaxCarryForward) ?? 0m : 0m;
+                var (carry, lapse) = LeaveRules.YearEndSplit(balance.GetAttributeValue<decimal?>(LeaveBalance.Available).GetValueOrDefault(), maxCarry);
+
+                if (carry > 0m)
+                {
+                    CreateAdjustment(employee, leaveTypeId, toYear, AdjustmentType.CarryForward, carry, $"Carried forward from {fromYear}.");
+                }
+                if (lapse > 0m)
+                {
+                    CreateAdjustment(employee, leaveTypeId, fromYear, AdjustmentType.Lapse, lapse, $"Lapsed at the end of {fromYear}.");
+                }
+                _svc.Update(new Entity(LeaveBalance.EntityName, balance.Id) { [LeaveBalance.RolledOver] = true });
+                rolled++;
+            }
+            return rolled;
+        }
+
+        private void CreateAdjustment(EmployeeInfo employee, Guid leaveTypeId, string leaveYear, AdjustmentType type, decimal days, string reason)
+        {
+            var adjustment = new Entity(LeaveAdjustment.EntityName)
+            {
+                [LeaveAdjustment.Employee] = new EntityReference(Employee.EntityName, employee.Id),
+                [LeaveAdjustment.LeaveType] = new EntityReference(LeaveType.EntityName, leaveTypeId),
+                [LeaveAdjustment.LeaveYear] = leaveYear,
+                [LeaveAdjustment.Type] = new OptionSetValue((int)type),
+                [LeaveAdjustment.Days] = days,
+                [LeaveAdjustment.Reason] = reason,
+            };
+            if (employee.Owner != null) adjustment["ownerid"] = employee.Owner;
+            _svc.Create(adjustment);
+        }
+
         public string CurrentLeaveYear() => LeaveRules.LeaveYear(DateTime.UtcNow.AddHours(5.5), LeaveYearStartMonth); // IST
 
         public DateTime LeaveYearStart(string leaveYear) =>

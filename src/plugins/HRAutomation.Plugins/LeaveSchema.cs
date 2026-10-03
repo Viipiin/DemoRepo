@@ -45,6 +45,7 @@ namespace HRAutomation.Plugins
         public const string AccrualFrequency = "hra_accrualfrequency";
         public const string MaxBalance = "hra_maxbalance";
         public const string AvailableDuringProbation = "hra_availableduringprobation";
+        public const string MaxCarryForward = "hra_maxcarryforward";
         public const string ProrateOnJoining = "hra_prorateonjoining";
     }
 
@@ -64,6 +65,7 @@ namespace HRAutomation.Plugins
         public const string PendingApproval = "hra_pendingapproval";
         public const string Available = "hra_available";
         public const string LastAccrualPeriod = "hra_lastaccrualperiod";
+        public const string RolledOver = "hra_rolledover";
 
         public static readonly string[] Components = { Opening, Accrued, Taken, Adjusted, CarriedForward, Encashed, PendingApproval };
     }
@@ -76,6 +78,7 @@ namespace HRAutomation.Plugins
         public const string LeaveYear = "hra_leaveyear";
         public const string Type = "hra_type";
         public const string Days = "hra_days";
+        public const string Reason = "hra_reason";
     }
 
     public static class Holiday

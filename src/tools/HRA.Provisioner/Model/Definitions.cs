@@ -235,13 +235,20 @@ public sealed class FieldSecurityProfileDef
 
 public sealed class EnvironmentVariableDef
 {
-    public EnvironmentVariableDef(string schemaName, string label, string defaultValue, string description)
+    public EnvironmentVariableDef(string schemaName, string label, string defaultValue, string description, string type = "Number")
     {
         SchemaName = schemaName;
         Label = label;
         DefaultValue = defaultValue;
         Description = description;
+        Type = type ?? "Number";
     }
+
+    /// <summary>Number, String or Boolean.</summary>
+    public string Type { get; }
+
+    /// <summary>How cloud flows refer to this variable: @parameters('Label (schema)').</summary>
+    public string FlowParameterName => $"{Label} ({SchemaName})";
 
     public string SchemaName { get; }
     public string Label { get; }
@@ -290,3 +297,18 @@ public sealed record CustomApiDef(
     IReadOnlyList<CustomApiFieldDef> Responses);
 
 public sealed record CustomApiFieldDef(string Name, string Type, bool Optional, string Description);
+
+/// <summary>A connection reference (which connector a flow uses), from model/connection-references.json.</summary>
+public sealed record ConnectionReferenceDef(string Name, string Label, string Connector, string Description)
+{
+    public string ConnectorId => $"/providers/Microsoft.PowerApps/apis/{Connector}";
+}
+
+/// <summary>A cloud flow, from model/flows/*.json. Definition is the Power Automate (Logic Apps) definition JSON.</summary>
+public sealed record FlowDef(
+    string File,
+    string Name,
+    string Description,
+    IReadOnlyDictionary<string, string> ConnectionReferences,
+    IReadOnlyList<string> EnvironmentVariables,
+    string DefinitionJson);

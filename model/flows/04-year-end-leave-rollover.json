@@ -1,0 +1,74 @@
+{
+  "name": "HRA - Year-End Leave Rollover",
+  "description": "On 1 April at 01:00 IST, closes the previous leave year for each active employee: carry forward up to the policy limit, lapse the rest, open the new year's balances (Custom API hra_RunYearEndRollover).",
+  "connectionReferences": {
+    "shared_commondataserviceforapps": "hra_Dataverse"
+  },
+  "environmentVariables": [],
+  "definition": {
+    "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+    "contentVersion": "1.0.0.0",
+    "triggers": {
+      "Every_1_April": {
+        "type": "Recurrence",
+        "recurrence": {
+          "frequency": "Month",
+          "interval": 12,
+          "startTime": "2027-04-01T01:00:00",
+          "timeZone": "India Standard Time"
+        }
+      }
+    },
+    "actions": {
+      "List_active_employees": {
+        "type": "OpenApiConnection",
+        "inputs": {
+          "host": {
+            "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+            "connectionName": "shared_commondataserviceforapps",
+            "operationId": "ListRecords"
+          },
+          "parameters": {
+            "entityName": "hra_employees",
+            "$select": "hra_employeeid,hra_fullname",
+            "$filter": "statecode eq 0"
+          },
+          "authentication": "@parameters('$authentication')"
+        },
+        "runAfter": {}
+      },
+      "For_each_employee": {
+        "type": "Foreach",
+        "foreach": "@outputs('List_active_employees')?['body/value']",
+        "actions": {
+          "Roll_over_the_employee": {
+            "type": "OpenApiConnection",
+            "inputs": {
+              "host": {
+                "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                "connectionName": "shared_commondataserviceforapps",
+                "operationId": "PerformUnboundAction"
+              },
+              "parameters": {
+                "actionName": "hra_RunYearEndRollover",
+                "item/EmployeeId": "@items('For_each_employee')?['hra_employeeid']"
+              },
+              "authentication": "@parameters('$authentication')"
+            },
+            "runAfter": {}
+          }
+        },
+        "runAfter": {
+          "List_active_employees": [
+            "Succeeded"
+          ]
+        },
+        "runtimeConfiguration": {
+          "concurrency": {
+            "repetitions": 1
+          }
+        }
+      }
+    }
+  }
+}

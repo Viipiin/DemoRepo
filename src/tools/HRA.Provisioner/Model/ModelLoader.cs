@@ -52,7 +52,7 @@ public static class ModelLoader
         var roles = security.Roles.Select(r => ToRole(r, errors)).ToList();
         var profiles = security.ColumnSecurityProfiles.Select(p => ToProfile(p, errors)).ToList();
         var environmentVariables = variables.EnvironmentVariables
-            .Select(v => new EnvironmentVariableDef(v.Name, v.Label, v.Default, v.Description)).ToList();
+            .Select(v => new EnvironmentVariableDef(v.Name, v.Label, v.Default, v.Description, v.Type)).ToList();
 
         var ownerTeams = security.OwnerTeams.Select(t => new OwnerTeamDef(t.Name, t.Roles ?? Array.Empty<string>())).ToList();
 
@@ -77,12 +77,38 @@ public static class ModelLoader
             (a.Parameters ?? new()).Select(p => new CustomApiFieldDef(p.Name, p.Type, p.Optional, p.Description)).ToList(),
             (a.Responses ?? new()).Select(p => new CustomApiFieldDef(p.Name, p.Type, false, p.Description)).ToList())).ToList();
 
-        var model = new HrModel(choices, tables, ownerTeams, roles, profiles, environmentVariables, plugins.Assembly, steps, sampleGroups, customApis);
+        var referencesPath = Path.Combine(modelFolder, "connection-references.json");
+        var references = (File.Exists(referencesPath) ? Read<ConnectionReferencesFile>(referencesPath, errors) : null) ?? new ConnectionReferencesFile();
+        var connectionReferences = references.ConnectionReferences
+            .Select(r => new ConnectionReferenceDef(r.Name, r.Label, r.Connector, r.Description)).ToList();
+
+        var flows = new List<FlowDef>();
+        var flowFolder = Path.Combine(modelFolder, "flows");
+        if (Directory.Exists(flowFolder))
+        {
+            foreach (var file in Directory.GetFiles(flowFolder, "*.json").OrderBy(f => Path.GetFileName(f), StringComparer.Ordinal))
+            {
+                var flow = Read<FlowJson>(file, errors);
+                if (flow == null) continue;
+                if (flow.Definition.ValueKind != JsonValueKind.Object)
+                {
+                    errors.Add($"{Path.GetFileName(file)}: \"definition\" is missing.");
+                    continue;
+                }
+                flows.Add(new FlowDef(Path.GetFileName(file), flow.Name, flow.Description,
+                    flow.ConnectionReferences ?? new(), flow.EnvironmentVariables ?? new(), flow.Definition.GetRawText()));
+            }
+        }
+
+        var model = new HrModel(choices, tables, ownerTeams, roles, profiles, environmentVariables, plugins.Assembly, steps, sampleGroups,
+            customApis, connectionReferences, flows);
         Validate(model, errors);
         ValidatePluginSteps(model, errors);
         ValidateCustomApis(model, errors);
+        ValidateFlows(model, errors);
         SampleDataValidator.Validate(model, errors);
 
+        errors = errors.Distinct().ToList();
         if (errors.Count > 0)
         {
             throw new InvalidOperationException(
@@ -459,6 +485,68 @@ public static class ModelLoader
         }
     }
 
+    private static void ValidateFlows(HrModel model, List<string> errors)
+    {
+        foreach (var variable in model.EnvironmentVariables.Where(v => v.Type is not ("Number" or "String" or "Boolean")))
+        {
+            errors.Add($"environment-variables.json: {variable.SchemaName}: type must be Number, String or Boolean.");
+        }
+        foreach (var reference in model.ConnectionReferences)
+        {
+            if (string.IsNullOrWhiteSpace(reference.Name) || !reference.Name.StartsWith(Conventions.Prefix + "_"))
+            {
+                errors.Add($"connection-references.json: {reference.Name}: name must start with {Conventions.Prefix}_.");
+            }
+            if (string.IsNullOrWhiteSpace(reference.Connector) || !reference.Connector.StartsWith("shared_"))
+            {
+                errors.Add($"connection-references.json: {reference.Name}: connector must be like shared_commondataserviceforapps.");
+            }
+        }
+
+        foreach (var flow in model.Flows)
+        {
+            var where = $"flows/{flow.File}";
+            if (string.IsNullOrWhiteSpace(flow.Name)) errors.Add($"{where}: \"name\" is missing.");
+            foreach (var (connector, reference) in flow.ConnectionReferences)
+            {
+                var def = model.ConnectionReferences.FirstOrDefault(r => r.Name == reference);
+                if (def == null) errors.Add($"{where}: connection reference {reference} is not in connection-references.json.");
+                else if (def.Connector != connector) errors.Add($"{where}: {reference} is a {def.Connector} reference, not {connector}.");
+            }
+
+            var definition = JsonDocument.Parse(flow.DefinitionJson).RootElement;
+            if (!definition.TryGetProperty("triggers", out var triggers) || triggers.EnumerateObject().Count() != 1)
+            {
+                errors.Add($"{where}: the definition needs exactly one trigger.");
+            }
+            if (!definition.TryGetProperty("actions", out _)) errors.Add($"{where}: the definition has no actions.");
+
+            // Every connection used by an action or trigger must be mapped to a connection reference.
+            foreach (System.Text.RegularExpressions.Match match in System.Text.RegularExpressions.Regex.Matches(flow.DefinitionJson, "\"connectionName\"\\s*:\\s*\"([^\"]+)\""))
+            {
+                if (!flow.ConnectionReferences.ContainsKey(match.Groups[1].Value))
+                {
+                    errors.Add($"{where}: connection {match.Groups[1].Value} is used but not listed in \"connectionReferences\".");
+                }
+            }
+
+            // @parameters('Label (schema)') must name an environment variable listed by the flow.
+            foreach (System.Text.RegularExpressions.Match match in System.Text.RegularExpressions.Regex.Matches(flow.DefinitionJson, "parameters\\('([^']+) \\(([a-z]+_[A-Za-z0-9]+)\\)'\\)"))
+            {
+                var label = match.Groups[1].Value;
+                var schema = match.Groups[2].Value;
+                var variable = model.EnvironmentVariables.FirstOrDefault(v => v.SchemaName == schema);
+                if (variable == null) errors.Add($"{where}: environment variable {schema} is not in environment-variables.json.");
+                else if (variable.Label != label) errors.Add($"{where}: use parameters('{variable.FlowParameterName}') for {schema}.");
+                else if (!flow.EnvironmentVariables.Contains(schema)) errors.Add($"{where}: add {schema} to \"environmentVariables\".");
+            }
+        }
+        foreach (var duplicate in model.Flows.GroupBy(f => f.Name).Where(g => g.Count() > 1))
+        {
+            errors.Add($"flows: the name \"{duplicate.Key}\" is used by more than one file.");
+        }
+    }
+
     private static T Invalid<T>(List<string> errors, string message, T fallback)
     {
         errors.Add(message);
@@ -581,6 +669,18 @@ public static class ModelLoader
         public string Type { get; set; }
         public bool Optional { get; set; }
         public string Description { get; set; }
+    }
+
+    private sealed class ConnectionReferencesFile { public List<ConnectionReferenceJson> ConnectionReferences { get; set; } = new(); }
+    private sealed class ConnectionReferenceJson { public string Name { get; set; } public string Label { get; set; } public string Connector { get; set; } public string Description { get; set; } }
+
+    private sealed class FlowJson
+    {
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public Dictionary<string, string> ConnectionReferences { get; set; }
+        public List<string> EnvironmentVariables { get; set; }
+        public JsonElement Definition { get; set; }
     }
 
     private sealed class EnvironmentVariablesFile { public List<VariableJson> EnvironmentVariables { get; set; } = new(); }

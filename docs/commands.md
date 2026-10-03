@@ -16,8 +16,10 @@ Run these from the repo folder in the VS Code terminal (PowerShell).
 | Phase 2 in one go | `./scripts/run-phase2.ps1` |
 | Create missing leave balances | `./scripts/hra.ps1 init-balances` (add `--param LeaveYear=2026-27` for a specific year) |
 | Run leave accrual for a month | `./scripts/hra.ps1 run-api hra_RunLeaveAccrual --param Period=2026-11` |
+| Year-end rollover (close a leave year) | `./scripts/hra.ps1 rollover --param FromLeaveYear=2026-27` |
+| Phase 2b in one go | `./scripts/run-phase2b.ps1` |
 | Export the solution to Git | `./scripts/export-solution.ps1` |
 | Show detailed errors | `$env:HRA_VERBOSE = "1"` before running a command |
 | Sign in as a different account | Delete the `.hra-token-cache` folder |
 
-Phase runbooks: [Phase 1](phase-1-runbook.md), [Phase 2](phase-2-runbook.md). How to edit the model: [model/README.md](../model/README.md)
+Phase runbooks: [Phase 1](phase-1-runbook.md), [Phase 2](phase-2-runbook.md), [Phase 2b](phase-2b-runbook.md). How to edit the model: [model/README.md](../model/README.md)
