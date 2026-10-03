@@ -2,6 +2,7 @@
 # Safe to re-run. A browser window opens for sign-in the first time.
 $ErrorActionPreference = 'Stop'
 
+& "$PSScriptRoot/hra.ps1" validate
 & "$PSScriptRoot/build-plugins.ps1"
 & "$PSScriptRoot/hra.ps1" check
 & "$PSScriptRoot/hra.ps1" provision

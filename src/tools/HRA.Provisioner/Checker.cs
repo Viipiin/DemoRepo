@@ -7,8 +7,13 @@ namespace HRA.Provisioner;
 public sealed class Checker
 {
     private readonly IOrganizationService _service;
+    private readonly HrModel _model;
 
-    public Checker(IOrganizationService service) => _service = service;
+    public Checker(IOrganizationService service, HrModel model)
+    {
+        _service = service;
+        _model = model;
+    }
 
     public void Run()
     {
@@ -34,9 +39,9 @@ public sealed class Checker
             }
         }
 
-        var existing = Phase1.Tables.Count(t => _service.TryExecute(
+        var existing = _model.Tables.Count(t => _service.TryExecute(
             new Microsoft.Xrm.Sdk.Messages.RetrieveEntityRequest { LogicalName = t.LogicalName, EntityFilters = Microsoft.Xrm.Sdk.Metadata.EntityFilters.Entity }, out _));
-        Log.Info($"Phase 1 tables present: {existing} of {Phase1.Tables.Length}");
+        Log.Info($"Model tables present in Dataverse: {existing} of {_model.Tables.Count}");
     }
 
     public static void EnsureSolution(IOrganizationService service)

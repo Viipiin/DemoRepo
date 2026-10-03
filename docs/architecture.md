@@ -41,7 +41,7 @@ The questions in section 9 were answered "go with defaults and simplest setup po
 |---|---|---|
 | S1 | **One app, "HR Hub", for everyone.** Areas a user has no access to are hidden automatically by their security role | The separate Manager Self-Service app (section 5.2) |
 | S2 | **No pipeline or Test environment until go-live.** One PowerShell script (`scripts/build-and-import.ps1`) builds and imports to Dev. Source is saved to Git with `pac solution export` + `unpack`. Phase 7 adds the pipeline | GitHub Actions in Phases 1–6 (section 6.2) |
-| S3 | **Tables are created by a small provisioning tool** (`src/tools/HRA.Provisioner`, .NET 8 console app) that you run with one command. It creates choices, tables, columns, relationships, keys and roles directly in `HRAutomation`, skips anything that already exists, and is safe to re-run | Hand-editing solution XML, which is error-prone |
+| S3 | **Tables are created by a small provisioning tool** (`src/tools/HRA.Provisioner`, .NET 8 console app) that you run with one command. **What it creates is defined in JSON files in `model/`** (choices, tables, columns, keys, forms, views, roles, column security, environment variables; see `model/README.md`). It creates everything directly in `HRAutomation`, skips anything that already exists, and is safe to re-run | Hand-editing solution XML, which is error-prone |
 | S4 | **Reporting uses model-driven dashboards first.** Power BI, Power Pages and Copilot Studio are optional later phases | Power BI in Phase 5 as a must-have |
 | S5 | **Nice-to-have flows are deferred** until after go-live: F-13 (attendance rows from leave), F-14 (daily digest), F-23 (interview invitations), F-27 (document expiry), F-41 (appraisal reminders) | Building all flows in v1 |
 

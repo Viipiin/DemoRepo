@@ -1,0 +1,93 @@
+{
+  "phase": 1,
+  "name": "hra_Department",
+  "label": "Department",
+  "pluralLabel": "Departments",
+  "description": "Company departments.",
+  "ownership": "Organization",
+  "primaryName": {
+    "name": "hra_Name",
+    "label": "Name",
+    "type": "Text",
+    "required": "Required",
+    "maxLength": 100
+  },
+  "columns": [
+    {
+      "name": "hra_Code",
+      "label": "Code",
+      "type": "Text",
+      "required": "Required",
+      "maxLength": 20
+    },
+    {
+      "name": "hra_ParentDepartment",
+      "label": "Parent Department",
+      "type": "Lookup",
+      "target": "hra_department",
+      "onDelete": "RemoveLink"
+    },
+    {
+      "name": "hra_DepartmentHead",
+      "label": "Department Head",
+      "type": "Lookup",
+      "required": "Recommended",
+      "target": "hra_employee",
+      "onDelete": "RemoveLink"
+    },
+    {
+      "name": "hra_CostCentre",
+      "label": "Cost Centre",
+      "type": "Text",
+      "maxLength": 20
+    },
+    {
+      "name": "hra_OwnerTeam",
+      "label": "Owner Team",
+      "type": "Lookup",
+      "target": "team",
+      "onDelete": "RemoveLink"
+    }
+  ],
+  "keys": [
+    {
+      "name": "hra_key_department_code",
+      "label": "Department Code",
+      "columns": [
+        "hra_code"
+      ]
+    }
+  ],
+  "form": [
+    {
+      "tab": "general",
+      "label": "General",
+      "left": [
+        "hra_name",
+        "hra_code",
+        "hra_parentdepartment"
+      ],
+      "right": [
+        "hra_departmenthead",
+        "hra_costcentre",
+        "hra_ownerteam"
+      ]
+    }
+  ],
+  "views": [
+    {
+      "default": true,
+      "columns": [
+        "hra_name",
+        "hra_code",
+        "hra_departmenthead",
+        "hra_parentdepartment",
+        "hra_costcentre"
+      ],
+      "sort": "hra_name"
+    }
+  ],
+  "quickFind": [
+    "hra_code"
+  ]
+}

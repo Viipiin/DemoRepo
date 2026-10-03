@@ -1,0 +1,77 @@
+{
+  "phase": 1,
+  "name": "hra_Location",
+  "label": "Location",
+  "pluralLabel": "Locations",
+  "description": "Office locations. The state decides the holiday calendar; the weekly off pattern decides working days.",
+  "ownership": "Organization",
+  "primaryName": {
+    "name": "hra_Name",
+    "label": "Name",
+    "type": "Text",
+    "required": "Required",
+    "maxLength": 100
+  },
+  "columns": [
+    {
+      "name": "hra_City",
+      "label": "City",
+      "type": "Text",
+      "required": "Required",
+      "maxLength": 50
+    },
+    {
+      "name": "hra_State",
+      "label": "State",
+      "type": "GlobalChoice",
+      "required": "Required",
+      "choice": "hra_indianstate"
+    },
+    {
+      "name": "hra_Address",
+      "label": "Address",
+      "type": "Memo",
+      "maxLength": 500
+    },
+    {
+      "name": "hra_WeeklyOffPattern",
+      "label": "Weekly Off Pattern",
+      "type": "Choice",
+      "required": "Required",
+      "options": [
+        "Saturday and Sunday",
+        "Sunday only",
+        "Sunday + 2nd and 4th Saturday",
+        "Sunday + alternate Saturdays"
+      ],
+      "default": "Saturday and Sunday"
+    }
+  ],
+  "form": [
+    {
+      "tab": "general",
+      "label": "General",
+      "left": [
+        "hra_name",
+        "hra_city",
+        "hra_state"
+      ],
+      "right": [
+        "hra_weeklyoffpattern",
+        "hra_address"
+      ]
+    }
+  ],
+  "views": [
+    {
+      "default": true,
+      "columns": [
+        "hra_name",
+        "hra_city",
+        "hra_state",
+        "hra_weeklyoffpattern"
+      ],
+      "sort": "hra_name"
+    }
+  ]
+}

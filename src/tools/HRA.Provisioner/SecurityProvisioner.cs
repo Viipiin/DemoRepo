@@ -15,8 +15,13 @@ public sealed class SecurityProvisioner
     private const int Allowed = 4;
 
     private readonly IOrganizationService _service;
+    private readonly HrModel _model;
 
-    public SecurityProvisioner(IOrganizationService service) => _service = service;
+    public SecurityProvisioner(IOrganizationService service, HrModel model)
+    {
+        _service = service;
+        _model = model;
+    }
 
     public void Run()
     {
@@ -24,14 +29,14 @@ public sealed class SecurityProvisioner
         var me = ((WhoAmIResponse)_service.Execute(new WhoAmIRequest())).UserId;
 
         Log.Step("Owner teams");
-        var teams = Conventions.OwnerTeams.ToDictionary(name => name, name => EnsureTeam(name, rootBusinessUnit, me));
+        var teams = _model.OwnerTeams.ToDictionary(name => name, name => EnsureTeam(name, rootBusinessUnit, me));
         AddMember(teams["HR"], me, "HR");
 
         Log.Step("Security roles");
-        foreach (var role in Phase1.Roles()) EnsureRole(role, rootBusinessUnit);
+        foreach (var role in _model.Roles) EnsureRole(role, rootBusinessUnit);
 
         Log.Step("Column security profiles");
-        foreach (var profile in Phase1.FieldSecurityProfiles()) EnsureFieldSecurityProfile(profile, teams[profile.TeamName]);
+        foreach (var profile in _model.FieldSecurityProfiles) EnsureFieldSecurityProfile(profile, teams[profile.TeamName]);
     }
 
     private Guid EnsureTeam(string name, Guid businessUnit, Guid administrator)

@@ -20,13 +20,18 @@ public sealed class FormAndViewProvisioner
     private const int QuickFindViewType = 4;
 
     private readonly IOrganizationService _service;
+    private readonly HrModel _model;
 
-    public FormAndViewProvisioner(IOrganizationService service) => _service = service;
+    public FormAndViewProvisioner(IOrganizationService service, HrModel model)
+    {
+        _service = service;
+        _model = model;
+    }
 
     public void Run()
     {
         Log.Step("Forms and views");
-        foreach (var table in Phase1.Tables)
+        foreach (var table in _model.Tables)
         {
             var metadata = ((RetrieveEntityResponse)_service.Execute(new RetrieveEntityRequest
             {

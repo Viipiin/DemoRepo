@@ -13,24 +13,30 @@ public sealed class MetadataProvisioner
     private readonly IOrganizationService _service;
     private const string Solution = Conventions.SolutionUniqueName;
 
-    public MetadataProvisioner(IOrganizationService service) => _service = service;
+    private readonly HrModel _model;
+
+    public MetadataProvisioner(IOrganizationService service, HrModel model)
+    {
+        _service = service;
+        _model = model;
+    }
 
     public void Run()
     {
         Checker.EnsureSolution(_service);
-        CreateGlobalChoices(Phase1.GlobalChoices);
+        CreateGlobalChoices(_model.Choices);
 
         Log.Step("Tables");
-        foreach (var table in Phase1.Tables) EnsureTable(table);
+        foreach (var table in _model.Tables) EnsureTable(table);
 
         Log.Step("Columns");
-        foreach (var table in Phase1.Tables) EnsureColumns(table, lookups: false);
+        foreach (var table in _model.Tables) EnsureColumns(table, lookups: false);
 
         Log.Step("Relationships (lookups)");
-        foreach (var table in Phase1.Tables) EnsureColumns(table, lookups: true);
+        foreach (var table in _model.Tables) EnsureColumns(table, lookups: true);
 
         Log.Step("Alternate keys");
-        foreach (var table in Phase1.Tables) EnsureKeys(table);
+        foreach (var table in _model.Tables) EnsureKeys(table);
     }
 
     public void PublishAll()
@@ -129,6 +135,7 @@ public sealed class MetadataProvisioner
         {
             if (existing.Contains(column.LogicalName))
             {
+                if (column.Type == ColumnType.Choice) AddMissingOptions(table, column, entity);
                 Log.Skip($"{table.LogicalName}.{column.LogicalName} exists");
                 continue;
             }
@@ -147,6 +154,27 @@ public sealed class MetadataProvisioner
                 });
             }
             Log.Ok($"{table.LogicalName}.{column.LogicalName} created");
+        }
+    }
+
+    /// <summary>Options appended to a local choice in the JSON are added to the existing column.</summary>
+    private void AddMissingOptions(TableDef table, ColumnDef column, EntityMetadata entity)
+    {
+        var attribute = entity.Attributes.OfType<PicklistAttributeMetadata>().FirstOrDefault(a => a.LogicalName == column.LogicalName);
+        if (attribute?.OptionSet == null || attribute.OptionSet.IsGlobal == true) return;
+        var values = attribute.OptionSet.Options.Select(o => o.Value).ToHashSet();
+        for (var i = 0; i < column.Options.Length; i++)
+        {
+            if (values.Contains(ChoiceDef.ValueOf(i))) continue;
+            _service.Execute(new InsertOptionValueRequest
+            {
+                EntityLogicalName = table.LogicalName,
+                AttributeLogicalName = column.LogicalName,
+                Value = ChoiceDef.ValueOf(i),
+                Label = Label(column.Options[i]),
+                SolutionUniqueName = Solution,
+            });
+            Log.Ok($"{table.LogicalName}.{column.LogicalName}: added option '{column.Options[i]}'");
         }
     }
 

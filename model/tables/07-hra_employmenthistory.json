@@ -1,0 +1,161 @@
+{
+  "phase": 1,
+  "name": "hra_EmploymentHistory",
+  "label": "Employment History",
+  "pluralLabel": "Employment History",
+  "description": "Audit trail of job changes. Written by the EmployeePostOperation plugin.",
+  "ownership": "User",
+  "audited": true,
+  "primaryName": {
+    "name": "hra_Name",
+    "label": "Reference",
+    "type": "Text",
+    "maxLength": 20,
+    "autoNumber": "EH-{SEQNUM:6}"
+  },
+  "columns": [
+    {
+      "name": "hra_Employee",
+      "label": "Employee",
+      "type": "Lookup",
+      "required": "Required",
+      "target": "hra_employee",
+      "onDelete": "Restrict"
+    },
+    {
+      "name": "hra_ChangeType",
+      "label": "Change Type",
+      "type": "Choice",
+      "_note": "Option order must match ChangeType in src/plugins/HRAutomation.Plugins/Schema.cs. Only add new options at the end.",
+      "required": "Required",
+      "options": [
+        "Joining",
+        "Confirmation",
+        "Promotion",
+        "Transfer",
+        "Manager Change",
+        "Salary Revision",
+        "Separation"
+      ]
+    },
+    {
+      "name": "hra_EffectiveDate",
+      "label": "Effective Date",
+      "type": "DateOnly",
+      "required": "Required"
+    },
+    {
+      "name": "hra_FromDepartment",
+      "label": "From Department",
+      "type": "Lookup",
+      "target": "hra_department",
+      "onDelete": "RemoveLink"
+    },
+    {
+      "name": "hra_ToDepartment",
+      "label": "To Department",
+      "type": "Lookup",
+      "target": "hra_department",
+      "onDelete": "RemoveLink"
+    },
+    {
+      "name": "hra_FromDesignation",
+      "label": "From Designation",
+      "type": "Lookup",
+      "target": "hra_designation",
+      "onDelete": "RemoveLink"
+    },
+    {
+      "name": "hra_ToDesignation",
+      "label": "To Designation",
+      "type": "Lookup",
+      "target": "hra_designation",
+      "onDelete": "RemoveLink"
+    },
+    {
+      "name": "hra_FromLocation",
+      "label": "From Location",
+      "type": "Lookup",
+      "target": "hra_location",
+      "onDelete": "RemoveLink"
+    },
+    {
+      "name": "hra_ToLocation",
+      "label": "To Location",
+      "type": "Lookup",
+      "target": "hra_location",
+      "onDelete": "RemoveLink"
+    },
+    {
+      "name": "hra_FromManager",
+      "label": "From Manager",
+      "type": "Lookup",
+      "target": "hra_employee",
+      "onDelete": "RemoveLink"
+    },
+    {
+      "name": "hra_ToManager",
+      "label": "To Manager",
+      "type": "Lookup",
+      "target": "hra_employee",
+      "onDelete": "RemoveLink"
+    },
+    {
+      "name": "hra_FromCTC",
+      "label": "From CTC",
+      "type": "Currency",
+      "secured": true
+    },
+    {
+      "name": "hra_ToCTC",
+      "label": "To CTC",
+      "type": "Currency",
+      "secured": true
+    },
+    {
+      "name": "hra_Remarks",
+      "label": "Remarks",
+      "type": "Memo",
+      "maxLength": 2000
+    }
+  ],
+  "form": [
+    {
+      "tab": "general",
+      "label": "General",
+      "left": [
+        "hra_name",
+        "hra_employee",
+        "hra_changetype",
+        "hra_effectivedate",
+        "hra_remarks"
+      ],
+      "right": [
+        "hra_fromdepartment",
+        "hra_todepartment",
+        "hra_fromdesignation",
+        "hra_todesignation",
+        "hra_fromlocation",
+        "hra_tolocation",
+        "hra_frommanager",
+        "hra_tomanager",
+        "hra_fromctc",
+        "hra_toctc"
+      ]
+    }
+  ],
+  "views": [
+    {
+      "default": true,
+      "columns": [
+        "hra_employee",
+        "hra_changetype",
+        "hra_effectivedate",
+        "hra_todesignation",
+        "hra_todepartment",
+        "hra_tomanager"
+      ],
+      "sort": "hra_effectivedate"
+    }
+  ]
+}

@@ -1,0 +1,136 @@
+{
+  "phase": 1,
+  "name": "hra_HRCase",
+  "label": "HR Case",
+  "pluralLabel": "HR Cases",
+  "description": "HR helpdesk tickets raised by employees.",
+  "ownership": "User",
+  "hasNotes": true,
+  "primaryName": {
+    "name": "hra_Subject",
+    "label": "Subject",
+    "type": "Text",
+    "required": "Required",
+    "maxLength": 200
+  },
+  "columns": [
+    {
+      "name": "hra_CaseNumber",
+      "label": "Case Number",
+      "type": "Text",
+      "maxLength": 20,
+      "autoNumber": "HRC-{SEQNUM:5}"
+    },
+    {
+      "name": "hra_Employee",
+      "label": "Employee",
+      "type": "Lookup",
+      "required": "Required",
+      "target": "hra_employee",
+      "onDelete": "Restrict"
+    },
+    {
+      "name": "hra_Category",
+      "label": "Category",
+      "type": "Choice",
+      "required": "Required",
+      "options": [
+        "Payroll",
+        "Leave",
+        "Policy",
+        "Documents",
+        "IT Access",
+        "Other"
+      ]
+    },
+    {
+      "name": "hra_Description",
+      "label": "Description",
+      "type": "Memo",
+      "required": "Required",
+      "maxLength": 4000
+    },
+    {
+      "name": "hra_Priority",
+      "label": "Priority",
+      "type": "Choice",
+      "required": "Required",
+      "options": [
+        "Low",
+        "Normal",
+        "High"
+      ],
+      "default": "Normal"
+    },
+    {
+      "name": "hra_CaseStatus",
+      "label": "Case Status",
+      "type": "Choice",
+      "required": "Required",
+      "options": [
+        "New",
+        "In Progress",
+        "Waiting on Employee",
+        "Resolved",
+        "Closed"
+      ],
+      "default": "New"
+    },
+    {
+      "name": "hra_AssignedTo",
+      "label": "Assigned To",
+      "type": "Lookup",
+      "target": "systemuser",
+      "onDelete": "RemoveLink"
+    },
+    {
+      "name": "hra_Source",
+      "label": "Source",
+      "type": "Choice",
+      "options": [
+        "App",
+        "Portal",
+        "Teams Agent",
+        "Email"
+      ],
+      "default": "App"
+    }
+  ],
+  "form": [
+    {
+      "tab": "general",
+      "label": "General",
+      "left": [
+        "hra_casenumber",
+        "hra_employee",
+        "hra_subject",
+        "hra_category",
+        "hra_description"
+      ],
+      "right": [
+        "hra_priority",
+        "hra_casestatus",
+        "hra_assignedto",
+        "hra_source"
+      ]
+    }
+  ],
+  "views": [
+    {
+      "default": true,
+      "columns": [
+        "hra_casenumber",
+        "hra_subject",
+        "hra_employee",
+        "hra_category",
+        "hra_priority",
+        "hra_casestatus",
+        "hra_assignedto"
+      ],
+      "sort": "hra_casenumber"
+    }
+  ],
+  "quickFind": [
+    "hra_casenumber"
+  ]
+}

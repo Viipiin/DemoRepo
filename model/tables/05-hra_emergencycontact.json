@@ -1,0 +1,78 @@
+{
+  "phase": 1,
+  "name": "hra_EmergencyContact",
+  "label": "Emergency Contact",
+  "pluralLabel": "Emergency Contacts",
+  "description": "Emergency contacts for an employee.",
+  "ownership": "User",
+  "primaryName": {
+    "name": "hra_Name",
+    "label": "Name",
+    "type": "Text",
+    "required": "Required",
+    "maxLength": 100
+  },
+  "columns": [
+    {
+      "name": "hra_Employee",
+      "label": "Employee",
+      "type": "Lookup",
+      "required": "Required",
+      "target": "hra_employee",
+      "onDelete": "Restrict"
+    },
+    {
+      "name": "hra_Relationship",
+      "label": "Relationship",
+      "type": "Choice",
+      "required": "Required",
+      "options": [
+        "Spouse",
+        "Parent",
+        "Sibling",
+        "Child",
+        "Friend",
+        "Other"
+      ]
+    },
+    {
+      "name": "hra_Phone",
+      "label": "Phone",
+      "type": "Phone",
+      "required": "Required"
+    },
+    {
+      "name": "hra_IsPrimary",
+      "label": "Is Primary",
+      "type": "YesNo"
+    }
+  ],
+  "form": [
+    {
+      "tab": "general",
+      "label": "General",
+      "left": [
+        "hra_employee",
+        "hra_name",
+        "hra_relationship"
+      ],
+      "right": [
+        "hra_phone",
+        "hra_isprimary"
+      ]
+    }
+  ],
+  "views": [
+    {
+      "default": true,
+      "columns": [
+        "hra_name",
+        "hra_employee",
+        "hra_relationship",
+        "hra_phone",
+        "hra_isprimary"
+      ],
+      "sort": "hra_name"
+    }
+  ]
+}

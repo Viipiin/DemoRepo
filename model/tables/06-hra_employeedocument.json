@@ -1,0 +1,90 @@
+{
+  "phase": 1,
+  "name": "hra_EmployeeDocument",
+  "label": "Employee Document",
+  "pluralLabel": "Employee Documents",
+  "description": "Documents for an employee (stored in a Dataverse file column).",
+  "ownership": "User",
+  "primaryName": {
+    "name": "hra_Title",
+    "label": "Title",
+    "type": "Text",
+    "required": "Required",
+    "maxLength": 100
+  },
+  "columns": [
+    {
+      "name": "hra_Employee",
+      "label": "Employee",
+      "type": "Lookup",
+      "required": "Required",
+      "target": "hra_employee",
+      "onDelete": "Restrict"
+    },
+    {
+      "name": "hra_DocumentType",
+      "label": "Document Type",
+      "type": "GlobalChoice",
+      "required": "Required",
+      "choice": "hra_documenttype"
+    },
+    {
+      "name": "hra_File",
+      "label": "File",
+      "type": "File",
+      "maxSizeKb": 10240
+    },
+    {
+      "name": "hra_IssueDate",
+      "label": "Issue Date",
+      "type": "DateOnly"
+    },
+    {
+      "name": "hra_ExpiryDate",
+      "label": "Expiry Date",
+      "type": "DateOnly"
+    },
+    {
+      "name": "hra_Verified",
+      "label": "Verified",
+      "type": "YesNo"
+    },
+    {
+      "name": "hra_VerifiedBy",
+      "label": "Verified By",
+      "type": "Lookup",
+      "target": "systemuser",
+      "onDelete": "RemoveLink"
+    }
+  ],
+  "form": [
+    {
+      "tab": "general",
+      "label": "General",
+      "left": [
+        "hra_employee",
+        "hra_title",
+        "hra_documenttype"
+      ],
+      "right": [
+        "hra_issuedate",
+        "hra_expirydate",
+        "hra_verified",
+        "hra_verifiedby"
+      ]
+    }
+  ],
+  "views": [
+    {
+      "default": true,
+      "columns": [
+        "hra_title",
+        "hra_employee",
+        "hra_documenttype",
+        "hra_expirydate",
+        "hra_verified"
+      ],
+      "sort": "hra_title"
+    }
+  ]
+}

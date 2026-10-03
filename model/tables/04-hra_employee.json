@@ -1,0 +1,387 @@
+{
+  "phase": 1,
+  "name": "hra_Employee",
+  "label": "Employee",
+  "pluralLabel": "Employees",
+  "description": "Employee master record. Owned by the reporting manager's user (or the HR team).",
+  "ownership": "User",
+  "hasNotes": true,
+  "audited": true,
+  "primaryName": {
+    "name": "hra_FullName",
+    "label": "Full Name",
+    "type": "Text",
+    "description": "Built from first, middle and last name by the EmployeePreOperation plugin.",
+    "maxLength": 160,
+    "readOnly": true
+  },
+  "columns": [
+    {
+      "name": "hra_EmployeeNumber",
+      "label": "Employee Number",
+      "type": "Text",
+      "maxLength": 20,
+      "autoNumber": "EMP-{SEQNUM:4}"
+    },
+    {
+      "name": "hra_FirstName",
+      "label": "First Name",
+      "type": "Text",
+      "required": "Required",
+      "maxLength": 50
+    },
+    {
+      "name": "hra_MiddleName",
+      "label": "Middle Name",
+      "type": "Text",
+      "maxLength": 50
+    },
+    {
+      "name": "hra_LastName",
+      "label": "Last Name",
+      "type": "Text",
+      "required": "Required",
+      "maxLength": 50
+    },
+    {
+      "name": "hra_WorkEmail",
+      "label": "Work Email",
+      "type": "Email",
+      "required": "Required"
+    },
+    {
+      "name": "hra_PersonalEmail",
+      "label": "Personal Email",
+      "type": "Email",
+      "required": "Recommended"
+    },
+    {
+      "name": "hra_Mobile",
+      "label": "Mobile",
+      "type": "Phone",
+      "required": "Required"
+    },
+    {
+      "name": "hra_DateOfBirth",
+      "label": "Date of Birth",
+      "type": "DateOnly",
+      "required": "Required"
+    },
+    {
+      "name": "hra_Gender",
+      "label": "Gender",
+      "type": "GlobalChoice",
+      "required": "Required",
+      "choice": "hra_gender"
+    },
+    {
+      "name": "hra_DateOfJoining",
+      "label": "Date of Joining",
+      "type": "DateOnly",
+      "required": "Required"
+    },
+    {
+      "name": "hra_ProbationEndDate",
+      "label": "Probation End Date",
+      "type": "DateOnly",
+      "required": "Recommended"
+    },
+    {
+      "name": "hra_ConfirmationDate",
+      "label": "Confirmation Date",
+      "type": "DateOnly"
+    },
+    {
+      "name": "hra_EmploymentType",
+      "label": "Employment Type",
+      "type": "GlobalChoice",
+      "required": "Required",
+      "choice": "hra_employmenttype",
+      "default": "Permanent"
+    },
+    {
+      "name": "hra_EmploymentStatus",
+      "label": "Employment Status",
+      "type": "GlobalChoice",
+      "required": "Required",
+      "choice": "hra_employmentstatus",
+      "default": "Active"
+    },
+    {
+      "name": "hra_Department",
+      "label": "Department",
+      "type": "Lookup",
+      "required": "Required",
+      "target": "hra_department",
+      "onDelete": "Restrict"
+    },
+    {
+      "name": "hra_Designation",
+      "label": "Designation",
+      "type": "Lookup",
+      "required": "Required",
+      "target": "hra_designation",
+      "onDelete": "Restrict"
+    },
+    {
+      "name": "hra_Location",
+      "label": "Location",
+      "type": "Lookup",
+      "required": "Required",
+      "target": "hra_location",
+      "onDelete": "Restrict"
+    },
+    {
+      "name": "hra_ReportingManager",
+      "label": "Reporting Manager",
+      "type": "Lookup",
+      "required": "Recommended",
+      "target": "hra_employee",
+      "onDelete": "RemoveLink"
+    },
+    {
+      "name": "hra_HRBusinessPartner",
+      "label": "HR Business Partner",
+      "type": "Lookup",
+      "target": "hra_employee",
+      "onDelete": "RemoveLink"
+    },
+    {
+      "name": "hra_SystemUser",
+      "label": "System User",
+      "type": "Lookup",
+      "target": "systemuser",
+      "onDelete": "RemoveLink"
+    },
+    {
+      "name": "hra_NoticePeriodDays",
+      "label": "Notice Period (days)",
+      "type": "WholeNumber",
+      "required": "Recommended",
+      "min": 0,
+      "max": 180
+    },
+    {
+      "name": "hra_LastWorkingDay",
+      "label": "Last Working Day",
+      "type": "DateOnly"
+    },
+    {
+      "name": "hra_YearsOfService",
+      "label": "Years of Service",
+      "type": "Decimal",
+      "min": 0,
+      "max": 100,
+      "precision": 1,
+      "readOnly": true
+    },
+    {
+      "name": "hra_GratuityEligible",
+      "label": "Gratuity Eligible",
+      "type": "YesNo",
+      "readOnly": true
+    },
+    {
+      "name": "hra_IsPeopleManager",
+      "label": "Is People Manager",
+      "type": "YesNo",
+      "readOnly": true
+    },
+    {
+      "name": "hra_PAN",
+      "label": "PAN",
+      "type": "Text",
+      "maxLength": 10,
+      "secured": true
+    },
+    {
+      "name": "hra_AadhaarLast4",
+      "label": "Aadhaar Last 4",
+      "type": "Text",
+      "maxLength": 4,
+      "secured": true
+    },
+    {
+      "name": "hra_UAN",
+      "label": "UAN",
+      "type": "Text",
+      "maxLength": 12,
+      "secured": true
+    },
+    {
+      "name": "hra_ESICNumber",
+      "label": "ESIC Number",
+      "type": "Text",
+      "maxLength": 17,
+      "secured": true
+    },
+    {
+      "name": "hra_BankAccountNumber",
+      "label": "Bank Account Number",
+      "type": "Text",
+      "maxLength": 20,
+      "secured": true
+    },
+    {
+      "name": "hra_IFSC",
+      "label": "IFSC",
+      "type": "Text",
+      "maxLength": 11,
+      "secured": true
+    },
+    {
+      "name": "hra_BankName",
+      "label": "Bank Name",
+      "type": "Text",
+      "maxLength": 100,
+      "secured": true
+    },
+    {
+      "name": "hra_AnnualCTC",
+      "label": "Annual CTC",
+      "type": "Currency",
+      "secured": true
+    }
+  ],
+  "keys": [
+    {
+      "name": "hra_key_employee_number",
+      "label": "Employee Number",
+      "columns": [
+        "hra_employeenumber"
+      ]
+    },
+    {
+      "name": "hra_key_employee_workemail",
+      "label": "Work Email",
+      "columns": [
+        "hra_workemail"
+      ]
+    }
+  ],
+  "form": [
+    {
+      "tab": "summary",
+      "label": "Summary",
+      "left": [
+        "hra_employeenumber",
+        "hra_firstname",
+        "hra_middlename",
+        "hra_lastname",
+        "hra_fullname"
+      ],
+      "right": [
+        "hra_workemail",
+        "hra_mobile",
+        "hra_employmenttype",
+        "hra_employmentstatus",
+        "hra_systemuser"
+      ]
+    },
+    {
+      "tab": "job",
+      "label": "Job",
+      "left": [
+        "hra_department",
+        "hra_designation",
+        "hra_location",
+        "hra_reportingmanager",
+        "hra_hrbusinesspartner"
+      ],
+      "right": [
+        "hra_dateofjoining",
+        "hra_probationenddate",
+        "hra_confirmationdate",
+        "hra_noticeperioddays",
+        "hra_lastworkingday",
+        "hra_yearsofservice",
+        "hra_gratuityeligible",
+        "hra_ispeoplemanager"
+      ]
+    },
+    {
+      "tab": "personal",
+      "label": "Personal",
+      "left": [
+        "hra_dateofbirth",
+        "hra_gender",
+        "hra_personalemail"
+      ]
+    },
+    {
+      "tab": "statutory",
+      "label": "Statutory & Bank",
+      "left": [
+        "hra_pan",
+        "hra_aadhaarlast4",
+        "hra_uan",
+        "hra_esicnumber"
+      ],
+      "right": [
+        "hra_bankaccountnumber",
+        "hra_ifsc",
+        "hra_bankname",
+        "hra_annualctc"
+      ]
+    }
+  ],
+  "views": [
+    {
+      "default": true,
+      "columns": [
+        "hra_fullname",
+        "hra_employeenumber",
+        "hra_department",
+        "hra_designation",
+        "hra_reportingmanager",
+        "hra_location",
+        "hra_employmentstatus"
+      ],
+      "sort": "hra_fullname"
+    },
+    {
+      "name": "My Direct Reports",
+      "description": "Active employees owned by me (people who report to me).",
+      "columns": [
+        "hra_fullname",
+        "hra_employeenumber",
+        "hra_designation",
+        "hra_dateofjoining",
+        "hra_employmentstatus"
+      ],
+      "filter": "<condition attribute=\"ownerid\" operator=\"eq-userid\" />",
+      "sort": "hra_fullname"
+    },
+    {
+      "name": "My Team (including indirect)",
+      "description": "Active employees owned by me or anyone below me in the manager hierarchy.",
+      "columns": [
+        "hra_fullname",
+        "hra_employeenumber",
+        "hra_designation",
+        "hra_reportingmanager",
+        "hra_department"
+      ],
+      "filter": "<condition attribute=\"ownerid\" operator=\"eq-useroruserhierarchy\" />",
+      "sort": "hra_fullname"
+    },
+    {
+      "name": "Employees on Probation",
+      "description": "Active employees with no confirmation date yet.",
+      "columns": [
+        "hra_fullname",
+        "hra_department",
+        "hra_reportingmanager",
+        "hra_dateofjoining",
+        "hra_probationenddate"
+      ],
+      "filter": "<condition attribute=\"hra_confirmationdate\" operator=\"null\" /><condition attribute=\"hra_probationenddate\" operator=\"not-null\" />",
+      "sort": "hra_probationenddate"
+    }
+  ],
+  "quickFind": [
+    "hra_employeenumber",
+    "hra_workemail",
+    "hra_mobile"
+  ]
+}
