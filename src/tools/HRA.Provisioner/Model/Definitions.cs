@@ -254,3 +254,25 @@ public static class Conventions
     public const int ChoiceValueBase = 817990000;
     public const int LanguageCode = 1033;
 }
+
+/// <summary>An owner team and the security roles it holds. A team can only own records if it has a role.</summary>
+public sealed record OwnerTeamDef(string Name, string[] Roles);
+
+/// <summary>A plugin step from model/plugins.json.</summary>
+public sealed record PluginStepDef(
+    string Plugin,
+    string Message,
+    string Table,
+    int Stage,
+    string FilteringAttributes,
+    string PreImageAttributes);
+
+/// <summary>A group of sample records for one table, from model/sample-data.json.</summary>
+public sealed class SampleGroup
+{
+    public string Table { get; init; }
+    public string[] Key { get; init; } = Array.Empty<string>();
+    /// <summary>True: existing records are updated with the given values. False: existing records are skipped.</summary>
+    public bool Upsert { get; init; }
+    public List<Dictionary<string, System.Text.Json.JsonElement>> Rows { get; init; } = new();
+}

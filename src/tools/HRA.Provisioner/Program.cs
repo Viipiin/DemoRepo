@@ -24,9 +24,10 @@ if (command is null or "help")
           provision          Create or update everything defined in model/: choices, tables, columns,
                              relationships, keys, forms, views, environment variables, security roles,
                              teams and column security. Also turns on auditing and adds INR.
-          register-plugins   Upload the built plugin assembly and register its steps.
+          register-plugins   Upload the built plugin assembly and register the steps in model/plugins.json.
                              Build first: dotnet build src/plugins/HRAutomation.Plugins -c Release
-          seed               Load synthetic sample data (departments, a Bengaluru office, 50 employees).
+          seed               Load the sample data in model/sample-data.json (synthetic: departments, a Bengaluru
+                             office, 50 employees).
 
         Default --url is https://viipiin.crm.dynamics.com. Safe to re-run: existing items are skipped or updated.
         The model is read from the repo's model/ folder (override with --model <folder>).
@@ -49,7 +50,8 @@ catch (Exception ex)
     return 1;
 }
 Log.Ok($"Model loaded: {model.Choices.Count} global choices, {model.Tables.Count} tables, " +
-       $"{model.Tables.Sum(t => t.Columns.Count + 1)} columns, {model.Roles.Count} roles");
+       $"{model.Tables.Sum(t => t.Columns.Count + 1)} columns, {model.Roles.Count} roles, " +
+       $"{model.PluginSteps.Count} plugin steps, {model.SampleData.Sum(g => g.Rows.Count)} sample rows");
 if (command == "validate")
 {
     Log.Ok("Model is valid.");
@@ -87,8 +89,8 @@ try
             }
             break;
         case "register-plugins":
-            var assemblyPath = Option("assembly", Path.Combine(repoRoot, "src", "plugins", "HRAutomation.Plugins", "bin", "Release", "net462", "HRAutomation.Plugins.dll"));
-            new PluginRegistrar(client).Run(assemblyPath);
+            var assemblyPath = Option("assembly", Path.Combine(repoRoot, "src", "plugins", model.PluginAssembly, "bin", "Release", "net462", model.PluginAssembly + ".dll"));
+            new PluginRegistrar(client, model).Run(assemblyPath);
             break;
         case "seed":
             new Seeder(client, model).Run();

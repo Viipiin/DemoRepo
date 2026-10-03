@@ -1,10 +1,35 @@
 {
   "ownerTeams": [
-    "HR",
-    "IT",
-    "Admin",
-    "Finance",
-    "Recruitment"
+    {
+      "name": "HR",
+      "roles": [
+        "HR Manager"
+      ]
+    },
+    {
+      "name": "IT",
+      "roles": [
+        "HR IT Asset Admin"
+      ]
+    },
+    {
+      "name": "Admin",
+      "roles": [
+        "HR Employee"
+      ]
+    },
+    {
+      "name": "Finance",
+      "roles": [
+        "HR Finance"
+      ]
+    },
+    {
+      "name": "Recruitment",
+      "roles": [
+        "HR Recruiter"
+      ]
+    }
   ],
   "roles": [
     {

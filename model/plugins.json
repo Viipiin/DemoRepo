@@ -1,0 +1,62 @@
+{
+  "assembly": "HRAutomation.Plugins",
+  "steps": [
+    {
+      "plugin": "HRAutomation.Plugins.EmployeePreOperation",
+      "message": "Create",
+      "table": "hra_employee",
+      "stage": "PreOperation"
+    },
+    {
+      "plugin": "HRAutomation.Plugins.EmployeePreOperation",
+      "message": "Update",
+      "table": "hra_employee",
+      "stage": "PreOperation",
+      "filteringAttributes": [
+        "hra_firstname",
+        "hra_middlename",
+        "hra_lastname",
+        "hra_pan",
+        "hra_ifsc",
+        "hra_aadhaarlast4",
+        "hra_uan",
+        "hra_dateofjoining"
+      ],
+      "preImage": [
+        "hra_firstname",
+        "hra_middlename",
+        "hra_lastname",
+        "hra_dateofjoining"
+      ]
+    },
+    {
+      "plugin": "HRAutomation.Plugins.EmployeePostOperation",
+      "message": "Create",
+      "table": "hra_employee",
+      "stage": "PostOperation"
+    },
+    {
+      "plugin": "HRAutomation.Plugins.EmployeePostOperation",
+      "message": "Update",
+      "table": "hra_employee",
+      "stage": "PostOperation",
+      "filteringAttributes": [
+        "hra_reportingmanager",
+        "hra_systemuser",
+        "hra_department",
+        "hra_designation",
+        "hra_location",
+        "hra_annualctc"
+      ],
+      "preImage": [
+        "hra_reportingmanager",
+        "hra_systemuser",
+        "hra_department",
+        "hra_designation",
+        "hra_location",
+        "hra_annualctc",
+        "ownerid"
+      ]
+    }
+  ]
+}

@@ -6,8 +6,10 @@ These files are the **single source of truth** for what the provisioner creates 
 model/
   choices.json                  global choices (option sets) shared by many columns
   tables/NN-<table>.json        one file per table: columns, lookups, keys, form, views
-  security.json                 owner teams, security roles, column security profiles
+  security.json                 owner teams (and their roles), security roles, column security profiles
   environment-variables.json    configurable settings
+  plugins.json                  which plugin runs on which table, message and stage
+  sample-data.json              SYNTHETIC test data loaded by 'seed'
 ```
 
 ## The workflow
@@ -73,6 +75,53 @@ Then add the table to the roles in `security.json`, for example `"hra_leavetype"
 **Role access format:** `"<depth>:<letters>"`.
 - **Depth:** `Org`, `BusinessUnit` or `User`.
 - **Letters:** **C**reate, **R**ead, **W**rite, **D**elete, **A**ppend, append **T**o, a**S**sign + share.
+
+## Owner teams
+
+Teams own records, for example the HR team owns employees whose manager has no Dataverse user. Dataverse only lets a team own records if the team holds a security role, so give every team at least one role:
+
+```json
+"ownerTeams": [ { "name": "HR", "roles": ["HR Manager"] } ]
+```
+
+## Plugin steps (`plugins.json`)
+
+```json
+{ "plugin": "HRAutomation.Plugins.EmployeePostOperation", "message": "Update", "table": "hra_employee",
+  "stage": "PostOperation",
+  "filteringAttributes": ["hra_reportingmanager", "hra_department"],
+  "preImage": ["hra_reportingmanager", "ownerid"] }
+```
+
+| Property | Meaning |
+|---|---|
+| `stage` | `PreValidation`, `PreOperation` or `PostOperation` |
+| `message` | `Create`, `Update` or `Delete` |
+| `filteringAttributes` | Update only. The step runs only when one of these columns changes |
+| `preImage` | The columns the plugin reads from the record's values before the change (available as "PreImage") |
+
+After changing plugin code or this file, run `./scripts/build-plugins.ps1` and then `./scripts/hra.ps1 register-plugins`.
+
+## Sample data (`sample-data.json`)
+
+> **Synthetic data only.** Never put real names, PAN, Aadhaar or bank numbers here, because this file is committed to Git.
+
+The data is a list of `groups`, loaded in order. Each group fills one table:
+
+```json
+{ "table": "hra_employee", "key": ["hra_workemail"], "rows": [
+  { "hra_firstname": "Asha", "hra_lastname": "Rao", "hra_workemail": "asha.rao@example.com",
+    "hra_gender": "Female", "hra_dateofjoining": "2024-04-01",
+    "hra_department": "ENG", "hra_reportingmanager": "nikhil.sharma@example.com" } ] }
+```
+
+- **`key`:** the columns that identify a record. Existing records are skipped. Add `"upsert": true` to update them instead.
+- **Choices:** the option's label, for example `"Female"`.
+- **Dates:** `yyyy-MM-dd`. Money and numbers are plain numbers. Yes/No is `true` or `false`.
+- **Lookups:** the key of a record from an **earlier** group, for example a department code or a manager's work email. For lookups to users, `"@me"` means you.
+- To set a lookup that points forward (like department heads), add a later group for the same table with `"upsert": true`.
+
+`validate` checks every row: unknown columns, wrong labels, bad dates, and lookups to records that don't exist.
 
 ## What `provision` doesn't change
 
