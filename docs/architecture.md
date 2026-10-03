@@ -430,7 +430,7 @@ Plugins are built in one project (`src/plugins/HRAutomation.Plugins`), registere
 ### 4.2 Power Automate cloud flows
 | ID | Name | Trigger | Logic |
 |---|---|---|---|
-| F-01 | Sync manager hierarchy | Employee: Reporting Manager or System User changed | Sets `systemuser.parentsystemuserid` for licensed users |
+| F-01 | Sync manager hierarchy | Employee: Reporting Manager or System User changed | **Built into plugin P-02 in Phase 1** (no flow or connection needed). Sets `systemuser.parentsystemuserid` for licensed users |
 | F-02 | New employee setup | Employee created | Creates Leave Balances for the current leave year (prorated), creates the onboarding checklist from the default template, notifies IT and Admin, and sends a welcome email on the joining date |
 | F-10 | Leave approval | Leave Request: Status = Submitted | Starts an approval to the Approver (Outlook and Teams). Escalates to HR after `hra_LeaveEscalationDays` (2) working days. Writes back Status, Actioned On and comments. Notifies the employee |
 | F-11 | Monthly leave accrual | Recurrence: 1st of each month, 02:00 IST | Adds monthly or quarterly accruals per policy line, respecting Max Balance and probation rules |
