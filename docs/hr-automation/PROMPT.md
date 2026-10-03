@@ -2,7 +2,7 @@
 
 How to use this file:
 
-1. Fill in every `<<...>>` placeholder in **Section 1**.
+1. Environment, solution and publisher details are already filled in. Fill in the remaining `<<...>>` placeholders (Production URL, list of Production licences), or delete any lines you don't need.
 2. Paste **Section 1 (Master Prompt)** into Claude Code as the first message (or save it as `CLAUDE.md` at the repo root so every session loads it).
 3. Then run the **phase prompts in Section 2** one at a time. Review and test in your Dev environment after each phase before you continue.
 
@@ -18,14 +18,34 @@ Build a production-grade HR Automation solution on Dataverse, delivered as sourc
 solution files that I can pack and import using the Power Platform CLI (pac).
 
 ## My environment
-- Dev environment URL: <<https://yourorg-dev.crm.dynamics.com>>
-- Existing unmanaged solution (already created): <<SolutionUniqueName>>  (display name: <<HR Automation>>)
-- Publisher prefix: <<hr>>   (option value prefix: <<10000>>)
-- Other environments for ALM: <<Test URL>>, <<Prod URL>>  (Prod receives MANAGED solutions only)
-- Region / country rules for leave, holidays and payroll: <<India / UK / US ...>>
-- Company size: <<~500 employees>>, number of legal entities / business units: <<n>>
-- Licences available: <<Power Apps Premium / per-app, Power Automate Premium, Power BI Pro, Copilot Studio, Power Pages>>
-- Tooling on my machine: pac CLI, .NET SDK 8, Node.js LTS, Git, VS Code. Authenticate with: pac auth create --environment <<url>>
+- Dev environment URL: https://viipiin.crm.dynamics.com/  (Power Apps Developer environment, used only for building and testing)
+- Existing unmanaged solution (already created): hrautomation  (display name: HR Automation)
+- Publisher: HR Automation (unique name: hrautomation), prefix: hra, choice value prefix: 81799
+  (all schema names start with hra_, e.g. hra_Employee; choice values start at 817990000)
+- Other environments for ALM: Production exists (<<Prod URL>>) and is where paid licences are assigned;
+  no Test environment yet. Design everything so the solution can be exported as MANAGED and imported
+  into Test/Prod without changes (environment variables, connection references, deployment settings files).
+- Country: India. Apply Indian HR rules:
+  - Leave year and financial year April-March (make the leave year configurable).
+  - Leave types: Earned/Privilege Leave, Casual Leave, Sick Leave, Maternity Leave (26 weeks per the
+    Maternity Benefit Act), Paternity Leave, Bereavement Leave, Compensatory Off, Loss of Pay.
+    Accrual, carry-forward and encashment limits must be configurable per Leave Policy, not hard-coded.
+  - Public holidays vary by state: Public Holiday records belong to a Location/State, and employees
+    get the calendar of their work location (national + state + optional/restricted holidays).
+  - Employee statutory fields: PAN, UAN (PF), ESIC number, Aadhaar (store masked, last 4 digits only),
+    bank account + IFSC. All of these go behind column security.
+  - Track notice period, probation end date and gratuity eligibility (5 years of continuous service).
+  - Privacy: follow India's Digital Personal Data Protection (DPDP) Act 2023 - purpose-limited
+    collection, consent for candidate data, retention and deletion rules.
+  - Currency INR; date format dd-MM-yyyy; time zone IST (UTC+05:30).
+- Company size: ~100 employees, 1 legal entity (assumed). Keep the design simple: a single business unit
+  with teams per department plus manager hierarchy security, rather than many business units.
+- Licences: paid licences exist only in Production (<<list them: Power Apps Premium / per-app, Power Automate
+  Premium, Power BI Pro, Copilot Studio, Power Pages>>). The Developer environment runs on the free
+  Power Apps Developer Plan. Before using any premium connector or feature, check it is covered by the
+  Production licences above; flag anything that would need a new licence or a trial, and prefer
+  standard/Dataverse capabilities where they do the job.
+- Tooling on my machine: pac CLI, .NET SDK 8, Node.js LTS, Git, VS Code. Authenticate with: pac auth create --environment https://viipiin.crm.dynamics.com/
 
 ## Scope (all modules, built in phases)
 1. Core HR: Employee, Department, Position/Job Title, Location, Business Unit mapping,
@@ -51,10 +71,10 @@ solution files that I can pack and import using the Power Platform CLI (pac).
   Column security profiles for salary, bank details, national ID, medical info.
 - Privacy: treat PII as sensitive; enable auditing on sensitive tables/columns; define data retention
   rules for candidates and leavers; never put real personal data in sample data.
-- ALM: everything inside <<SolutionUniqueName>>; use environment variables and connection references
+- ALM: everything inside the hrautomation solution; use environment variables and connection references
   (never hard-coded URLs, emails or connections); solution must import cleanly as MANAGED into Test/Prod.
   Provide a GitHub Actions (or Azure DevOps) pipeline for export -> unpack -> commit and pack -> import.
-- Quality: use a consistent naming convention (<<hr>>_ prefix, PascalCase schema names, singular
+- Quality: use a consistent naming convention (hra_ prefix, PascalCase schema names, singular
   table names), descriptions on every table/column, alternate keys where natural keys exist
   (e.g. Employee Number), choice columns use global choices where reused.
 - Prefer configuration (business rules, calculated/rollup/formula columns, Power Fx) before code;
