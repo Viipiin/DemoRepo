@@ -47,7 +47,11 @@ public sealed class FormAndViewProvisioner
             {
                 Attempt(failures, $"{table.LogicalName} view '{view.Name ?? "(default)"}'", () => UpsertView(table, metadata, view));
             }
-            Attempt(failures, $"{table.LogicalName} quick find", () => UpdateQuickFind(table, metadata));
+            if (table.QuickFind.Length > 0)
+            {
+                // Search is a convenience: a failure here is reported as a warning and doesn't fail provision.
+                Attempt(null, $"{table.LogicalName} quick find", () => UpdateQuickFind(table));
+            }
         }
         return failures;
     }
@@ -61,8 +65,15 @@ public sealed class FormAndViewProvisioner
         catch (System.ServiceModel.FaultException<OrganizationServiceFault> ex)
         {
             var message = $"{what}: {Errors.Describe(ex)}";
-            failures.Add(message);
-            Log.Error(message);
+            if (failures == null)
+            {
+                Log.Warn(message);
+            }
+            else
+            {
+                failures.Add(message);
+                Log.Error(message);
+            }
             Log.Detail(ex.Detail.TraceText ?? ex.ToString());
         }
     }
@@ -209,30 +220,41 @@ public sealed class FormAndViewProvisioner
         Log.Ok($"{table.LogicalName}: view '{view.Name}' created");
     }
 
-    private void UpdateQuickFind(TableDef table, EntityMetadata metadata)
+    /// <summary>
+    /// Adds the model's extra search columns to the quick find view Dataverse generated. Only the existing
+    /// isquickfindfields filter is changed; Dataverse rejects quick find views built from scratch.
+    /// </summary>
+    private void UpdateQuickFind(TableDef table)
     {
-        var query = new QueryExpression("savedquery") { ColumnSet = new ColumnSet("name"), TopCount = 1 };
+        var query = new QueryExpression("savedquery") { ColumnSet = new ColumnSet("name", "fetchxml"), TopCount = 1 };
         query.Criteria.AddCondition("returnedtypecode", ConditionOperator.Equal, table.LogicalName);
         query.Criteria.AddCondition("querytype", ConditionOperator.Equal, QuickFindViewType);
         var quickFind = _service.RetrieveMultiple(query).Entities.FirstOrDefault();
         if (quickFind == null) return;
 
-        var defaultView = table.Views.First(v => v.Name == null);
-        var findColumns = new[] { metadata.PrimaryNameAttribute }.Concat(table.QuickFind).Distinct().ToArray();
-        var sb = new StringBuilder($"<fetch version=\"1.0\" mapping=\"logical\"><entity name=\"{table.LogicalName}\">");
-        foreach (var column in ViewAttributes(metadata, defaultView.Columns)) sb.Append($"<attribute name=\"{column}\" />");
-        sb.Append($"<order attribute=\"{metadata.PrimaryNameAttribute}\" descending=\"false\" />");
-        sb.Append("<filter type=\"and\"><condition attribute=\"statecode\" operator=\"eq\" value=\"0\" /></filter>");
-        sb.Append("<filter type=\"or\" isquickfindfields=\"1\">");
-        foreach (var column in findColumns) sb.Append($"<condition attribute=\"{column}\" operator=\"like\" value=\"{{0}}\" />");
-        sb.Append("</filter></entity></fetch>");
-
-        _service.Update(new Entity("savedquery", quickFind.Id)
+        var fetch = XElement.Parse(quickFind.GetAttributeValue<string>("fetchxml"));
+        var findFilter = fetch.Descendants("filter").FirstOrDefault(f => (string)f.Attribute("isquickfindfields") == "1");
+        if (findFilter == null)
         {
-            ["fetchxml"] = sb.ToString(),
-            ["layoutxml"] = BuildLayoutXml(table, metadata, defaultView.Columns),
-        });
-        Log.Ok($"{table.LogicalName}: quick find searches {string.Join(", ", findColumns)}");
+            Log.Warn($"{table.LogicalName}: quick find view has no search filter, left unchanged");
+            return;
+        }
+
+        var existing = findFilter.Elements("condition").Select(c => (string)c.Attribute("attribute")).ToHashSet();
+        var added = table.QuickFind.Where(column => !existing.Contains(column)).ToList();
+        if (added.Count == 0)
+        {
+            Log.Skip($"{table.LogicalName}: quick find already searches {string.Join(", ", table.QuickFind)}");
+            return;
+        }
+        foreach (var column in added)
+        {
+            findFilter.Add(new XElement("condition",
+                new XAttribute("attribute", column), new XAttribute("operator", "like"), new XAttribute("value", "{0}")));
+        }
+
+        _service.Update(new Entity("savedquery", quickFind.Id) { ["fetchxml"] = fetch.ToString(SaveOptions.DisableFormatting) });
+        Log.Ok($"{table.LogicalName}: quick find also searches {string.Join(", ", added)}");
     }
 
     private static string BuildFetchXml(TableDef table, EntityMetadata metadata, ViewDef view)
