@@ -153,6 +153,8 @@ public sealed class TableDef
     public string LogicalName => SchemaName.ToLowerInvariant();
     public string Label { get; }
     public string PluralLabel { get; }
+    /// <summary>Build phase the table belongs to (informational).</summary>
+    public int Phase { get; init; }
     public string Description { get; init; }
     public bool OrganizationOwned { get; init; }
     public bool HasNotes { get; init; }
@@ -251,5 +253,4 @@ public static class Conventions
     public const string Prefix = "hra";
     public const int ChoiceValueBase = 817990000;
     public const int LanguageCode = 1033;
-    public static readonly string[] OwnerTeams = { "HR", "IT", "Admin", "Finance", "Recruitment" };
 }

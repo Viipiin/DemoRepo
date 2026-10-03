@@ -35,10 +35,11 @@ Set-ExecutionPolicy -Scope CurrentUser RemoteSigned
 ./scripts/run-phase1.ps1
 ```
 
-This runs five things in order. If anything fails, you can run each one separately (see the table below).
+This runs six things in order. If anything fails, you can run each one separately (see the table below).
 
 | # | What it does | Command to run it alone | What you should see |
 |---|---|---|---|
+| 0 | Checks the JSON model in `model/` (offline) | `./scripts/hra.ps1 validate` | `✔ Model is valid.` |
 | 1 | Builds the plugins and runs 19 unit tests | `./scripts/build-plugins.ps1` | `Passed! ... Passed: 19` |
 | 2 | Connects and checks the solution | `./scripts/hra.ps1 check` | A browser opens for sign-in the first time, then `✔ Solution HRAutomation ... found` |
 | 3 | Creates choices, tables, columns, relationships, keys, forms, views, roles, teams, column security, environment variables, auditing and INR | `./scripts/hra.ps1 provision` | A long list of `✔ ... created`, ending with `✔ Published` and `✔ Done.` Takes about 5–15 minutes the first time |

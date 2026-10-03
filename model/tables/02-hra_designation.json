@@ -1,0 +1,64 @@
+{
+  "phase": 1,
+  "name": "hra_Designation",
+  "label": "Designation",
+  "pluralLabel": "Designations",
+  "description": "Job titles and grades.",
+  "ownership": "Organization",
+  "primaryName": {
+    "name": "hra_Name",
+    "label": "Name",
+    "type": "Text",
+    "required": "Required",
+    "maxLength": 100
+  },
+  "columns": [
+    {
+      "name": "hra_Grade",
+      "label": "Grade",
+      "type": "Choice",
+      "required": "Required",
+      "options": [
+        "L1",
+        "L2",
+        "L3",
+        "L4",
+        "L5",
+        "L6",
+        "L7",
+        "L8"
+      ]
+    },
+    {
+      "name": "hra_Department",
+      "label": "Department",
+      "type": "Lookup",
+      "target": "hra_department",
+      "onDelete": "Restrict"
+    }
+  ],
+  "form": [
+    {
+      "tab": "general",
+      "label": "General",
+      "left": [
+        "hra_name",
+        "hra_grade"
+      ],
+      "right": [
+        "hra_department"
+      ]
+    }
+  ],
+  "views": [
+    {
+      "default": true,
+      "columns": [
+        "hra_name",
+        "hra_grade",
+        "hra_department"
+      ],
+      "sort": "hra_name"
+    }
+  ]
+}

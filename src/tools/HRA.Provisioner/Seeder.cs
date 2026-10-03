@@ -16,7 +16,13 @@ public sealed class Seeder
     private readonly Random _random = new(20260401);
     private readonly HashSet<string> _emails = new();
 
-    public Seeder(IOrganizationService service) => _service = service;
+    private readonly HrModel _model;
+
+    public Seeder(IOrganizationService service, HrModel model)
+    {
+        _service = service;
+        _model = model;
+    }
 
     private static readonly (string Code, string Name)[] Departments =
     {
@@ -50,7 +56,7 @@ public sealed class Seeder
             var record = new Entity("hra_designation")
             {
                 ["hra_name"] = d.Name,
-                ["hra_grade"] = new OptionSetValue(ChoiceDef.ValueOf(d.Grade)),
+                ["hra_grade"] = new OptionSetValue(_model.Option("hra_designation", "hra_grade", $"L{d.Grade + 1}")),
             };
             if (d.Department != null) record["hra_department"] = departments[d.Department];
             return EnsureByKey("hra_designation", "hra_name", d.Name, record, d.Name);
@@ -60,9 +66,9 @@ public sealed class Seeder
         {
             ["hra_name"] = "Bengaluru - HQ",
             ["hra_city"] = "Bengaluru",
-            ["hra_state"] = new OptionSetValue(ChoiceDef.ValueOf(Phase1.KarnatakaIndex)),
+            ["hra_state"] = new OptionSetValue(_model.Option("hra_location", "hra_state", "Karnataka")),
             ["hra_address"] = "1 Example Tech Park, Outer Ring Road, Bengaluru 560103",
-            ["hra_weeklyoffpattern"] = new OptionSetValue(ChoiceDef.ValueOf(0)),
+            ["hra_weeklyoffpattern"] = new OptionSetValue(_model.Option("hra_location", "hra_weeklyoffpattern", "Saturday and Sunday")),
         }, "Bengaluru - HQ");
 
         Log.Step("Employees (synthetic)");
@@ -135,10 +141,10 @@ public sealed class Seeder
             ["hra_personalemail"] = $"{first}.{last}.home@example.com".ToLowerInvariant(),
             ["hra_mobile"] = $"+91 9{_random.Next(100000000, 999999999)}",
             ["hra_dateofbirth"] = born,
-            ["hra_gender"] = new OptionSetValue(ChoiceDef.ValueOf(female ? 0 : 1)),
+            ["hra_gender"] = new OptionSetValue(_model.Option("hra_employee", "hra_gender", female ? "Female" : "Male")),
             ["hra_dateofjoining"] = joined,
-            ["hra_employmenttype"] = new OptionSetValue(ChoiceDef.ValueOf(intern ? 3 : onProbation ? 1 : 0)),
-            ["hra_employmentstatus"] = new OptionSetValue(ChoiceDef.ValueOf(0)),
+            ["hra_employmenttype"] = new OptionSetValue(_model.Option("hra_employee", "hra_employmenttype", intern ? "Intern" : onProbation ? "Probation" : "Permanent")),
+            ["hra_employmentstatus"] = new OptionSetValue(_model.Option("hra_employee", "hra_employmentstatus", "Active")),
             ["hra_department"] = department,
             ["hra_designation"] = designation,
             ["hra_location"] = location,
@@ -178,7 +184,7 @@ public sealed class Seeder
         return new Entity("hra_emergencycontact")
         {
             ["hra_name"] = $"{Pick(_random.Next(2) == 0 ? FemaleNames : MaleNames)} {lastName}",
-            ["hra_relationship"] = new OptionSetValue(ChoiceDef.ValueOf(_random.Next(0, 3))),
+            ["hra_relationship"] = new OptionSetValue(_model.Option("hra_emergencycontact", "hra_relationship", new[] { "Spouse", "Parent", "Sibling" }[_random.Next(0, 3)])),
             ["hra_phone"] = $"+91 8{_random.Next(100000000, 999999999)}",
             ["hra_isprimary"] = true,
         };

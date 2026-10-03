@@ -1,0 +1,46 @@
+{
+  "environmentVariables": [
+    {
+      "name": "hra_ProbationMonths",
+      "label": "Probation Months",
+      "type": "Number",
+      "default": "6",
+      "description": "Default probation length for new employees."
+    },
+    {
+      "name": "hra_LeaveEscalationDays",
+      "label": "Leave Escalation Days",
+      "type": "Number",
+      "default": "2",
+      "description": "Working days before an unapproved leave request escalates to HR."
+    },
+    {
+      "name": "hra_LeaveYearStartMonth",
+      "label": "Leave Year Start Month",
+      "type": "Number",
+      "default": "4",
+      "description": "Month the leave year starts (4 = April)."
+    },
+    {
+      "name": "hra_CandidateRetentionMonths",
+      "label": "Candidate Retention Months",
+      "type": "Number",
+      "default": "12",
+      "description": "Months to keep unsuccessful candidates before anonymising (DPDP Act)."
+    },
+    {
+      "name": "hra_LeaverRetentionMonths",
+      "label": "Leaver Retention Months",
+      "type": "Number",
+      "default": "84",
+      "description": "Months after the last working day before leavers' sensitive data is masked."
+    },
+    {
+      "name": "hra_ReceiptRequiredAbove",
+      "label": "Receipt Required Above (INR)",
+      "type": "Number",
+      "default": "500",
+      "description": "Expense lines above this amount need a receipt."
+    }
+  ]
+}

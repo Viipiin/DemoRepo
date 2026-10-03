@@ -20,13 +20,18 @@ public sealed class FormAndViewProvisioner
     private const int QuickFindViewType = 4;
 
     private readonly IOrganizationService _service;
+    private readonly HrModel _model;
 
-    public FormAndViewProvisioner(IOrganizationService service) => _service = service;
+    public FormAndViewProvisioner(IOrganizationService service, HrModel model)
+    {
+        _service = service;
+        _model = model;
+    }
 
     public void Run()
     {
         Log.Step("Forms and views");
-        foreach (var table in Phase1.Tables)
+        foreach (var table in _model.Tables)
         {
             var metadata = ((RetrieveEntityResponse)_service.Execute(new RetrieveEntityRequest
             {
@@ -42,11 +47,12 @@ public sealed class FormAndViewProvisioner
 
     private void UpdateMainForm(TableDef table, EntityMetadata metadata)
     {
-        var query = new QueryExpression("systemform") { ColumnSet = new ColumnSet("name", "formxml") };
+        var query = new QueryExpression("systemform") { ColumnSet = new ColumnSet("name", "isdefault") };
         query.Criteria.AddCondition("objecttypecode", ConditionOperator.Equal, table.LogicalName);
         query.Criteria.AddCondition("type", ConditionOperator.Equal, MainFormType);
-        query.AddOrder("createdon", OrderType.Ascending);
-        var form = _service.RetrieveMultiple(query).Entities.FirstOrDefault();
+        // systemform has no createdon column, so prefer the table's default main form ("Information").
+        var forms = _service.RetrieveMultiple(query).Entities;
+        var form = forms.FirstOrDefault(f => f.GetAttributeValue<bool>("isdefault")) ?? forms.FirstOrDefault();
         if (form == null)
         {
             Log.Warn($"{table.LogicalName}: no main form found, skipped");

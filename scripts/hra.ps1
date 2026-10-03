@@ -1,4 +1,5 @@
 # Runs the HR Automation provisioner. Examples:
+#   ./scripts/hra.ps1 validate
 #   ./scripts/hra.ps1 check
 #   ./scripts/hra.ps1 provision
 #   ./scripts/hra.ps1 register-plugins

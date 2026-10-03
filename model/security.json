@@ -1,0 +1,116 @@
+{
+  "ownerTeams": [
+    "HR",
+    "IT",
+    "Admin",
+    "Finance",
+    "Recruitment"
+  ],
+  "roles": [
+    {
+      "name": "HR Admin",
+      "description": "Full access to HR Automation, including settings. No delete on employees.",
+      "tables": {
+        "hra_department": "Org:CRWDATS",
+        "hra_designation": "Org:CRWDATS",
+        "hra_location": "Org:CRWDATS",
+        "hra_employee": "Org:CRWATS",
+        "hra_emergencycontact": "Org:CRWDATS",
+        "hra_employeedocument": "Org:CRWDATS",
+        "hra_employmenthistory": "Org:R",
+        "hra_hrcase": "Org:CRWDATS"
+      }
+    },
+    {
+      "name": "HR Manager",
+      "description": "Organization-wide HR access. Read-only reference data.",
+      "tables": {
+        "hra_department": "Org:RT",
+        "hra_designation": "Org:RT",
+        "hra_location": "Org:RT",
+        "hra_employee": "Org:CRWATS",
+        "hra_emergencycontact": "Org:CRWATS",
+        "hra_employeedocument": "Org:CRWATS",
+        "hra_employmenthistory": "Org:R",
+        "hra_hrcase": "Org:CRWATS"
+      }
+    },
+    {
+      "name": "HR Recruiter",
+      "description": "Recruitment. Read-only employees without sensitive columns.",
+      "tables": {
+        "hra_department": "Org:RT",
+        "hra_designation": "Org:RT",
+        "hra_location": "Org:RT",
+        "hra_employee": "Org:RT"
+      }
+    },
+    {
+      "name": "HR Line Manager",
+      "description": "Sees and approves for their own team through ownership and the manager hierarchy.",
+      "tables": {
+        "hra_department": "Org:RT",
+        "hra_designation": "Org:RT",
+        "hra_location": "Org:RT",
+        "hra_employee": "User:RWAT",
+        "hra_emergencycontact": "User:R",
+        "hra_employeedocument": "User:R",
+        "hra_employmenthistory": "User:R",
+        "hra_hrcase": "User:R"
+      }
+    },
+    {
+      "name": "HR Employee",
+      "description": "Self-service for licensed staff: own profile, contacts, documents and HR cases.",
+      "tables": {
+        "hra_department": "Org:RT",
+        "hra_designation": "Org:RT",
+        "hra_location": "Org:RT",
+        "hra_employee": "User:RT",
+        "hra_emergencycontact": "User:CRWDA",
+        "hra_employeedocument": "User:CRWDA",
+        "hra_employmenthistory": "User:R",
+        "hra_hrcase": "User:CRA"
+      }
+    },
+    {
+      "name": "HR IT Asset Admin",
+      "description": "Assets and IT onboarding/offboarding tasks.",
+      "tables": {
+        "hra_department": "Org:RT",
+        "hra_designation": "Org:RT",
+        "hra_location": "Org:RT",
+        "hra_employee": "Org:RT"
+      }
+    },
+    {
+      "name": "HR Finance",
+      "description": "Expense payments and Finance checklist tasks.",
+      "tables": {
+        "hra_department": "Org:RT",
+        "hra_designation": "Org:RT",
+        "hra_location": "Org:RT",
+        "hra_employee": "Org:RT"
+      }
+    }
+  ],
+  "columnSecurityProfiles": [
+    {
+      "name": "HR Sensitive Data",
+      "description": "PAN, Aadhaar (last 4), UAN, ESIC, bank details and CTC. Members of the HR team only.",
+      "team": "HR",
+      "columns": [
+        "hra_employee.hra_pan",
+        "hra_employee.hra_aadhaarlast4",
+        "hra_employee.hra_uan",
+        "hra_employee.hra_esicnumber",
+        "hra_employee.hra_bankaccountnumber",
+        "hra_employee.hra_ifsc",
+        "hra_employee.hra_bankname",
+        "hra_employee.hra_annualctc",
+        "hra_employmenthistory.hra_fromctc",
+        "hra_employmenthistory.hra_toctc"
+      ]
+    }
+  ]
+}

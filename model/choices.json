@@ -1,0 +1,129 @@
+{
+  "choices": [
+    {
+      "name": "hra_employmenttype",
+      "label": "Employment Type",
+      "options": [
+        "Permanent",
+        "Probation",
+        "Contract",
+        "Intern",
+        "Consultant"
+      ]
+    },
+    {
+      "name": "hra_employmentstatus",
+      "label": "Employment Status",
+      "options": [
+        "Active",
+        "On Notice",
+        "Separated",
+        "Absconding",
+        "Retired"
+      ]
+    },
+    {
+      "name": "hra_gender",
+      "label": "Gender",
+      "options": [
+        "Female",
+        "Male",
+        "Non-binary",
+        "Prefer not to say"
+      ]
+    },
+    {
+      "name": "hra_indianstate",
+      "label": "Indian State",
+      "options": [
+        "Andhra Pradesh",
+        "Arunachal Pradesh",
+        "Assam",
+        "Bihar",
+        "Chhattisgarh",
+        "Goa",
+        "Gujarat",
+        "Haryana",
+        "Himachal Pradesh",
+        "Jharkhand",
+        "Karnataka",
+        "Kerala",
+        "Madhya Pradesh",
+        "Maharashtra",
+        "Manipur",
+        "Meghalaya",
+        "Mizoram",
+        "Nagaland",
+        "Odisha",
+        "Punjab",
+        "Rajasthan",
+        "Sikkim",
+        "Tamil Nadu",
+        "Telangana",
+        "Tripura",
+        "Uttar Pradesh",
+        "Uttarakhand",
+        "West Bengal",
+        "Andaman and Nicobar Islands",
+        "Chandigarh",
+        "Dadra and Nagar Haveli and Daman and Diu",
+        "Delhi",
+        "Jammu and Kashmir",
+        "Ladakh",
+        "Lakshadweep",
+        "Puducherry"
+      ]
+    },
+    {
+      "name": "hra_approvalstatus",
+      "label": "Approval Status",
+      "options": [
+        "Draft",
+        "Submitted",
+        "Approved",
+        "Rejected",
+        "Cancelled",
+        "Withdrawn"
+      ]
+    },
+    {
+      "name": "hra_responsibleteam",
+      "label": "Responsible Team",
+      "options": [
+        "HR",
+        "IT",
+        "Admin/Facilities",
+        "Finance",
+        "Reporting Manager",
+        "Employee"
+      ]
+    },
+    {
+      "name": "hra_documenttype",
+      "label": "Document Type",
+      "options": [
+        "PAN Card",
+        "Aadhaar (masked)",
+        "Passport",
+        "Offer Letter",
+        "Appointment Letter",
+        "Relieving Letter",
+        "Education Certificate",
+        "Experience Letter",
+        "Medical Certificate",
+        "Other"
+      ]
+    },
+    {
+      "name": "hra_rating",
+      "label": "Rating",
+      "options": [
+        "1 - Needs Improvement",
+        "2 - Partially Meets",
+        "3 - Meets",
+        "4 - Exceeds",
+        "5 - Outstanding"
+      ]
+    }
+  ]
+}

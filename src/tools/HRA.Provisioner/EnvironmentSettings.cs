@@ -14,8 +14,13 @@ public sealed class EnvironmentSettings
     private const decimal InrPerUsd = 88.0m;
 
     private readonly IOrganizationService _service;
+    private readonly HrModel _model;
 
-    public EnvironmentSettings(IOrganizationService service) => _service = service;
+    public EnvironmentSettings(IOrganizationService service, HrModel model)
+    {
+        _service = service;
+        _model = model;
+    }
 
     public void Run()
     {
@@ -27,7 +32,7 @@ public sealed class EnvironmentSettings
     private void EnsureEnvironmentVariables()
     {
         Log.Step("Environment variables");
-        foreach (var variable in Phase1.EnvironmentVariables)
+        foreach (var variable in _model.EnvironmentVariables)
         {
             if (_service.FindOne("environmentvariabledefinition", new[] { "schemaname" }, ("schemaname", variable.SchemaName)) != null)
             {

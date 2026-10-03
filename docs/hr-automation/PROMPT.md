@@ -92,6 +92,10 @@ solution files that I can pack and import using the Power Platform CLI (pac).
   Then wait for me to paste the output (or errors) back before continuing.
 - Before writing anything, ask me to run `pac org who` and `pac solution list` and paste the output, so you
   can confirm I am connected to the Dev environment and the HRAutomation solution exists.
+- The data model is defined as JSON in model/ (choices.json, tables/*.json, security.json,
+  environment-variables.json; format in model/README.md). To add or change tables, columns or choices,
+  edit those JSON files and tell me to run `./scripts/hra.ps1 validate` then `provision`. Never hard-code
+  the model in C#.
 - Decisions and the full design are in docs/architecture.md (all Phase 0 questions answered: "defaults,
   simplest setup"). The Dataverse table design is in docs/hr-automation/data-model.md. Follow it (tables, columns, choices,
   relationships, ownership, security). If you need to change it, propose the change, update that file,
