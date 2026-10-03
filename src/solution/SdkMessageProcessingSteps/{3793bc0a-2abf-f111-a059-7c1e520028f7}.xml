@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SdkMessageProcessingStep Name="EmployeePostOperation: Update of hra_employee" SdkMessageProcessingStepId="{3793bc0a-2abf-f111-a059-7c1e520028f7}" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <SdkMessageId>20bebb1b-ea3e-db11-86a7-000a3a5473e8</SdkMessageId>
+  <PluginTypeName>HRAutomation.Plugins.EmployeePostOperation, HRAutomation.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=704025cfe0f64e34</PluginTypeName>
+  <PluginTypeId>2a93bc0a-2abf-f111-a059-7c1e520028f7</PluginTypeId>
+  <PrimaryEntity>hra_employee</PrimaryEntity>
+  <AsyncAutoDelete>0</AsyncAutoDelete>
+  <FilteringAttributes>hra_reportingmanager,hra_systemuser,hra_department,hra_designation,hra_location,hra_annualctc</FilteringAttributes>
+  <InvocationSource>1</InvocationSource>
+  <Mode>0</Mode>
+  <Rank>1</Rank>
+  <EventHandlerTypeCode>4602</EventHandlerTypeCode>
+  <Stage>40</Stage>
+  <IsCustomizable>1</IsCustomizable>
+  <IsHidden>0</IsHidden>
+  <SupportedDeployment>0</SupportedDeployment>
+  <IntroducedVersion>1.0.0.0</IntroducedVersion>
+  <SdkMessageProcessingStepImages>
+    <SdkMessageProcessingStepImage Name="PreImage">
+      <SdkMessageProcessingStepImageId>{4919dc10-2abf-f111-a059-7c1e520028f7}</SdkMessageProcessingStepImageId>
+      <Attributes>hra_reportingmanager,hra_systemuser,hra_department,hra_designation,hra_location,hra_annualctc,ownerid</Attributes>
+      <EntityAlias>PreImage</EntityAlias>
+      <ImageType>0</ImageType>
+      <MessagePropertyName>Target</MessagePropertyName>
+      <IsCustomizable>1</IsCustomizable>
+    </SdkMessageProcessingStepImage>
+  </SdkMessageProcessingStepImages>
+</SdkMessageProcessingStep>

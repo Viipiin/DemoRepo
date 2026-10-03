@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>0</CanBeDeleted>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>1</isdefault>
+    <savedqueryid>{d0ba6415-3c6c-4bca-b8d5-6d3715fa8730}</savedqueryid>
+    <layoutxml>
+      <grid name="resultset" jump="hra_subject" select="1" icon="1" preview="1">
+        <row name="result" id="hra_hrcaseid">
+          <cell name="hra_subject" width="200" />
+          <cell name="hra_casenumber" width="150" />
+          <cell name="hra_employee" width="150" />
+          <cell name="hra_category" width="150" />
+          <cell name="hra_priority" width="150" />
+          <cell name="hra_casestatus" width="150" />
+          <cell name="hra_assignedto" width="150" />
+        </row>
+      </grid>
+    </layoutxml>
+    <querytype>0</querytype>
+    <fetchxml>
+      <fetch version="1.0" mapping="logical">
+        <entity name="hra_hrcase">
+          <attribute name="hra_hrcaseid" />
+          <attribute name="hra_subject" />
+          <attribute name="hra_casenumber" />
+          <attribute name="hra_employee" />
+          <attribute name="hra_category" />
+          <attribute name="hra_priority" />
+          <attribute name="hra_casestatus" />
+          <attribute name="hra_assignedto" />
+          <order attribute="hra_casenumber" descending="false" />
+          <filter type="and">
+            <condition attribute="statecode" operator="eq" value="0" />
+          </filter>
+        </entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="Active HR Cases" languagecode="1033" />
+    </LocalizedNames>
+  </savedquery>
+</savedqueries>

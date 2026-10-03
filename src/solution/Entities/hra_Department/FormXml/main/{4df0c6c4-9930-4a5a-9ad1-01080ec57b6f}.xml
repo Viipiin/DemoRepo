@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <systemform>
+    <formid>{4df0c6c4-9930-4a5a-9ad1-01080ec57b6f}</formid>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <FormPresentation>1</FormPresentation>
+    <FormActivationState>1</FormActivationState>
+    <form>
+      <tabs>
+        <tab name="tab_general" id="{88277cdd-3ed9-4de5-826a-73c0351c82ea}" IsUserDefined="0" locklevel="0" showlabel="true" expanded="true">
+          <labels>
+            <label description="General" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="50%">
+              <sections>
+                <section name="sec_general_left" showlabel="false" showbar="false" locklevel="0" id="{730aca8e-6626-4aa0-9592-b797570f8f80}" IsUserDefined="0" layout="varwidth" columns="1" labelwidth="140" celllabelalignment="Left" celllabelposition="Left">
+                  <labels>
+                    <label description="General" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{33dc8b07-2410-49b2-8937-f38c0ab83e5d}" showlabel="true" locklevel="0">
+                        <labels>
+                          <label description="Name" languagecode="1033" />
+                        </labels>
+                        <control id="hra_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="hra_name" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{b5e4179b-62df-47f5-8326-8e0a9b21afe9}" showlabel="true" locklevel="0">
+                        <labels>
+                          <label description="Code" languagecode="1033" />
+                        </labels>
+                        <control id="hra_code" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="hra_code" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{d077beb8-a6c0-40ce-954a-bb536306438b}" showlabel="true" locklevel="0">
+                        <labels>
+                          <label description="Parent Department" languagecode="1033" />
+                        </labels>
+                        <control id="hra_parentdepartment" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="hra_parentdepartment" disabled="false" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+            <column width="50%">
+              <sections>
+                <section name="sec_general_right" showlabel="false" showbar="false" locklevel="0" id="{63391a62-ec9e-4200-9af9-b21edbcc7333}" IsUserDefined="0" layout="varwidth" columns="1" labelwidth="140" celllabelalignment="Left" celllabelposition="Left">
+                  <labels>
+                    <label description="General" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{48919426-ef90-4215-83f6-70157acb4f2c}" showlabel="true" locklevel="0">
+                        <labels>
+                          <label description="Department Head" languagecode="1033" />
+                        </labels>
+                        <control id="hra_departmenthead" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="hra_departmenthead" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{e2e70570-f113-45d8-af4e-d87f632ab509}" showlabel="true" locklevel="0">
+                        <labels>
+                          <label description="Cost Centre" languagecode="1033" />
+                        </labels>
+                        <control id="hra_costcentre" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="hra_costcentre" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{cd49b1f9-4707-4719-b3bd-212428166218}" showlabel="true" locklevel="0">
+                        <labels>
+                          <label description="Owner Team" languagecode="1033" />
+                        </labels>
+                        <control id="hra_ownerteam" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="hra_ownerteam" disabled="false" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+      </tabs>
+    </form>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>1</CanBeDeleted>
+    <LocalizedNames>
+      <LocalizedName description="Information" languagecode="1033" />
+    </LocalizedNames>
+    <Descriptions>
+      <Description description="A form for this entity." languagecode="1033" />
+    </Descriptions>
+  </systemform>
+</forms>

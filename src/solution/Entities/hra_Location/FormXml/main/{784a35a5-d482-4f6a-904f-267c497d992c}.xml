@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <systemform>
+    <formid>{784a35a5-d482-4f6a-904f-267c497d992c}</formid>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <FormPresentation>1</FormPresentation>
+    <FormActivationState>1</FormActivationState>
+    <form>
+      <tabs>
+        <tab name="tab_general" id="{399ac2c7-34fb-4190-8a28-f4b09e891e5c}" IsUserDefined="0" locklevel="0" showlabel="true" expanded="true">
+          <labels>
+            <label description="General" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="50%">
+              <sections>
+                <section name="sec_general_left" showlabel="false" showbar="false" locklevel="0" id="{e62b1bbb-47a1-43b0-8f0a-f43da02a89bc}" IsUserDefined="0" layout="varwidth" columns="1" labelwidth="140" celllabelalignment="Left" celllabelposition="Left">
+                  <labels>
+                    <label description="General" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{f9756d24-8cf3-4492-b508-7c1b29b4df70}" showlabel="true" locklevel="0">
+                        <labels>
+                          <label description="Name" languagecode="1033" />
+                        </labels>
+                        <control id="hra_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="hra_name" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{26087edd-a44b-4200-b00b-c43ebc0bac0d}" showlabel="true" locklevel="0">
+                        <labels>
+                          <label description="City" languagecode="1033" />
+                        </labels>
+                        <control id="hra_city" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="hra_city" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{d1525932-107c-49cf-822f-d5c7f2aa8b23}" showlabel="true" locklevel="0">
+                        <labels>
+                          <label description="State" languagecode="1033" />
+                        </labels>
+                        <control id="hra_state" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="hra_state" disabled="false" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+            <column width="50%">
+              <sections>
+                <section name="sec_general_right" showlabel="false" showbar="false" locklevel="0" id="{35767748-3b11-486f-b133-863518cb4a81}" IsUserDefined="0" layout="varwidth" columns="1" labelwidth="140" celllabelalignment="Left" celllabelposition="Left">
+                  <labels>
+                    <label description="General" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{f8a90e1b-e6e9-49c3-b34b-12f4bd68d839}" showlabel="true" locklevel="0">
+                        <labels>
+                          <label description="Weekly Off Pattern" languagecode="1033" />
+                        </labels>
+                        <control id="hra_weeklyoffpattern" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="hra_weeklyoffpattern" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{83d54e3d-b750-4478-9314-43bdee2a62e2}" showlabel="true" locklevel="0">
+                        <labels>
+                          <label description="Address" languagecode="1033" />
+                        </labels>
+                        <control id="hra_address" classid="{E0DECE4B-6FC8-4a8f-A065-082708572369}" datafieldname="hra_address" disabled="false" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+      </tabs>
+    </form>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>1</CanBeDeleted>
+    <LocalizedNames>
+      <LocalizedName description="Information" languagecode="1033" />
+    </LocalizedNames>
+    <Descriptions>
+      <Description description="A form for this entity." languagecode="1033" />
+    </Descriptions>
+  </systemform>
+</forms>

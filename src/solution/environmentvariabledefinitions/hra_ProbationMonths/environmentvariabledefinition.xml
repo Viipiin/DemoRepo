@@ -1,0 +1,14 @@
+<environmentvariabledefinition schemaname="hra_ProbationMonths">
+  <defaultvalue>6</defaultvalue>
+  <description default="Default probation length for new employees.">
+    <label description="Default probation length for new employees." languagecode="1033" />
+  </description>
+  <displayname default="Probation Months">
+    <label description="Probation Months" languagecode="1033" />
+  </displayname>
+  <introducedversion>1.0.0.0</introducedversion>
+  <iscustomizable>1</iscustomizable>
+  <isrequired>0</isrequired>
+  <secretstore>0</secretstore>
+  <type>100000001</type>
+</environmentvariabledefinition>

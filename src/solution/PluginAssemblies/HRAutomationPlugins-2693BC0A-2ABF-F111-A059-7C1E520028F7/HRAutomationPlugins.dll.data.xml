@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<PluginAssembly FullName="HRAutomation.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=704025cfe0f64e34" PluginAssemblyId="2693bc0a-2abf-f111-a059-7c1e520028f7" CustomizationLevel="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <IsolationMode>2</IsolationMode>
+  <SourceType>0</SourceType>
+  <IntroducedVersion>1.0.0.0</IntroducedVersion>
+  <FileName>/PluginAssemblies/HRAutomationPlugins-2693BC0A-2ABF-F111-A059-7C1E520028F7/HRAutomationPlugins.dll</FileName>
+  <PluginTypes>
+    <PluginType AssemblyQualifiedName="HRAutomation.Plugins.EmployeePostOperation, HRAutomation.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=704025cfe0f64e34" PluginTypeId="2a93bc0a-2abf-f111-a059-7c1e520028f7" Name="HRAutomation.Plugins.EmployeePostOperation">
+      <FriendlyName>EmployeePostOperation</FriendlyName>
+    </PluginType>
+    <PluginType AssemblyQualifiedName="HRAutomation.Plugins.EmployeePreOperation, HRAutomation.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=704025cfe0f64e34" PluginTypeId="2993bc0a-2abf-f111-a059-7c1e520028f7" Name="HRAutomation.Plugins.EmployeePreOperation">
+      <FriendlyName>EmployeePreOperation</FriendlyName>
+    </PluginType>
+  </PluginTypes>
+</PluginAssembly>

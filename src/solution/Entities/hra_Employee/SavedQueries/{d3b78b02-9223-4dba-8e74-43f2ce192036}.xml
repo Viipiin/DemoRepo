@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>0</CanBeDeleted>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>0</isdefault>
+    <savedqueryid>{d3b78b02-9223-4dba-8e74-43f2ce192036}</savedqueryid>
+    <layoutxml>
+      <grid name="resultset" jump="hra_fullname" select="1" icon="1" preview="1">
+        <row name="result" id="hra_employeeid">
+          <cell name="hra_fullname" width="300" />
+          <cell name="createdon" width="125" />
+        </row>
+      </grid>
+    </layoutxml>
+    <querytype>0</querytype>
+    <fetchxml>
+      <fetch version="1.0" mapping="logical">
+        <entity name="hra_employee">
+          <attribute name="hra_employeeid" />
+          <attribute name="hra_fullname" />
+          <attribute name="createdon" />
+          <order attribute="hra_fullname" descending="false" />
+          <filter type="and">
+            <condition attribute="statecode" operator="eq" value="1" />
+          </filter>
+        </entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="Inactive Employees" languagecode="1033" />
+    </LocalizedNames>
+  </savedquery>
+</savedqueries>

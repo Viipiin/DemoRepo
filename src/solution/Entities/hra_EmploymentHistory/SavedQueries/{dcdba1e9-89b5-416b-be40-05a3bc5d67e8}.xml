@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>0</CanBeDeleted>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>1</isdefault>
+    <savedqueryid>{dcdba1e9-89b5-416b-be40-05a3bc5d67e8}</savedqueryid>
+    <layoutxml>
+      <grid name="resultset" jump="hra_name" select="1" icon="1" preview="1">
+        <row name="result" id="hra_employmenthistoryid">
+          <cell name="hra_name" width="200" />
+          <cell name="hra_employee" width="150" />
+          <cell name="hra_changetype" width="150" />
+          <cell name="hra_effectivedate" width="150" />
+          <cell name="hra_todesignation" width="150" />
+          <cell name="hra_todepartment" width="150" />
+          <cell name="hra_tomanager" width="150" />
+        </row>
+      </grid>
+    </layoutxml>
+    <querytype>0</querytype>
+    <fetchxml>
+      <fetch version="1.0" mapping="logical">
+        <entity name="hra_employmenthistory">
+          <attribute name="hra_employmenthistoryid" />
+          <attribute name="hra_name" />
+          <attribute name="hra_employee" />
+          <attribute name="hra_changetype" />
+          <attribute name="hra_effectivedate" />
+          <attribute name="hra_todesignation" />
+          <attribute name="hra_todepartment" />
+          <attribute name="hra_tomanager" />
+          <order attribute="hra_effectivedate" descending="false" />
+          <filter type="and">
+            <condition attribute="statecode" operator="eq" value="0" />
+          </filter>
+        </entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>1.0.0.0</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="Active Employment History" languagecode="1033" />
+    </LocalizedNames>
+  </savedquery>
+</savedqueries>

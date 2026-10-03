@@ -1,0 +1,14 @@
+<environmentvariabledefinition schemaname="hra_ReceiptRequiredAbove">
+  <defaultvalue>500</defaultvalue>
+  <description default="Expense lines above this amount need a receipt.">
+    <label description="Expense lines above this amount need a receipt." languagecode="1033" />
+  </description>
+  <displayname default="Receipt Required Above (INR)">
+    <label description="Receipt Required Above (INR)" languagecode="1033" />
+  </displayname>
+  <introducedversion>1.0.0.0</introducedversion>
+  <iscustomizable>1</iscustomizable>
+  <isrequired>0</isrequired>
+  <secretstore>0</secretstore>
+  <type>100000001</type>
+</environmentvariabledefinition>

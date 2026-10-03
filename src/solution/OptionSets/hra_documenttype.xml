@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<optionset Name="hra_documenttype" localizedName="Document Type" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <OptionSetType>picklist</OptionSetType>
+  <IsGlobal>1</IsGlobal>
+  <IntroducedVersion>1.0.0.0</IntroducedVersion>
+  <IsCustomizable>1</IsCustomizable>
+  <displaynames>
+    <displayname description="Document Type" languagecode="1033" />
+  </displaynames>
+  <options>
+    <option value="817990000" IsHidden="0">
+      <labels>
+        <label description="PAN Card" languagecode="1033" />
+      </labels>
+    </option>
+    <option value="817990001" IsHidden="0">
+      <labels>
+        <label description="Aadhaar (masked)" languagecode="1033" />
+      </labels>
+    </option>
+    <option value="817990002" IsHidden="0">
+      <labels>
+        <label description="Passport" languagecode="1033" />
+      </labels>
+    </option>
+    <option value="817990003" IsHidden="0">
+      <labels>
+        <label description="Offer Letter" languagecode="1033" />
+      </labels>
+    </option>
+    <option value="817990004" IsHidden="0">
+      <labels>
+        <label description="Appointment Letter" languagecode="1033" />
+      </labels>
+    </option>
+    <option value="817990005" IsHidden="0">
+      <labels>
+        <label description="Relieving Letter" languagecode="1033" />
+      </labels>
+    </option>
+    <option value="817990006" IsHidden="0">
+      <labels>
+        <label description="Education Certificate" languagecode="1033" />
+      </labels>
+    </option>
+    <option value="817990007" IsHidden="0">
+      <labels>
+        <label description="Experience Letter" languagecode="1033" />
+      </labels>
+    </option>
+    <option value="817990008" IsHidden="0">
+      <labels>
+        <label description="Medical Certificate" languagecode="1033" />
+      </labels>
+    </option>
+    <option value="817990009" IsHidden="0">
+      <labels>
+        <label description="Other" languagecode="1033" />
+      </labels>
+    </option>
+  </options>
+</optionset>

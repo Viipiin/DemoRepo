@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<optionset Name="hra_employmenttype" localizedName="Employment Type" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <OptionSetType>picklist</OptionSetType>
+  <IsGlobal>1</IsGlobal>
+  <IntroducedVersion>1.0.0.0</IntroducedVersion>
+  <IsCustomizable>1</IsCustomizable>
+  <displaynames>
+    <displayname description="Employment Type" languagecode="1033" />
+  </displaynames>
+  <options>
+    <option value="817990000" IsHidden="0">
+      <labels>
+        <label description="Permanent" languagecode="1033" />
+      </labels>
+    </option>
+    <option value="817990001" IsHidden="0">
+      <labels>
+        <label description="Probation" languagecode="1033" />
+      </labels>
+    </option>
+    <option value="817990002" IsHidden="0">
+      <labels>
+        <label description="Contract" languagecode="1033" />
+      </labels>
+    </option>
+    <option value="817990003" IsHidden="0">
+      <labels>
+        <label description="Intern" languagecode="1033" />
+      </labels>
+    </option>
+    <option value="817990004" IsHidden="0">
+      <labels>
+        <label description="Consultant" languagecode="1033" />
+      </labels>
+    </option>
+  </options>
+</optionset>

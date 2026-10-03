@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Role id="{2271b1c3-28bf-f111-a059-7c1e520028f7}" name="HR Manager" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <IsCustomizable>1</IsCustomizable>
+  <IsAutoAssigned>0</IsAutoAssigned>
+  <Description>Organization-wide HR access. Read-only reference data.</Description>
+  <RolePrivileges>
+    <RolePrivilege name="prvAppendhra_EmergencyContact" level="Global" />
+    <RolePrivilege name="prvAppendhra_Employee" level="Global" />
+    <RolePrivilege name="prvAppendhra_EmployeeDocument" level="Global" />
+    <RolePrivilege name="prvAppendhra_HRCase" level="Global" />
+    <RolePrivilege name="prvAppendTohra_Department" level="Global" />
+    <RolePrivilege name="prvAppendTohra_Designation" level="Global" />
+    <RolePrivilege name="prvAppendTohra_EmergencyContact" level="Global" />
+    <RolePrivilege name="prvAppendTohra_Employee" level="Global" />
+    <RolePrivilege name="prvAppendTohra_EmployeeDocument" level="Global" />
+    <RolePrivilege name="prvAppendTohra_HRCase" level="Global" />
+    <RolePrivilege name="prvAppendTohra_Location" level="Global" />
+    <RolePrivilege name="prvAssignhra_EmergencyContact" level="Global" />
+    <RolePrivilege name="prvAssignhra_Employee" level="Global" />
+    <RolePrivilege name="prvAssignhra_EmployeeDocument" level="Global" />
+    <RolePrivilege name="prvAssignhra_HRCase" level="Global" />
+    <RolePrivilege name="prvCreatehra_EmergencyContact" level="Global" />
+    <RolePrivilege name="prvCreatehra_Employee" level="Global" />
+    <RolePrivilege name="prvCreatehra_EmployeeDocument" level="Global" />
+    <RolePrivilege name="prvCreatehra_HRCase" level="Global" />
+    <RolePrivilege name="prvCreateSharePointData" level="Global" />
+    <RolePrivilege name="prvReadhra_Department" level="Global" />
+    <RolePrivilege name="prvReadhra_Designation" level="Global" />
+    <RolePrivilege name="prvReadhra_EmergencyContact" level="Global" />
+    <RolePrivilege name="prvReadhra_Employee" level="Global" />
+    <RolePrivilege name="prvReadhra_EmployeeDocument" level="Global" />
+    <RolePrivilege name="prvReadhra_EmploymentHistory" level="Global" />
+    <RolePrivilege name="prvReadhra_HRCase" level="Global" />
+    <RolePrivilege name="prvReadhra_Location" level="Global" />
+    <RolePrivilege name="prvReadPluginAssembly" level="Global" />
+    <RolePrivilege name="prvReadPluginType" level="Global" />
+    <RolePrivilege name="prvReadSdkMessage" level="Global" />
+    <RolePrivilege name="prvReadSdkMessageProcessingStep" level="Global" />
+    <RolePrivilege name="prvReadSdkMessageProcessingStepImage" level="Global" />
+    <RolePrivilege name="prvReadSharePointData" level="Global" />
+    <RolePrivilege name="prvReadSharePointDocument" level="Global" />
+    <RolePrivilege name="prvSharehra_EmergencyContact" level="Global" />
+    <RolePrivilege name="prvSharehra_Employee" level="Global" />
+    <RolePrivilege name="prvSharehra_EmployeeDocument" level="Global" />
+    <RolePrivilege name="prvSharehra_HRCase" level="Global" />
+    <RolePrivilege name="prvWritehra_EmergencyContact" level="Global" />
+    <RolePrivilege name="prvWritehra_Employee" level="Global" />
+    <RolePrivilege name="prvWritehra_EmployeeDocument" level="Global" />
+    <RolePrivilege name="prvWritehra_HRCase" level="Global" />
+    <RolePrivilege name="prvWriteSharePointData" level="Global" />
+  </RolePrivileges>
+</Role>
