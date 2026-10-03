@@ -7,20 +7,20 @@
     <FormActivationState>1</FormActivationState>
     <form headerdensity="HighWithControls">
       <tabs>
-        <tab name="tab_general" id="{96c3c436-ba56-47c6-8af1-1f4c6994f5cf}" IsUserDefined="0" locklevel="0" showlabel="true" expanded="true">
+        <tab name="tab_general" id="{3032cf64-e953-4a69-bf47-4485d763bff5}" IsUserDefined="0" locklevel="0" showlabel="true" expanded="true">
           <labels>
             <label description="General" languagecode="1033" />
           </labels>
           <columns>
             <column width="50%">
               <sections>
-                <section name="sec_general_left" showlabel="false" showbar="false" locklevel="0" id="{bace55be-04cf-48db-84b9-6269634ec850}" IsUserDefined="0" layout="varwidth" columns="1" labelwidth="140" celllabelalignment="Left" celllabelposition="Left">
+                <section name="sec_general_left" showlabel="false" showbar="false" locklevel="0" id="{43743805-8072-4731-aac4-92d0c313f3b6}" IsUserDefined="0" layout="varwidth" columns="1" labelwidth="140" celllabelalignment="Left" celllabelposition="Left">
                   <labels>
                     <label description="General" languagecode="1033" />
                   </labels>
                   <rows>
                     <row>
-                      <cell id="{cde90cb8-766f-41b2-beef-5cbead01977b}" showlabel="true" locklevel="0">
+                      <cell id="{eefaaf08-7132-46b2-9ad5-715a0ddad8e1}" showlabel="true" locklevel="0">
                         <labels>
                           <label description="Employee" languagecode="1033" />
                         </labels>
@@ -28,7 +28,7 @@
                       </cell>
                     </row>
                     <row>
-                      <cell id="{86bbf795-c947-4b19-83cb-b660ad29f083}" showlabel="true" locklevel="0">
+                      <cell id="{8239f2a8-55bf-4069-977d-f3275914b06e}" showlabel="true" locklevel="0">
                         <labels>
                           <label description="Title" languagecode="1033" />
                         </labels>
@@ -36,19 +36,11 @@
                       </cell>
                     </row>
                     <row>
-                      <cell id="{5b925144-d9d1-4338-be5d-2c336b3ee8fe}" showlabel="true" locklevel="0">
+                      <cell id="{7a74a1bb-c3f1-41e9-a089-7fd16b3b9ce5}" showlabel="true" locklevel="0">
                         <labels>
                           <label description="Document Type" languagecode="1033" />
                         </labels>
                         <control id="hra_documenttype" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="hra_documenttype" disabled="false" />
-                      </cell>
-                    </row>
-                    <row>
-                      <cell id="{2f729200-7c29-46a3-a50b-4f4d4e61631a}" locklevel="0" colspan="1" rowspan="1">
-                        <labels>
-                          <label description="File" languagecode="1033" />
-                        </labels>
-                        <control id="hra_file" classid="{0A7FF475-B016-4687-9CE5-042BFDBD6519}" datafieldname="hra_file" disabled="false" />
                       </cell>
                     </row>
                   </rows>
@@ -57,13 +49,13 @@
             </column>
             <column width="50%">
               <sections>
-                <section name="sec_general_right" showlabel="false" showbar="false" locklevel="0" id="{05063b7d-916d-4f53-b5ad-69691af40d06}" IsUserDefined="0" layout="varwidth" columns="1" labelwidth="140" celllabelalignment="Left" celllabelposition="Left">
+                <section name="sec_general_right" showlabel="false" showbar="false" locklevel="0" id="{0a0483d9-25dc-4988-8024-250918ee2fcf}" IsUserDefined="0" layout="varwidth" columns="1" labelwidth="140" celllabelalignment="Left" celllabelposition="Left">
                   <labels>
                     <label description="General" languagecode="1033" />
                   </labels>
                   <rows>
                     <row>
-                      <cell id="{878007ca-8ac1-401e-9c6a-b92a05868256}" showlabel="true" locklevel="0">
+                      <cell id="{cc5b3333-8e1c-422a-8f9c-6417b6dbadf8}" showlabel="true" locklevel="0">
                         <labels>
                           <label description="Issue Date" languagecode="1033" />
                         </labels>
@@ -71,7 +63,7 @@
                       </cell>
                     </row>
                     <row>
-                      <cell id="{06190cd7-c9cf-4cf0-8310-638a1f6c4953}" showlabel="true" locklevel="0">
+                      <cell id="{c914aa66-924a-48df-80fa-f1ab0076f56e}" showlabel="true" locklevel="0">
                         <labels>
                           <label description="Expiry Date" languagecode="1033" />
                         </labels>
@@ -79,7 +71,7 @@
                       </cell>
                     </row>
                     <row>
-                      <cell id="{29c7752e-bec5-46f5-9fb1-2a89eea26694}" showlabel="true" locklevel="0">
+                      <cell id="{cb2d4317-b6d5-4508-9222-91df6febe097}" showlabel="true" locklevel="0">
                         <labels>
                           <label description="Verified" languagecode="1033" />
                         </labels>
@@ -87,7 +79,7 @@
                       </cell>
                     </row>
                     <row>
-                      <cell id="{63d12e0b-184d-47ca-8536-335deab269fb}" showlabel="true" locklevel="0">
+                      <cell id="{20d185ea-8e75-445d-a728-5de12a1d3de3}" showlabel="true" locklevel="0">
                         <labels>
                           <label description="Verified By" languagecode="1033" />
                         </labels>

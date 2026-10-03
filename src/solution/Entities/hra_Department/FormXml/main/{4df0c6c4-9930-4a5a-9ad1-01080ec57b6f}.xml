@@ -7,20 +7,20 @@
     <FormActivationState>1</FormActivationState>
     <form>
       <tabs>
-        <tab name="tab_general" id="{88277cdd-3ed9-4de5-826a-73c0351c82ea}" IsUserDefined="0" locklevel="0" showlabel="true" expanded="true">
+        <tab name="tab_general" id="{73068759-4ed1-44f0-ab38-c28b3bacf162}" IsUserDefined="0" locklevel="0" showlabel="true" expanded="true">
           <labels>
             <label description="General" languagecode="1033" />
           </labels>
           <columns>
             <column width="50%">
               <sections>
-                <section name="sec_general_left" showlabel="false" showbar="false" locklevel="0" id="{730aca8e-6626-4aa0-9592-b797570f8f80}" IsUserDefined="0" layout="varwidth" columns="1" labelwidth="140" celllabelalignment="Left" celllabelposition="Left">
+                <section name="sec_general_left" showlabel="false" showbar="false" locklevel="0" id="{39f33780-5e3b-4c34-96e0-b68a978d3a89}" IsUserDefined="0" layout="varwidth" columns="1" labelwidth="140" celllabelalignment="Left" celllabelposition="Left">
                   <labels>
                     <label description="General" languagecode="1033" />
                   </labels>
                   <rows>
                     <row>
-                      <cell id="{33dc8b07-2410-49b2-8937-f38c0ab83e5d}" showlabel="true" locklevel="0">
+                      <cell id="{cfeaf451-2bbd-4870-9041-bcd16a528fbe}" showlabel="true" locklevel="0">
                         <labels>
                           <label description="Name" languagecode="1033" />
                         </labels>
@@ -28,7 +28,7 @@
                       </cell>
                     </row>
                     <row>
-                      <cell id="{b5e4179b-62df-47f5-8326-8e0a9b21afe9}" showlabel="true" locklevel="0">
+                      <cell id="{6de74876-8c0f-4a6f-830c-becd4159a015}" showlabel="true" locklevel="0">
                         <labels>
                           <label description="Code" languagecode="1033" />
                         </labels>
@@ -36,7 +36,7 @@
                       </cell>
                     </row>
                     <row>
-                      <cell id="{d077beb8-a6c0-40ce-954a-bb536306438b}" showlabel="true" locklevel="0">
+                      <cell id="{367f540c-90ce-4e42-8774-12802953e2c1}" showlabel="true" locklevel="0">
                         <labels>
                           <label description="Parent Department" languagecode="1033" />
                         </labels>
@@ -49,13 +49,13 @@
             </column>
             <column width="50%">
               <sections>
-                <section name="sec_general_right" showlabel="false" showbar="false" locklevel="0" id="{63391a62-ec9e-4200-9af9-b21edbcc7333}" IsUserDefined="0" layout="varwidth" columns="1" labelwidth="140" celllabelalignment="Left" celllabelposition="Left">
+                <section name="sec_general_right" showlabel="false" showbar="false" locklevel="0" id="{5ad3a475-f31b-4527-9cb7-0f3c97994547}" IsUserDefined="0" layout="varwidth" columns="1" labelwidth="140" celllabelalignment="Left" celllabelposition="Left">
                   <labels>
                     <label description="General" languagecode="1033" />
                   </labels>
                   <rows>
                     <row>
-                      <cell id="{48919426-ef90-4215-83f6-70157acb4f2c}" showlabel="true" locklevel="0">
+                      <cell id="{e8909bb9-fa34-40c7-9aae-df566147b6b6}" showlabel="true" locklevel="0">
                         <labels>
                           <label description="Department Head" languagecode="1033" />
                         </labels>
@@ -63,7 +63,7 @@
                       </cell>
                     </row>
                     <row>
-                      <cell id="{e2e70570-f113-45d8-af4e-d87f632ab509}" showlabel="true" locklevel="0">
+                      <cell id="{f459f5cd-cef6-4397-86ce-cc0d2a825db9}" showlabel="true" locklevel="0">
                         <labels>
                           <label description="Cost Centre" languagecode="1033" />
                         </labels>
@@ -71,7 +71,7 @@
                       </cell>
                     </row>
                     <row>
-                      <cell id="{cd49b1f9-4707-4719-b3bd-212428166218}" showlabel="true" locklevel="0">
+                      <cell id="{8fdb9d35-2357-4424-b653-fd9443cf79fc}" showlabel="true" locklevel="0">
                         <labels>
                           <label description="Owner Team" languagecode="1033" />
                         </labels>

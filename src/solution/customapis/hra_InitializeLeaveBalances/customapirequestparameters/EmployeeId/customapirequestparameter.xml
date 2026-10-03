@@ -1,0 +1,12 @@
+<customapirequestparameter uniquename="EmployeeId">
+  <description default="Only this employee. Empty = all active employees.">
+    <label description="Only this employee. Empty = all active employees." languagecode="1033" />
+  </description>
+  <displayname default="EmployeeId">
+    <label description="EmployeeId" languagecode="1033" />
+  </displayname>
+  <iscustomizable>1</iscustomizable>
+  <isoptional>1</isoptional>
+  <name>hra_InitializeLeaveBalances.EmployeeId</name>
+  <type>12</type>
+</customapirequestparameter>

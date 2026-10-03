@@ -1,0 +1,18 @@
+<customapi uniquename="hra_RunLeaveAccrual">
+  <allowedcustomprocessingsteptype>0</allowedcustomprocessingsteptype>
+  <bindingtype>0</bindingtype>
+  <description default="Adds monthly or quarterly accrual for a period to every balance that hasn't had it yet. Call monthly from a scheduled cloud flow.">
+    <label description="Adds monthly or quarterly accrual for a period to every balance that hasn't had it yet. Call monthly from a scheduled cloud flow." languagecode="1033" />
+  </description>
+  <displayname default="Run Leave Accrual">
+    <label description="Run Leave Accrual" languagecode="1033" />
+  </displayname>
+  <iscustomizable>1</iscustomizable>
+  <isfunction>0</isfunction>
+  <isprivate>0</isprivate>
+  <name>hra_RunLeaveAccrual</name>
+  <plugintypeid>
+    <plugintypeexportkey>b086d6d8-32bf-f111-a059-7c1e520028f7</plugintypeexportkey>
+  </plugintypeid>
+  <workflowsdkstepenabled>0</workflowsdkstepenabled>
+</customapi>

@@ -7,20 +7,20 @@
     <FormActivationState>1</FormActivationState>
     <form>
       <tabs>
-        <tab name="tab_general" id="{399ac2c7-34fb-4190-8a28-f4b09e891e5c}" IsUserDefined="0" locklevel="0" showlabel="true" expanded="true">
+        <tab name="tab_general" id="{93d16513-3ffe-43b8-b1d5-d324b411816a}" IsUserDefined="0" locklevel="0" showlabel="true" expanded="true">
           <labels>
             <label description="General" languagecode="1033" />
           </labels>
           <columns>
             <column width="50%">
               <sections>
-                <section name="sec_general_left" showlabel="false" showbar="false" locklevel="0" id="{e62b1bbb-47a1-43b0-8f0a-f43da02a89bc}" IsUserDefined="0" layout="varwidth" columns="1" labelwidth="140" celllabelalignment="Left" celllabelposition="Left">
+                <section name="sec_general_left" showlabel="false" showbar="false" locklevel="0" id="{2d447902-fe9d-4112-b1bb-d3a3e49f3cd0}" IsUserDefined="0" layout="varwidth" columns="1" labelwidth="140" celllabelalignment="Left" celllabelposition="Left">
                   <labels>
                     <label description="General" languagecode="1033" />
                   </labels>
                   <rows>
                     <row>
-                      <cell id="{f9756d24-8cf3-4492-b508-7c1b29b4df70}" showlabel="true" locklevel="0">
+                      <cell id="{2a508c04-4ad8-4292-ac97-c32bbc4290be}" showlabel="true" locklevel="0">
                         <labels>
                           <label description="Name" languagecode="1033" />
                         </labels>
@@ -28,7 +28,7 @@
                       </cell>
                     </row>
                     <row>
-                      <cell id="{26087edd-a44b-4200-b00b-c43ebc0bac0d}" showlabel="true" locklevel="0">
+                      <cell id="{2bf2ad2f-61f4-4ffd-90a8-6191581fd5e2}" showlabel="true" locklevel="0">
                         <labels>
                           <label description="City" languagecode="1033" />
                         </labels>
@@ -36,7 +36,7 @@
                       </cell>
                     </row>
                     <row>
-                      <cell id="{d1525932-107c-49cf-822f-d5c7f2aa8b23}" showlabel="true" locklevel="0">
+                      <cell id="{2bc67a8d-5965-4130-8695-808e4c1ca58d}" showlabel="true" locklevel="0">
                         <labels>
                           <label description="State" languagecode="1033" />
                         </labels>
@@ -49,13 +49,13 @@
             </column>
             <column width="50%">
               <sections>
-                <section name="sec_general_right" showlabel="false" showbar="false" locklevel="0" id="{35767748-3b11-486f-b133-863518cb4a81}" IsUserDefined="0" layout="varwidth" columns="1" labelwidth="140" celllabelalignment="Left" celllabelposition="Left">
+                <section name="sec_general_right" showlabel="false" showbar="false" locklevel="0" id="{1ad347ff-c57c-4a45-a08d-18ed8d6fdd93}" IsUserDefined="0" layout="varwidth" columns="1" labelwidth="140" celllabelalignment="Left" celllabelposition="Left">
                   <labels>
                     <label description="General" languagecode="1033" />
                   </labels>
                   <rows>
                     <row>
-                      <cell id="{f8a90e1b-e6e9-49c3-b34b-12f4bd68d839}" showlabel="true" locklevel="0">
+                      <cell id="{7a1caa8f-1306-481e-b347-932c54c0168f}" showlabel="true" locklevel="0">
                         <labels>
                           <label description="Weekly Off Pattern" languagecode="1033" />
                         </labels>
@@ -63,11 +63,19 @@
                       </cell>
                     </row>
                     <row>
-                      <cell id="{83d54e3d-b750-4478-9314-43bdee2a62e2}" showlabel="true" locklevel="0">
+                      <cell id="{f015f164-968b-4938-baf2-466bbeda07ba}" showlabel="true" locklevel="0">
                         <labels>
                           <label description="Address" languagecode="1033" />
                         </labels>
                         <control id="hra_address" classid="{E0DECE4B-6FC8-4a8f-A065-082708572369}" datafieldname="hra_address" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{2831783c-8648-412d-9b0e-78d10a528525}" showlabel="true" locklevel="0">
+                        <labels>
+                          <label description="Holiday Calendar" languagecode="1033" />
+                        </labels>
+                        <control id="hra_holidaycalendar" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="hra_holidaycalendar" disabled="false" />
                       </cell>
                     </row>
                   </rows>

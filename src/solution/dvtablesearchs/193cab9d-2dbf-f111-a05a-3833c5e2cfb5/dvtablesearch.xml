@@ -1,0 +1,11 @@
+<dvtablesearch dvtablesearchid="193cab9d-2dbf-f111-a05a-3833c5e2cfb5">
+  <appmoduleuniquename>hra_HRHub</appmoduleuniquename>
+  <iscustomizable>1</iscustomizable>
+  <m365appmoduleid>
+    <uniquename>hra_HRHub</uniquename>
+  </m365appmoduleid>
+  <name>M365_Primary_model_hra_HRHub</name>
+  <searchtype>0</searchtype>
+  <statecode>1</statecode>
+  <statuscode>2</statuscode>
+</dvtablesearch>

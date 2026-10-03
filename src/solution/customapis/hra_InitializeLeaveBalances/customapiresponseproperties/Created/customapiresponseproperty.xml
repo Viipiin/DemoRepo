@@ -1,0 +1,11 @@
+<customapiresponseproperty uniquename="Created">
+  <description default="Number of balances created.">
+    <label description="Number of balances created." languagecode="1033" />
+  </description>
+  <displayname default="Created">
+    <label description="Created" languagecode="1033" />
+  </displayname>
+  <iscustomizable>1</iscustomizable>
+  <name>hra_InitializeLeaveBalances.Created</name>
+  <type>7</type>
+</customapiresponseproperty>

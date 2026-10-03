@@ -7,11 +7,21 @@
     <RolePrivilege name="prvAppendTohra_Department" level="Global" />
     <RolePrivilege name="prvAppendTohra_Designation" level="Global" />
     <RolePrivilege name="prvAppendTohra_Employee" level="Global" />
+    <RolePrivilege name="prvAppendTohra_Holiday" level="Global" />
+    <RolePrivilege name="prvAppendTohra_HolidayCalendar" level="Global" />
+    <RolePrivilege name="prvAppendTohra_LeavePolicy" level="Global" />
+    <RolePrivilege name="prvAppendTohra_LeavePolicyLine" level="Global" />
+    <RolePrivilege name="prvAppendTohra_LeaveType" level="Global" />
     <RolePrivilege name="prvAppendTohra_Location" level="Global" />
     <RolePrivilege name="prvCreateSharePointData" level="Global" />
     <RolePrivilege name="prvReadhra_Department" level="Global" />
     <RolePrivilege name="prvReadhra_Designation" level="Global" />
     <RolePrivilege name="prvReadhra_Employee" level="Global" />
+    <RolePrivilege name="prvReadhra_Holiday" level="Global" />
+    <RolePrivilege name="prvReadhra_HolidayCalendar" level="Global" />
+    <RolePrivilege name="prvReadhra_LeavePolicy" level="Global" />
+    <RolePrivilege name="prvReadhra_LeavePolicyLine" level="Global" />
+    <RolePrivilege name="prvReadhra_LeaveType" level="Global" />
     <RolePrivilege name="prvReadhra_Location" level="Global" />
     <RolePrivilege name="prvReadPluginAssembly" level="Global" />
     <RolePrivilege name="prvReadPluginType" level="Global" />

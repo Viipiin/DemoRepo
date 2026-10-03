@@ -7,20 +7,20 @@
     <FormActivationState>1</FormActivationState>
     <form>
       <tabs>
-        <tab name="tab_general" id="{4136a842-8a61-4dd0-8600-a90d066a8cdd}" IsUserDefined="0" locklevel="0" showlabel="true" expanded="true">
+        <tab name="tab_general" id="{644a4c1f-6e50-4e6a-9167-8c3abe4ea157}" IsUserDefined="0" locklevel="0" showlabel="true" expanded="true">
           <labels>
             <label description="General" languagecode="1033" />
           </labels>
           <columns>
             <column width="50%">
               <sections>
-                <section name="sec_general_left" showlabel="false" showbar="false" locklevel="0" id="{fca1effe-9519-42ed-871e-d4a3516829b8}" IsUserDefined="0" layout="varwidth" columns="1" labelwidth="140" celllabelalignment="Left" celllabelposition="Left">
+                <section name="sec_general_left" showlabel="false" showbar="false" locklevel="0" id="{c8a0a0dd-d1a6-4b9b-a0de-13b7d21e188c}" IsUserDefined="0" layout="varwidth" columns="1" labelwidth="140" celllabelalignment="Left" celllabelposition="Left">
                   <labels>
                     <label description="General" languagecode="1033" />
                   </labels>
                   <rows>
                     <row>
-                      <cell id="{8e9d480d-808a-477d-85b2-616ac6bf2dcd}" showlabel="true" locklevel="0">
+                      <cell id="{e706feed-e217-4beb-a881-d5f005789e54}" showlabel="true" locklevel="0">
                         <labels>
                           <label description="Name" languagecode="1033" />
                         </labels>
@@ -28,7 +28,7 @@
                       </cell>
                     </row>
                     <row>
-                      <cell id="{5630adc9-53cf-4cf4-84f0-c77dd5ee6e02}" showlabel="true" locklevel="0">
+                      <cell id="{0f31280b-069d-434e-b9e7-09595343349e}" showlabel="true" locklevel="0">
                         <labels>
                           <label description="Grade" languagecode="1033" />
                         </labels>
@@ -41,13 +41,13 @@
             </column>
             <column width="50%">
               <sections>
-                <section name="sec_general_right" showlabel="false" showbar="false" locklevel="0" id="{5c5e36ad-5113-46c7-aaab-9eba7dee7483}" IsUserDefined="0" layout="varwidth" columns="1" labelwidth="140" celllabelalignment="Left" celllabelposition="Left">
+                <section name="sec_general_right" showlabel="false" showbar="false" locklevel="0" id="{8105db16-ab2e-4c02-9733-dc24d417b1fe}" IsUserDefined="0" layout="varwidth" columns="1" labelwidth="140" celllabelalignment="Left" celllabelposition="Left">
                   <labels>
                     <label description="General" languagecode="1033" />
                   </labels>
                   <rows>
                     <row>
-                      <cell id="{36020c18-54b8-4458-8ac1-87bc1c4e9ffe}" showlabel="true" locklevel="0">
+                      <cell id="{c0d758a7-9384-4ae7-bbc0-9d34b70cb10b}" showlabel="true" locklevel="0">
                         <labels>
                           <label description="Department" languagecode="1033" />
                         </labels>

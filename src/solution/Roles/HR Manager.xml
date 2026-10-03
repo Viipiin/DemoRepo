@@ -4,33 +4,63 @@
   <IsAutoAssigned>0</IsAutoAssigned>
   <Description>Organization-wide HR access. Read-only reference data.</Description>
   <RolePrivileges>
+    <RolePrivilege name="prvAppendhra_AttendanceRecord" level="Global" />
     <RolePrivilege name="prvAppendhra_EmergencyContact" level="Global" />
     <RolePrivilege name="prvAppendhra_Employee" level="Global" />
     <RolePrivilege name="prvAppendhra_EmployeeDocument" level="Global" />
     <RolePrivilege name="prvAppendhra_HRCase" level="Global" />
+    <RolePrivilege name="prvAppendhra_LeaveAdjustment" level="Global" />
+    <RolePrivilege name="prvAppendhra_LeaveBalance" level="Global" />
+    <RolePrivilege name="prvAppendhra_LeaveRequest" level="Global" />
+    <RolePrivilege name="prvAppendTohra_AttendanceRecord" level="Global" />
     <RolePrivilege name="prvAppendTohra_Department" level="Global" />
     <RolePrivilege name="prvAppendTohra_Designation" level="Global" />
     <RolePrivilege name="prvAppendTohra_EmergencyContact" level="Global" />
     <RolePrivilege name="prvAppendTohra_Employee" level="Global" />
     <RolePrivilege name="prvAppendTohra_EmployeeDocument" level="Global" />
+    <RolePrivilege name="prvAppendTohra_Holiday" level="Global" />
+    <RolePrivilege name="prvAppendTohra_HolidayCalendar" level="Global" />
     <RolePrivilege name="prvAppendTohra_HRCase" level="Global" />
+    <RolePrivilege name="prvAppendTohra_LeaveAdjustment" level="Global" />
+    <RolePrivilege name="prvAppendTohra_LeaveBalance" level="Global" />
+    <RolePrivilege name="prvAppendTohra_LeavePolicy" level="Global" />
+    <RolePrivilege name="prvAppendTohra_LeavePolicyLine" level="Global" />
+    <RolePrivilege name="prvAppendTohra_LeaveRequest" level="Global" />
+    <RolePrivilege name="prvAppendTohra_LeaveType" level="Global" />
     <RolePrivilege name="prvAppendTohra_Location" level="Global" />
+    <RolePrivilege name="prvAssignhra_AttendanceRecord" level="Global" />
     <RolePrivilege name="prvAssignhra_EmergencyContact" level="Global" />
     <RolePrivilege name="prvAssignhra_Employee" level="Global" />
     <RolePrivilege name="prvAssignhra_EmployeeDocument" level="Global" />
     <RolePrivilege name="prvAssignhra_HRCase" level="Global" />
+    <RolePrivilege name="prvAssignhra_LeaveAdjustment" level="Global" />
+    <RolePrivilege name="prvAssignhra_LeaveBalance" level="Global" />
+    <RolePrivilege name="prvAssignhra_LeaveRequest" level="Global" />
+    <RolePrivilege name="prvCreatehra_AttendanceRecord" level="Global" />
     <RolePrivilege name="prvCreatehra_EmergencyContact" level="Global" />
     <RolePrivilege name="prvCreatehra_Employee" level="Global" />
     <RolePrivilege name="prvCreatehra_EmployeeDocument" level="Global" />
     <RolePrivilege name="prvCreatehra_HRCase" level="Global" />
+    <RolePrivilege name="prvCreatehra_LeaveAdjustment" level="Global" />
+    <RolePrivilege name="prvCreatehra_LeaveBalance" level="Global" />
+    <RolePrivilege name="prvCreatehra_LeaveRequest" level="Global" />
     <RolePrivilege name="prvCreateSharePointData" level="Global" />
+    <RolePrivilege name="prvReadhra_AttendanceRecord" level="Global" />
     <RolePrivilege name="prvReadhra_Department" level="Global" />
     <RolePrivilege name="prvReadhra_Designation" level="Global" />
     <RolePrivilege name="prvReadhra_EmergencyContact" level="Global" />
     <RolePrivilege name="prvReadhra_Employee" level="Global" />
     <RolePrivilege name="prvReadhra_EmployeeDocument" level="Global" />
     <RolePrivilege name="prvReadhra_EmploymentHistory" level="Global" />
+    <RolePrivilege name="prvReadhra_Holiday" level="Global" />
+    <RolePrivilege name="prvReadhra_HolidayCalendar" level="Global" />
     <RolePrivilege name="prvReadhra_HRCase" level="Global" />
+    <RolePrivilege name="prvReadhra_LeaveAdjustment" level="Global" />
+    <RolePrivilege name="prvReadhra_LeaveBalance" level="Global" />
+    <RolePrivilege name="prvReadhra_LeavePolicy" level="Global" />
+    <RolePrivilege name="prvReadhra_LeavePolicyLine" level="Global" />
+    <RolePrivilege name="prvReadhra_LeaveRequest" level="Global" />
+    <RolePrivilege name="prvReadhra_LeaveType" level="Global" />
     <RolePrivilege name="prvReadhra_Location" level="Global" />
     <RolePrivilege name="prvReadPluginAssembly" level="Global" />
     <RolePrivilege name="prvReadPluginType" level="Global" />
@@ -39,14 +69,22 @@
     <RolePrivilege name="prvReadSdkMessageProcessingStepImage" level="Global" />
     <RolePrivilege name="prvReadSharePointData" level="Global" />
     <RolePrivilege name="prvReadSharePointDocument" level="Global" />
+    <RolePrivilege name="prvSharehra_AttendanceRecord" level="Global" />
     <RolePrivilege name="prvSharehra_EmergencyContact" level="Global" />
     <RolePrivilege name="prvSharehra_Employee" level="Global" />
     <RolePrivilege name="prvSharehra_EmployeeDocument" level="Global" />
     <RolePrivilege name="prvSharehra_HRCase" level="Global" />
+    <RolePrivilege name="prvSharehra_LeaveAdjustment" level="Global" />
+    <RolePrivilege name="prvSharehra_LeaveBalance" level="Global" />
+    <RolePrivilege name="prvSharehra_LeaveRequest" level="Global" />
+    <RolePrivilege name="prvWritehra_AttendanceRecord" level="Global" />
     <RolePrivilege name="prvWritehra_EmergencyContact" level="Global" />
     <RolePrivilege name="prvWritehra_Employee" level="Global" />
     <RolePrivilege name="prvWritehra_EmployeeDocument" level="Global" />
     <RolePrivilege name="prvWritehra_HRCase" level="Global" />
+    <RolePrivilege name="prvWritehra_LeaveAdjustment" level="Global" />
+    <RolePrivilege name="prvWritehra_LeaveBalance" level="Global" />
+    <RolePrivilege name="prvWritehra_LeaveRequest" level="Global" />
     <RolePrivilege name="prvWriteSharePointData" level="Global" />
   </RolePrivileges>
 </Role>

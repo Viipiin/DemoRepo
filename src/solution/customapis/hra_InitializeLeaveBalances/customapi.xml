@@ -1,0 +1,18 @@
+<customapi uniquename="hra_InitializeLeaveBalances">
+  <allowedcustomprocessingsteptype>0</allowedcustomprocessingsteptype>
+  <bindingtype>0</bindingtype>
+  <description default="Creates missing leave balances for the leave year from each active employee's leave policy. Upfront entitlement is prorated for joiners.">
+    <label description="Creates missing leave balances for the leave year from each active employee's leave policy. Upfront entitlement is prorated for joiners." languagecode="1033" />
+  </description>
+  <displayname default="Initialize Leave Balances">
+    <label description="Initialize Leave Balances" languagecode="1033" />
+  </displayname>
+  <iscustomizable>1</iscustomizable>
+  <isfunction>0</isfunction>
+  <isprivate>0</isprivate>
+  <name>hra_InitializeLeaveBalances</name>
+  <plugintypeid>
+    <plugintypeexportkey>af86d6d8-32bf-f111-a059-7c1e520028f7</plugintypeexportkey>
+  </plugintypeid>
+  <workflowsdkstepenabled>0</workflowsdkstepenabled>
+</customapi>

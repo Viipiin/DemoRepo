@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <systemform>
+    <formid>{f640feb9-92e7-48a7-90d5-45dc88461e5f}</formid>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <FormPresentation>1</FormPresentation>
+    <FormActivationState>1</FormActivationState>
+    <form>
+      <tabs>
+        <tab name="tab_general" id="{c983a00f-8c3e-4daf-9365-d38439722702}" IsUserDefined="0" locklevel="0" showlabel="true" expanded="true">
+          <labels>
+            <label description="General" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="50%">
+              <sections>
+                <section name="sec_general_left" showlabel="false" showbar="false" locklevel="0" id="{d1676754-7037-46bd-91fd-2940b9f074ec}" IsUserDefined="0" layout="varwidth" columns="1" labelwidth="140" celllabelalignment="Left" celllabelposition="Left">
+                  <labels>
+                    <label description="General" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{a4017955-be11-465b-922b-c0b211dcc3d2}" showlabel="true" locklevel="0">
+                        <labels>
+                          <label description="Name" languagecode="1033" />
+                        </labels>
+                        <control id="hra_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="hra_name" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{3ec38e53-61e4-4d75-aef7-a9dba10097e2}" showlabel="true" locklevel="0">
+                        <labels>
+                          <label description="Code" languagecode="1033" />
+                        </labels>
+                        <control id="hra_code" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="hra_code" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{6f09f53c-6d0c-4925-8daa-f54b15a592a3}" showlabel="true" locklevel="0">
+                        <labels>
+                          <label description="Is Paid" languagecode="1033" />
+                        </labels>
+                        <control id="hra_ispaid" classid="{67FAC785-CD58-4f9f-ABB3-4B7DDC6ED5ED}" datafieldname="hra_ispaid" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{029713e2-26b1-4129-8bd2-ddd60adfe6ca}" showlabel="true" locklevel="0">
+                        <labels>
+                          <label description="Allow Half Day" languagecode="1033" />
+                        </labels>
+                        <control id="hra_allowhalfday" classid="{67FAC785-CD58-4f9f-ABB3-4B7DDC6ED5ED}" datafieldname="hra_allowhalfday" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{0bd896ed-072f-44a7-a976-694e9682fece}" showlabel="true" locklevel="0">
+                        <labels>
+                          <label description="Applicable Gender" languagecode="1033" />
+                        </labels>
+                        <control id="hra_applicablegender" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="hra_applicablegender" disabled="false" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+            <column width="50%">
+              <sections>
+                <section name="sec_general_right" showlabel="false" showbar="false" locklevel="0" id="{60b9d3f4-e352-4deb-acc8-06d656451b32}" IsUserDefined="0" layout="varwidth" columns="1" labelwidth="140" celllabelalignment="Left" celllabelposition="Left">
+                  <labels>
+                    <label description="General" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{3ff0efcd-0d2d-4cc4-897f-d6ed7c8495fb}" showlabel="true" locklevel="0">
+                        <labels>
+                          <label description="Max Consecutive Days" languagecode="1033" />
+                        </labels>
+                        <control id="hra_maxconsecutivedays" classid="{C6D124CA-7EDA-4a60-AEA9-7FB8D318B68F}" datafieldname="hra_maxconsecutivedays" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{b8e48723-7524-4b8b-bdb0-e17ce0f8b614}" showlabel="true" locklevel="0">
+                        <labels>
+                          <label description="Document Required After (days)" languagecode="1033" />
+                        </labels>
+                        <control id="hra_documentrequiredafterdays" classid="{C6D124CA-7EDA-4a60-AEA9-7FB8D318B68F}" datafieldname="hra_documentrequiredafterdays" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{38350b7c-ea9b-4000-bc08-38fa68262fc6}" showlabel="true" locklevel="0">
+                        <labels>
+                          <label description="Is Encashable" languagecode="1033" />
+                        </labels>
+                        <control id="hra_isencashable" classid="{67FAC785-CD58-4f9f-ABB3-4B7DDC6ED5ED}" datafieldname="hra_isencashable" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{ba7ba78a-3ce0-4873-91cf-17ffaa6ebf93}" showlabel="true" locklevel="0">
+                        <labels>
+                          <label description="Count All Calendar Days" languagecode="1033" />
+                        </labels>
+                        <control id="hra_countsandwichedholidays" classid="{67FAC785-CD58-4f9f-ABB3-4B7DDC6ED5ED}" datafieldname="hra_countsandwichedholidays" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{0374ebcd-ed8c-4083-9921-3a7875412b9d}" showlabel="true" locklevel="0">
+                        <labels>
+                          <label description="Min Notice (days)" languagecode="1033" />
+                        </labels>
+                        <control id="hra_minnoticedays" classid="{C6D124CA-7EDA-4a60-AEA9-7FB8D318B68F}" datafieldname="hra_minnoticedays" disabled="false" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+      </tabs>
+    </form>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>1</CanBeDeleted>
+    <LocalizedNames>
+      <LocalizedName description="Information" languagecode="1033" />
+    </LocalizedNames>
+    <Descriptions>
+      <Description description="A form for this entity." languagecode="1033" />
+    </Descriptions>
+  </systemform>
+</forms>

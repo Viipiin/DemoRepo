@@ -10,13 +10,22 @@
   <ClientType>4</ClientType>
   <NavigationType>0</NavigationType>
   <AppModuleComponents>
+    <AppModuleComponent type="1" schemaName="hra_attendancerecord" />
     <AppModuleComponent type="1" schemaName="hra_department" />
     <AppModuleComponent type="1" schemaName="hra_designation" />
     <AppModuleComponent type="1" schemaName="hra_emergencycontact" />
     <AppModuleComponent type="1" schemaName="hra_employee" />
     <AppModuleComponent type="1" schemaName="hra_employeedocument" />
     <AppModuleComponent type="1" schemaName="hra_employmenthistory" />
+    <AppModuleComponent type="1" schemaName="hra_holiday" />
+    <AppModuleComponent type="1" schemaName="hra_holidaycalendar" />
     <AppModuleComponent type="1" schemaName="hra_hrcase" />
+    <AppModuleComponent type="1" schemaName="hra_leaveadjustment" />
+    <AppModuleComponent type="1" schemaName="hra_leavebalance" />
+    <AppModuleComponent type="1" schemaName="hra_leavepolicy" />
+    <AppModuleComponent type="1" schemaName="hra_leavepolicyline" />
+    <AppModuleComponent type="1" schemaName="hra_leaverequest" />
+    <AppModuleComponent type="1" schemaName="hra_leavetype" />
     <AppModuleComponent type="1" schemaName="hra_location" />
     <AppModuleComponent type="62" schemaName="hra_HRHub" />
   </AppModuleComponents>
