@@ -13,8 +13,11 @@ Run these from the repo folder in the VS Code terminal (PowerShell).
 | Upload plugins after a change | `./scripts/build-plugins.ps1; ./scripts/hra.ps1 register-plugins` |
 | Load the sample data in `model/sample-data.json` | `./scripts/hra.ps1 seed` |
 | Phase 1 in one go | `./scripts/run-phase1.ps1` |
+| Phase 2 in one go | `./scripts/run-phase2.ps1` |
+| Create missing leave balances | `./scripts/hra.ps1 init-balances` (add `--param LeaveYear=2026-27` for a specific year) |
+| Run leave accrual for a month | `./scripts/hra.ps1 run-api hra_RunLeaveAccrual --param Period=2026-11` |
 | Export the solution to Git | `./scripts/export-solution.ps1` |
 | Show detailed errors | `$env:HRA_VERBOSE = "1"` before running a command |
 | Sign in as a different account | Delete the `.hra-token-cache` folder |
 
-Phase runbooks: [Phase 1](phase-1-runbook.md). How to edit the model: [model/README.md](../model/README.md)
+Phase runbooks: [Phase 1](phase-1-runbook.md), [Phase 2](phase-2-runbook.md). How to edit the model: [model/README.md](../model/README.md)

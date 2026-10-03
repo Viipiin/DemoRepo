@@ -1,0 +1,132 @@
+{
+  "phase": 2,
+  "name": "hra_AttendanceRecord",
+  "label": "Attendance Record",
+  "pluralLabel": "Attendance Records",
+  "description": "Daily attendance, one row per employee per day. Hours are calculated by plugin.",
+  "ownership": "User",
+  "primaryName": {
+    "name": "hra_Name",
+    "label": "Reference",
+    "type": "Text",
+    "maxLength": 20,
+    "autoNumber": "AT-{SEQNUM:7}"
+  },
+  "columns": [
+    {
+      "name": "hra_Employee",
+      "label": "Employee",
+      "type": "Lookup",
+      "required": "Required",
+      "target": "hra_employee",
+      "onDelete": "Restrict"
+    },
+    {
+      "name": "hra_Date",
+      "label": "Date",
+      "type": "DateOnly",
+      "required": "Required"
+    },
+    {
+      "name": "hra_CheckIn",
+      "label": "Check In",
+      "type": "DateTime"
+    },
+    {
+      "name": "hra_CheckOut",
+      "label": "Check Out",
+      "type": "DateTime"
+    },
+    {
+      "name": "hra_HoursWorked",
+      "label": "Hours Worked",
+      "type": "Decimal",
+      "min": 0,
+      "max": 24,
+      "precision": 2,
+      "readOnly": true
+    },
+    {
+      "name": "hra_Status",
+      "label": "Status",
+      "type": "Choice",
+      "required": "Required",
+      "options": [
+        "Present",
+        "Work From Home",
+        "Half Day",
+        "Absent",
+        "On Leave",
+        "Holiday",
+        "Weekly Off"
+      ],
+      "default": "Present"
+    },
+    {
+      "name": "hra_Source",
+      "label": "Source",
+      "type": "Choice",
+      "options": [
+        "Manual",
+        "Device Import",
+        "Teams Shifts"
+      ],
+      "default": "Manual"
+    }
+  ],
+  "keys": [
+    {
+      "name": "hra_key_attendance_employeedate",
+      "label": "Employee and Date",
+      "columns": [
+        "hra_employee",
+        "hra_date"
+      ]
+    }
+  ],
+  "form": [
+    {
+      "tab": "general",
+      "label": "General",
+      "left": [
+        "hra_employee",
+        "hra_date",
+        "hra_status",
+        "hra_source"
+      ],
+      "right": [
+        "hra_checkin",
+        "hra_checkout",
+        "hra_hoursworked",
+        "hra_name"
+      ]
+    }
+  ],
+  "views": [
+    {
+      "default": true,
+      "columns": [
+        "hra_date",
+        "hra_employee",
+        "hra_status",
+        "hra_checkin",
+        "hra_checkout",
+        "hra_hoursworked"
+      ],
+      "sort": "hra_date"
+    },
+    {
+      "name": "My Attendance",
+      "description": "Attendance of the employee linked to my user.",
+      "columns": [
+        "hra_date",
+        "hra_status",
+        "hra_checkin",
+        "hra_checkout",
+        "hra_hoursworked"
+      ],
+      "join": "<link-entity name=\"hra_employee\" from=\"hra_employeeid\" to=\"hra_employee\" link-type=\"inner\" alias=\"me\"><filter><condition attribute=\"hra_systemuser\" operator=\"eq-userid\" /></filter></link-entity>",
+      "sort": "hra_date"
+    }
+  ]
+}

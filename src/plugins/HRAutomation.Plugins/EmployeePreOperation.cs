@@ -5,7 +5,8 @@ namespace HRAutomation.Plugins
 {
     /// <summary>
     /// P-01. hra_employee Create and Update, PreOperation (stage 20), synchronous.
-    /// Builds the full name, validates and normalises Indian ID numbers, and sets defaults on create.
+    /// Builds the full name, validates and normalises Indian ID numbers, and sets defaults on create
+    /// (notice period, probation end date, default leave policy).
     /// Update step needs a PreImage named "PreImage" with first, middle and last name.
     /// </summary>
     public class EmployeePreOperation : PluginBase
@@ -33,6 +34,12 @@ namespace HRAutomation.Plugins
                 if (!target.Contains(Employee.NoticePeriodDays) || target[Employee.NoticePeriodDays] == null)
                 {
                     target[Employee.NoticePeriodDays] = Settings.DefaultNoticePeriodDays;
+                }
+
+                if (!target.Contains("hra_leavepolicy") || target["hra_leavepolicy"] == null)
+                {
+                    var policy = new LeaveService(local).GetDefaultPolicy();
+                    if (policy != null) target["hra_leavepolicy"] = policy;
                 }
 
                 var joining = target.GetAttributeValue<DateTime?>(Employee.DateOfJoining);

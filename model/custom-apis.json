@@ -1,0 +1,52 @@
+{
+  "customApis": [
+    {
+      "uniqueName": "hra_InitializeLeaveBalances",
+      "displayName": "Initialize Leave Balances",
+      "description": "Creates missing leave balances for the leave year from each active employee's leave policy. Upfront entitlement is prorated for joiners.",
+      "plugin": "HRAutomation.Plugins.InitializeLeaveBalancesApi",
+      "parameters": [
+        {
+          "name": "EmployeeId",
+          "type": "Guid",
+          "optional": true,
+          "description": "Only this employee. Empty = all active employees."
+        },
+        {
+          "name": "LeaveYear",
+          "type": "String",
+          "optional": true,
+          "description": "For example 2026-27. Empty = the current leave year."
+        }
+      ],
+      "responses": [
+        {
+          "name": "Created",
+          "type": "Integer",
+          "description": "Number of balances created."
+        }
+      ]
+    },
+    {
+      "uniqueName": "hra_RunLeaveAccrual",
+      "displayName": "Run Leave Accrual",
+      "description": "Adds monthly or quarterly accrual for a period to every balance that hasn't had it yet. Call monthly from a scheduled cloud flow.",
+      "plugin": "HRAutomation.Plugins.RunLeaveAccrualApi",
+      "parameters": [
+        {
+          "name": "Period",
+          "type": "String",
+          "optional": true,
+          "description": "Month as yyyy-MM. Empty = the current month (IST)."
+        }
+      ],
+      "responses": [
+        {
+          "name": "Updated",
+          "type": "Integer",
+          "description": "Number of balances that received accrual."
+        }
+      ]
+    }
+  ]
+}

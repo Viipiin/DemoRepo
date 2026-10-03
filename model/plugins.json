@@ -57,6 +57,121 @@
         "hra_annualctc",
         "ownerid"
       ]
+    },
+    {
+      "plugin": "HRAutomation.Plugins.LeaveRequestPreOperation",
+      "message": "Create",
+      "table": "hra_leaverequest",
+      "stage": "PreOperation"
+    },
+    {
+      "plugin": "HRAutomation.Plugins.LeaveRequestPreOperation",
+      "message": "Update",
+      "table": "hra_leaverequest",
+      "stage": "PreOperation",
+      "filteringAttributes": [
+        "hra_fromdate",
+        "hra_todate",
+        "hra_firstdayhalf",
+        "hra_lastdayhalf",
+        "hra_leavetype",
+        "hra_employee",
+        "hra_status"
+      ],
+      "preImage": [
+        "hra_fromdate",
+        "hra_todate",
+        "hra_firstdayhalf",
+        "hra_lastdayhalf",
+        "hra_leavetype",
+        "hra_employee",
+        "hra_status",
+        "hra_approver",
+        "hra_numberofdays",
+        "hra_leaveyear"
+      ]
+    },
+    {
+      "plugin": "HRAutomation.Plugins.LeaveRequestPostOperation",
+      "message": "Create",
+      "table": "hra_leaverequest",
+      "stage": "PostOperation"
+    },
+    {
+      "plugin": "HRAutomation.Plugins.LeaveRequestPostOperation",
+      "message": "Update",
+      "table": "hra_leaverequest",
+      "stage": "PostOperation",
+      "filteringAttributes": [
+        "hra_status",
+        "hra_numberofdays",
+        "hra_leavetype",
+        "hra_leaveyear",
+        "hra_employee"
+      ],
+      "preImage": [
+        "hra_status",
+        "hra_numberofdays",
+        "hra_leavetype",
+        "hra_leaveyear",
+        "hra_employee"
+      ]
+    },
+    {
+      "plugin": "HRAutomation.Plugins.LeaveAdjustmentPostOperation",
+      "message": "Create",
+      "table": "hra_leaveadjustment",
+      "stage": "PostOperation"
+    },
+    {
+      "plugin": "HRAutomation.Plugins.LeaveBalancePreOperation",
+      "message": "Create",
+      "table": "hra_leavebalance",
+      "stage": "PreOperation"
+    },
+    {
+      "plugin": "HRAutomation.Plugins.LeaveBalancePreOperation",
+      "message": "Update",
+      "table": "hra_leavebalance",
+      "stage": "PreOperation",
+      "filteringAttributes": [
+        "hra_opening",
+        "hra_accrued",
+        "hra_taken",
+        "hra_adjusted",
+        "hra_carriedforward",
+        "hra_encashed",
+        "hra_pendingapproval"
+      ],
+      "preImage": [
+        "hra_opening",
+        "hra_accrued",
+        "hra_taken",
+        "hra_adjusted",
+        "hra_carriedforward",
+        "hra_encashed",
+        "hra_pendingapproval"
+      ]
+    },
+    {
+      "plugin": "HRAutomation.Plugins.AttendancePreOperation",
+      "message": "Create",
+      "table": "hra_attendancerecord",
+      "stage": "PreOperation"
+    },
+    {
+      "plugin": "HRAutomation.Plugins.AttendancePreOperation",
+      "message": "Update",
+      "table": "hra_attendancerecord",
+      "stage": "PreOperation",
+      "filteringAttributes": [
+        "hra_checkin",
+        "hra_checkout"
+      ],
+      "preImage": [
+        "hra_checkin",
+        "hra_checkout"
+      ]
     }
   ]
 }

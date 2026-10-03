@@ -1,0 +1,216 @@
+{
+  "phase": 2,
+  "name": "hra_LeaveRequest",
+  "label": "Leave Request",
+  "pluralLabel": "Leave Requests",
+  "description": "Leave applications. Days, leave year and balance are handled by plugins; only the approver or HR can approve.",
+  "ownership": "User",
+  "audited": true,
+  "primaryName": {
+    "name": "hra_Name",
+    "label": "Request Number",
+    "type": "Text",
+    "maxLength": 20,
+    "autoNumber": "LR-{SEQNUM:6}"
+  },
+  "columns": [
+    {
+      "name": "hra_Employee",
+      "label": "Employee",
+      "type": "Lookup",
+      "required": "Required",
+      "target": "hra_employee",
+      "onDelete": "Restrict"
+    },
+    {
+      "name": "hra_LeaveType",
+      "label": "Leave Type",
+      "type": "Lookup",
+      "required": "Required",
+      "target": "hra_leavetype",
+      "onDelete": "Restrict"
+    },
+    {
+      "name": "hra_FromDate",
+      "label": "From Date",
+      "type": "DateOnly",
+      "required": "Required"
+    },
+    {
+      "name": "hra_ToDate",
+      "label": "To Date",
+      "type": "DateOnly",
+      "required": "Required"
+    },
+    {
+      "name": "hra_FirstDayHalf",
+      "label": "First Day Half",
+      "type": "YesNo"
+    },
+    {
+      "name": "hra_LastDayHalf",
+      "label": "Last Day Half",
+      "type": "YesNo"
+    },
+    {
+      "name": "hra_NumberOfDays",
+      "label": "Number of Days",
+      "type": "Decimal",
+      "min": 0,
+      "max": 400,
+      "precision": 1,
+      "readOnly": true
+    },
+    {
+      "name": "hra_LeaveYear",
+      "label": "Leave Year",
+      "type": "Text",
+      "maxLength": 7,
+      "readOnly": true
+    },
+    {
+      "name": "hra_Reason",
+      "label": "Reason",
+      "type": "Memo",
+      "required": "Required",
+      "maxLength": 1000
+    },
+    {
+      "name": "hra_Attachment",
+      "label": "Attachment",
+      "type": "File",
+      "maxSizeKb": 5120
+    },
+    {
+      "name": "hra_Status",
+      "label": "Status",
+      "type": "GlobalChoice",
+      "required": "Required",
+      "choice": "hra_approvalstatus",
+      "default": "Submitted",
+      "audited": true
+    },
+    {
+      "name": "hra_Approver",
+      "label": "Approver",
+      "type": "Lookup",
+      "target": "hra_employee",
+      "description": "Defaults to the reporting manager."
+    },
+    {
+      "name": "hra_ActionedOn",
+      "label": "Actioned On",
+      "type": "DateTime",
+      "readOnly": true
+    },
+    {
+      "name": "hra_ApproverComments",
+      "label": "Approver Comments",
+      "type": "Memo",
+      "maxLength": 1000
+    },
+    {
+      "name": "hra_CancellationReason",
+      "label": "Cancellation Reason",
+      "type": "Memo",
+      "maxLength": 500
+    },
+    {
+      "name": "hra_Source",
+      "label": "Source",
+      "type": "Choice",
+      "options": [
+        "App",
+        "Portal",
+        "Teams Agent"
+      ],
+      "default": "App"
+    }
+  ],
+  "form": [
+    {
+      "tab": "general",
+      "label": "General",
+      "left": [
+        "hra_employee",
+        "hra_leavetype",
+        "hra_fromdate",
+        "hra_todate",
+        "hra_firstdayhalf",
+        "hra_lastdayhalf",
+        "hra_reason"
+      ],
+      "right": [
+        "hra_name",
+        "hra_status",
+        "hra_numberofdays",
+        "hra_leaveyear",
+        "hra_approver",
+        "hra_actionedon",
+        "hra_approvercomments",
+        "hra_cancellationreason",
+        "hra_source"
+      ]
+    }
+  ],
+  "views": [
+    {
+      "default": true,
+      "columns": [
+        "hra_name",
+        "hra_employee",
+        "hra_leavetype",
+        "hra_fromdate",
+        "hra_todate",
+        "hra_numberofdays",
+        "hra_status",
+        "hra_approver"
+      ],
+      "sort": "hra_fromdate"
+    },
+    {
+      "name": "Pending My Approval",
+      "description": "Submitted requests where I'm the approver.",
+      "columns": [
+        "hra_name",
+        "hra_employee",
+        "hra_leavetype",
+        "hra_fromdate",
+        "hra_todate",
+        "hra_numberofdays"
+      ],
+      "filter": "<condition attribute=\"hra_status\" operator=\"eq\" value=\"817990001\" />",
+      "join": "<link-entity name=\"hra_employee\" from=\"hra_employeeid\" to=\"hra_approver\" link-type=\"inner\" alias=\"approver\"><filter><condition attribute=\"hra_systemuser\" operator=\"eq-userid\" /></filter></link-entity>",
+      "sort": "hra_fromdate"
+    },
+    {
+      "name": "My Leave Requests",
+      "description": "Requests of the employee linked to my user.",
+      "columns": [
+        "hra_name",
+        "hra_leavetype",
+        "hra_fromdate",
+        "hra_todate",
+        "hra_numberofdays",
+        "hra_status"
+      ],
+      "join": "<link-entity name=\"hra_employee\" from=\"hra_employeeid\" to=\"hra_employee\" link-type=\"inner\" alias=\"me\"><filter><condition attribute=\"hra_systemuser\" operator=\"eq-userid\" /></filter></link-entity>",
+      "sort": "hra_fromdate"
+    },
+    {
+      "name": "My Team's Leave",
+      "description": "Requests owned by me or people below me in the manager hierarchy.",
+      "columns": [
+        "hra_name",
+        "hra_employee",
+        "hra_leavetype",
+        "hra_fromdate",
+        "hra_todate",
+        "hra_numberofdays",
+        "hra_status"
+      ],
+      "filter": "<condition attribute=\"ownerid\" operator=\"eq-useroruserhierarchy\" />",
+      "sort": "hra_fromdate"
+    }
+  ]
+}

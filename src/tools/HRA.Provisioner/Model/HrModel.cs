@@ -12,7 +12,8 @@ public sealed class HrModel
         IReadOnlyList<EnvironmentVariableDef> environmentVariables,
         string pluginAssembly,
         IReadOnlyList<PluginStepDef> pluginSteps,
-        IReadOnlyList<SampleGroup> sampleData)
+        IReadOnlyList<SampleGroup> sampleData,
+        IReadOnlyList<CustomApiDef> customApis)
     {
         Choices = choices;
         Tables = tables;
@@ -23,6 +24,7 @@ public sealed class HrModel
         PluginAssembly = pluginAssembly;
         PluginSteps = pluginSteps;
         SampleData = sampleData;
+        CustomApis = customApis;
     }
 
     public IReadOnlyList<ChoiceDef> Choices { get; }
@@ -35,6 +37,7 @@ public sealed class HrModel
     public string PluginAssembly { get; }
     public IReadOnlyList<PluginStepDef> PluginSteps { get; }
     public IReadOnlyList<SampleGroup> SampleData { get; }
+    public IReadOnlyList<CustomApiDef> CustomApis { get; }
 
     public TableDef Table(string logicalName) =>
         Tables.FirstOrDefault(t => t.LogicalName == logicalName.ToLowerInvariant());

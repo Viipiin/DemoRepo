@@ -137,6 +137,8 @@ public sealed class ViewDef
     public string Description { get; init; }
     /// <summary>Extra FetchXML condition elements added to the statecode = Active filter.</summary>
     public string ExtraConditions { get; init; } = "";
+    /// <summary>Extra FetchXML elements inside &lt;entity&gt;, e.g. a link-entity to filter on a related record.</summary>
+    public string Join { get; init; } = "";
     public string SortColumn { get; init; }
 }
 
@@ -276,3 +278,15 @@ public sealed class SampleGroup
     public bool Upsert { get; init; }
     public List<Dictionary<string, System.Text.Json.JsonElement>> Rows { get; init; } = new();
 }
+
+/// <summary>A Dataverse Custom API (a callable action backed by a plugin), from model/custom-apis.json.</summary>
+public sealed record CustomApiDef(
+    string UniqueName,
+    string DisplayName,
+    string Description,
+    string Plugin,
+    bool IsFunction,
+    IReadOnlyList<CustomApiFieldDef> Parameters,
+    IReadOnlyList<CustomApiFieldDef> Responses);
+
+public sealed record CustomApiFieldDef(string Name, string Type, bool Optional, string Description);

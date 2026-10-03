@@ -1454,6 +1454,517 @@
           "hra_systemuser": "@me"
         }
       ]
+    },
+    {
+      "table": "hra_holidaycalendar",
+      "key": [
+        "hra_name"
+      ],
+      "_note": "Phase 2. Fixed-date holidays only; add Ugadi, Ganesh Chaturthi, Ayudha Pooja, Deepavali etc. from the official Karnataka list each year.",
+      "rows": [
+        {
+          "hra_name": "Karnataka 2026",
+          "hra_year": 2026,
+          "hra_state": "Karnataka"
+        },
+        {
+          "hra_name": "Karnataka 2027",
+          "hra_year": 2027,
+          "hra_state": "Karnataka"
+        }
+      ]
+    },
+    {
+      "table": "hra_holiday",
+      "key": [
+        "hra_holidaycalendar",
+        "hra_date"
+      ],
+      "rows": [
+        {
+          "hra_holidaycalendar": "Karnataka 2026",
+          "hra_date": "2026-01-01",
+          "hra_name": "New Year's Day",
+          "hra_type": "Optional/Restricted"
+        },
+        {
+          "hra_holidaycalendar": "Karnataka 2026",
+          "hra_date": "2026-01-26",
+          "hra_name": "Republic Day",
+          "hra_type": "National"
+        },
+        {
+          "hra_holidaycalendar": "Karnataka 2026",
+          "hra_date": "2026-05-01",
+          "hra_name": "May Day",
+          "hra_type": "State"
+        },
+        {
+          "hra_holidaycalendar": "Karnataka 2026",
+          "hra_date": "2026-08-15",
+          "hra_name": "Independence Day",
+          "hra_type": "National"
+        },
+        {
+          "hra_holidaycalendar": "Karnataka 2026",
+          "hra_date": "2026-10-02",
+          "hra_name": "Gandhi Jayanti",
+          "hra_type": "National"
+        },
+        {
+          "hra_holidaycalendar": "Karnataka 2026",
+          "hra_date": "2026-11-01",
+          "hra_name": "Kannada Rajyotsava",
+          "hra_type": "State"
+        },
+        {
+          "hra_holidaycalendar": "Karnataka 2026",
+          "hra_date": "2026-12-25",
+          "hra_name": "Christmas",
+          "hra_type": "State"
+        },
+        {
+          "hra_holidaycalendar": "Karnataka 2027",
+          "hra_date": "2027-01-01",
+          "hra_name": "New Year's Day",
+          "hra_type": "Optional/Restricted"
+        },
+        {
+          "hra_holidaycalendar": "Karnataka 2027",
+          "hra_date": "2027-01-26",
+          "hra_name": "Republic Day",
+          "hra_type": "National"
+        },
+        {
+          "hra_holidaycalendar": "Karnataka 2027",
+          "hra_date": "2027-05-01",
+          "hra_name": "May Day",
+          "hra_type": "State"
+        },
+        {
+          "hra_holidaycalendar": "Karnataka 2027",
+          "hra_date": "2027-08-15",
+          "hra_name": "Independence Day",
+          "hra_type": "National"
+        },
+        {
+          "hra_holidaycalendar": "Karnataka 2027",
+          "hra_date": "2027-10-02",
+          "hra_name": "Gandhi Jayanti",
+          "hra_type": "National"
+        },
+        {
+          "hra_holidaycalendar": "Karnataka 2027",
+          "hra_date": "2027-11-01",
+          "hra_name": "Kannada Rajyotsava",
+          "hra_type": "State"
+        },
+        {
+          "hra_holidaycalendar": "Karnataka 2027",
+          "hra_date": "2027-12-25",
+          "hra_name": "Christmas",
+          "hra_type": "State"
+        }
+      ]
+    },
+    {
+      "table": "hra_location",
+      "key": [
+        "hra_name"
+      ],
+      "upsert": true,
+      "rows": [
+        {
+          "hra_name": "Bengaluru - HQ",
+          "hra_holidaycalendar": "Karnataka 2026"
+        }
+      ]
+    },
+    {
+      "table": "hra_leavetype",
+      "key": [
+        "hra_code"
+      ],
+      "rows": [
+        {
+          "hra_code": "EL",
+          "hra_name": "Earned Leave",
+          "hra_ispaid": true,
+          "hra_allowhalfday": true,
+          "hra_applicablegender": "All",
+          "hra_isencashable": true,
+          "hra_minnoticedays": 7
+        },
+        {
+          "hra_code": "CL",
+          "hra_name": "Casual Leave",
+          "hra_ispaid": true,
+          "hra_allowhalfday": true,
+          "hra_applicablegender": "All",
+          "hra_maxconsecutivedays": 3
+        },
+        {
+          "hra_code": "SL",
+          "hra_name": "Sick Leave",
+          "hra_ispaid": true,
+          "hra_allowhalfday": true,
+          "hra_applicablegender": "All",
+          "hra_documentrequiredafterdays": 2
+        },
+        {
+          "hra_code": "RH",
+          "hra_name": "Restricted Holiday",
+          "hra_ispaid": true,
+          "hra_allowhalfday": false,
+          "hra_applicablegender": "All",
+          "hra_maxconsecutivedays": 1
+        },
+        {
+          "hra_code": "ML",
+          "hra_name": "Maternity Leave",
+          "hra_ispaid": true,
+          "hra_allowhalfday": false,
+          "hra_applicablegender": "Female",
+          "hra_countsandwichedholidays": true,
+          "hra_documentrequiredafterdays": 0
+        },
+        {
+          "hra_code": "PTL",
+          "hra_name": "Paternity Leave",
+          "hra_ispaid": true,
+          "hra_allowhalfday": false,
+          "hra_applicablegender": "Male",
+          "hra_maxconsecutivedays": 5
+        },
+        {
+          "hra_code": "BL",
+          "hra_name": "Bereavement Leave",
+          "hra_ispaid": true,
+          "hra_allowhalfday": false,
+          "hra_applicablegender": "All",
+          "hra_maxconsecutivedays": 3
+        },
+        {
+          "hra_code": "CO",
+          "hra_name": "Compensatory Off",
+          "hra_ispaid": true,
+          "hra_allowhalfday": true,
+          "hra_applicablegender": "All"
+        },
+        {
+          "hra_code": "LOP",
+          "hra_name": "Loss of Pay",
+          "hra_ispaid": false,
+          "hra_allowhalfday": true,
+          "hra_applicablegender": "All"
+        }
+      ]
+    },
+    {
+      "table": "hra_leavepolicy",
+      "key": [
+        "hra_name"
+      ],
+      "rows": [
+        {
+          "hra_name": "Standard India Policy",
+          "hra_isdefault": true,
+          "hra_description": "Default policy for India: EL 18 (1.5/month, carry forward 30, encash 15, max 45), CL 8, SL 8, RH 2, ML 26 weeks, PTL 5, BL 3, comp-off by adjustment."
+        }
+      ]
+    },
+    {
+      "table": "hra_leavepolicyline",
+      "key": [
+        "hra_name"
+      ],
+      "rows": [
+        {
+          "hra_name": "Standard India Policy - EL",
+          "hra_leavepolicy": "Standard India Policy",
+          "hra_leavetype": "EL",
+          "hra_annualentitlement": 18,
+          "hra_accrualfrequency": "Monthly",
+          "hra_availableduringprobation": false,
+          "hra_prorateonjoining": false,
+          "hra_maxcarryforward": 30,
+          "hra_maxencashment": 15,
+          "hra_maxbalance": 45
+        },
+        {
+          "hra_name": "Standard India Policy - CL",
+          "hra_leavepolicy": "Standard India Policy",
+          "hra_leavetype": "CL",
+          "hra_annualentitlement": 8,
+          "hra_accrualfrequency": "Upfront",
+          "hra_availableduringprobation": true,
+          "hra_prorateonjoining": true
+        },
+        {
+          "hra_name": "Standard India Policy - SL",
+          "hra_leavepolicy": "Standard India Policy",
+          "hra_leavetype": "SL",
+          "hra_annualentitlement": 8,
+          "hra_accrualfrequency": "Upfront",
+          "hra_availableduringprobation": true,
+          "hra_prorateonjoining": true
+        },
+        {
+          "hra_name": "Standard India Policy - RH",
+          "hra_leavepolicy": "Standard India Policy",
+          "hra_leavetype": "RH",
+          "hra_annualentitlement": 2,
+          "hra_accrualfrequency": "Upfront",
+          "hra_availableduringprobation": true,
+          "hra_prorateonjoining": true
+        },
+        {
+          "hra_name": "Standard India Policy - ML",
+          "hra_leavepolicy": "Standard India Policy",
+          "hra_leavetype": "ML",
+          "hra_annualentitlement": 182,
+          "hra_accrualfrequency": "Upfront",
+          "hra_availableduringprobation": false,
+          "hra_prorateonjoining": false
+        },
+        {
+          "hra_name": "Standard India Policy - PTL",
+          "hra_leavepolicy": "Standard India Policy",
+          "hra_leavetype": "PTL",
+          "hra_annualentitlement": 5,
+          "hra_accrualfrequency": "Upfront",
+          "hra_availableduringprobation": false,
+          "hra_prorateonjoining": false
+        },
+        {
+          "hra_name": "Standard India Policy - BL",
+          "hra_leavepolicy": "Standard India Policy",
+          "hra_leavetype": "BL",
+          "hra_annualentitlement": 3,
+          "hra_accrualfrequency": "Upfront",
+          "hra_availableduringprobation": true,
+          "hra_prorateonjoining": false
+        },
+        {
+          "hra_name": "Standard India Policy - CO",
+          "hra_leavepolicy": "Standard India Policy",
+          "hra_leavetype": "CO",
+          "hra_annualentitlement": 0,
+          "hra_accrualfrequency": "Upfront",
+          "hra_availableduringprobation": true,
+          "hra_prorateonjoining": false
+        }
+      ]
+    },
+    {
+      "table": "hra_employee",
+      "key": [
+        "hra_workemail"
+      ],
+      "upsert": true,
+      "_note": "Gives every sample employee the default leave policy.",
+      "rows": [
+        {
+          "hra_workemail": "aarti.patil@example.com",
+          "hra_leavepolicy": "Standard India Policy"
+        },
+        {
+          "hra_workemail": "nikhil.sharma@example.com",
+          "hra_leavepolicy": "Standard India Policy"
+        },
+        {
+          "hra_workemail": "suresh.naidu@example.com",
+          "hra_leavepolicy": "Standard India Policy"
+        },
+        {
+          "hra_workemail": "sanjay.shetty@example.com",
+          "hra_leavepolicy": "Standard India Policy"
+        },
+        {
+          "hra_workemail": "rajesh.shetty@example.com",
+          "hra_leavepolicy": "Standard India Policy"
+        },
+        {
+          "hra_workemail": "rajesh.patil@example.com",
+          "hra_leavepolicy": "Standard India Policy"
+        },
+        {
+          "hra_workemail": "tanvi.pai@example.com",
+          "hra_leavepolicy": "Standard India Policy"
+        },
+        {
+          "hra_workemail": "lakshmi.sharma@example.com",
+          "hra_leavepolicy": "Standard India Policy"
+        },
+        {
+          "hra_workemail": "priya.nair@example.com",
+          "hra_leavepolicy": "Standard India Policy"
+        },
+        {
+          "hra_workemail": "nikhil.reddy@example.com",
+          "hra_leavepolicy": "Standard India Policy"
+        },
+        {
+          "hra_workemail": "kiran.pai@example.com",
+          "hra_leavepolicy": "Standard India Policy"
+        },
+        {
+          "hra_workemail": "neha.naidu@example.com",
+          "hra_leavepolicy": "Standard India Policy"
+        },
+        {
+          "hra_workemail": "meera.iyer@example.com",
+          "hra_leavepolicy": "Standard India Policy"
+        },
+        {
+          "hra_workemail": "aarti.menon@example.com",
+          "hra_leavepolicy": "Standard India Policy"
+        },
+        {
+          "hra_workemail": "lakshmi.gowda@example.com",
+          "hra_leavepolicy": "Standard India Policy"
+        },
+        {
+          "hra_workemail": "rohan.menon@example.com",
+          "hra_leavepolicy": "Standard India Policy"
+        },
+        {
+          "hra_workemail": "vidya.hegde@example.com",
+          "hra_leavepolicy": "Standard India Policy"
+        },
+        {
+          "hra_workemail": "manoj.hegde@example.com",
+          "hra_leavepolicy": "Standard India Policy"
+        },
+        {
+          "hra_workemail": "neha.bhat@example.com",
+          "hra_leavepolicy": "Standard India Policy"
+        },
+        {
+          "hra_workemail": "ananya.gowda@example.com",
+          "hra_leavepolicy": "Standard India Policy"
+        },
+        {
+          "hra_workemail": "prakash.joshi@example.com",
+          "hra_leavepolicy": "Standard India Policy"
+        },
+        {
+          "hra_workemail": "pooja.gowda@example.com",
+          "hra_leavepolicy": "Standard India Policy"
+        },
+        {
+          "hra_workemail": "pooja.naidu@example.com",
+          "hra_leavepolicy": "Standard India Policy"
+        },
+        {
+          "hra_workemail": "priya.bhat@example.com",
+          "hra_leavepolicy": "Standard India Policy"
+        },
+        {
+          "hra_workemail": "sneha.iyer@example.com",
+          "hra_leavepolicy": "Standard India Policy"
+        },
+        {
+          "hra_workemail": "priya.shetty@example.com",
+          "hra_leavepolicy": "Standard India Policy"
+        },
+        {
+          "hra_workemail": "swati.nair@example.com",
+          "hra_leavepolicy": "Standard India Policy"
+        },
+        {
+          "hra_workemail": "arjun.shetty@example.com",
+          "hra_leavepolicy": "Standard India Policy"
+        },
+        {
+          "hra_workemail": "swati.shetty@example.com",
+          "hra_leavepolicy": "Standard India Policy"
+        },
+        {
+          "hra_workemail": "suresh.reddy@example.com",
+          "hra_leavepolicy": "Standard India Policy"
+        },
+        {
+          "hra_workemail": "manoj.sharma@example.com",
+          "hra_leavepolicy": "Standard India Policy"
+        },
+        {
+          "hra_workemail": "vinay.iyer@example.com",
+          "hra_leavepolicy": "Standard India Policy"
+        },
+        {
+          "hra_workemail": "kavya.menon@example.com",
+          "hra_leavepolicy": "Standard India Policy"
+        },
+        {
+          "hra_workemail": "kavya.iyer@example.com",
+          "hra_leavepolicy": "Standard India Policy"
+        },
+        {
+          "hra_workemail": "aarti.pai@example.com",
+          "hra_leavepolicy": "Standard India Policy"
+        },
+        {
+          "hra_workemail": "sneha.menon@example.com",
+          "hra_leavepolicy": "Standard India Policy"
+        },
+        {
+          "hra_workemail": "vinay.bhat@example.com",
+          "hra_leavepolicy": "Standard India Policy"
+        },
+        {
+          "hra_workemail": "rohan.patil@example.com",
+          "hra_leavepolicy": "Standard India Policy"
+        },
+        {
+          "hra_workemail": "rajesh.nair@example.com",
+          "hra_leavepolicy": "Standard India Policy"
+        },
+        {
+          "hra_workemail": "arjun.gowda@example.com",
+          "hra_leavepolicy": "Standard India Policy"
+        },
+        {
+          "hra_workemail": "riya.bhat@example.com",
+          "hra_leavepolicy": "Standard India Policy"
+        },
+        {
+          "hra_workemail": "vidya.sharma@example.com",
+          "hra_leavepolicy": "Standard India Policy"
+        },
+        {
+          "hra_workemail": "prakash.sharma@example.com",
+          "hra_leavepolicy": "Standard India Policy"
+        },
+        {
+          "hra_workemail": "divya.rao@example.com",
+          "hra_leavepolicy": "Standard India Policy"
+        },
+        {
+          "hra_workemail": "yash.iyer@example.com",
+          "hra_leavepolicy": "Standard India Policy"
+        },
+        {
+          "hra_workemail": "sneha.shetty@example.com",
+          "hra_leavepolicy": "Standard India Policy"
+        },
+        {
+          "hra_workemail": "pooja.sharma@example.com",
+          "hra_leavepolicy": "Standard India Policy"
+        },
+        {
+          "hra_workemail": "prakash.hegde@example.com",
+          "hra_leavepolicy": "Standard India Policy"
+        },
+        {
+          "hra_workemail": "riya.kamath@example.com",
+          "hra_leavepolicy": "Standard India Policy"
+        },
+        {
+          "hra_workemail": "kavya.sharma@example.com",
+          "hra_leavepolicy": "Standard India Policy"
+        }
+      ]
     }
   ]
 }

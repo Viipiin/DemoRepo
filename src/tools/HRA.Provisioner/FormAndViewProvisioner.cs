@@ -271,7 +271,9 @@ public sealed class FormAndViewProvisioner
         sb.Append($"<order attribute=\"{view.SortColumn ?? metadata.PrimaryNameAttribute}\" descending=\"false\" />");
         sb.Append("<filter type=\"and\"><condition attribute=\"statecode\" operator=\"eq\" value=\"0\" />");
         sb.Append(view.ExtraConditions);
-        sb.Append("</filter></entity></fetch>");
+        sb.Append("</filter>");
+        sb.Append(view.Join);
+        sb.Append("</entity></fetch>");
         return sb.ToString();
     }
 

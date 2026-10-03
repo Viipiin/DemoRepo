@@ -70,9 +70,17 @@ public static class ModelLoader
             Rows = g.Rows ?? new(),
         }).ToList();
 
-        var model = new HrModel(choices, tables, ownerTeams, roles, profiles, environmentVariables, plugins.Assembly, steps, sampleGroups);
+        var apisPath = Path.Combine(modelFolder, "custom-apis.json");
+        var apisFile = File.Exists(apisPath) ? Read<CustomApisFile>(apisPath, errors) ?? new CustomApisFile() : new CustomApisFile();
+        var customApis = apisFile.CustomApis.Select(a => new CustomApiDef(
+            a.UniqueName, a.DisplayName, a.Description, a.Plugin, a.IsFunction,
+            (a.Parameters ?? new()).Select(p => new CustomApiFieldDef(p.Name, p.Type, p.Optional, p.Description)).ToList(),
+            (a.Responses ?? new()).Select(p => new CustomApiFieldDef(p.Name, p.Type, false, p.Description)).ToList())).ToList();
+
+        var model = new HrModel(choices, tables, ownerTeams, roles, profiles, environmentVariables, plugins.Assembly, steps, sampleGroups, customApis);
         Validate(model, errors);
         ValidatePluginSteps(model, errors);
+        ValidateCustomApis(model, errors);
         SampleDataValidator.Validate(model, errors);
 
         if (errors.Count > 0)
@@ -210,6 +218,7 @@ public static class ModelLoader
             {
                 Description = v.Description,
                 ExtraConditions = v.Filter ?? "",
+                Join = v.Join ?? "",
                 SortColumn = v.Sort,
             }).ToList(),
             QuickFind = json.QuickFind ?? Array.Empty<string>(),
@@ -311,6 +320,17 @@ public static class ModelLoader
                 if (view.SortColumn != null) CheckColumns($"view {view.Name ?? "(default)"} sort", new[] { view.SortColumn });
             }
             CheckColumns("quickFind", table.QuickFind);
+            foreach (var view in table.Views.Where(v => !string.IsNullOrEmpty(v.Join) || !string.IsNullOrEmpty(v.ExtraConditions)))
+            {
+                try
+                {
+                    System.Xml.Linq.XElement.Parse($"<x>{view.ExtraConditions}{view.Join}</x>");
+                }
+                catch (System.Xml.XmlException ex)
+                {
+                    errors.Add($"{name} view {view.Name ?? "(default)"}: filter/join isn't valid FetchXML: {ex.Message}");
+                }
+            }
             if (table.Views.Count(v => v.Name == null) != 1)
             {
                 errors.Add($"{name}: needs exactly one view with \"default\": true.");
@@ -407,6 +427,38 @@ public static class ModelLoader
         }
     }
 
+    /// <summary>Custom API parameter types and their Dataverse option values.</summary>
+    public static readonly Dictionary<string, int> CustomApiTypes = new()
+    {
+        ["Boolean"] = 0, ["DateTime"] = 1, ["Decimal"] = 2, ["Integer"] = 7, ["Money"] = 8,
+        ["String"] = 10, ["StringArray"] = 11, ["Guid"] = 12,
+    };
+
+    private static void ValidateCustomApis(HrModel model, List<string> errors)
+    {
+        foreach (var api in model.CustomApis)
+        {
+            var where = $"custom-apis.json: {api.UniqueName}";
+            if (string.IsNullOrWhiteSpace(api.UniqueName) || !api.UniqueName.StartsWith(Conventions.Prefix + "_"))
+            {
+                errors.Add($"{where}: uniqueName must start with {Conventions.Prefix}_.");
+            }
+            if (string.IsNullOrWhiteSpace(api.Plugin) || !api.Plugin.StartsWith(model.PluginAssembly + "."))
+            {
+                errors.Add($"{where}: plugin must be a full class name in {model.PluginAssembly}.");
+            }
+            foreach (var field in api.Parameters.Concat(api.Responses))
+            {
+                if (string.IsNullOrWhiteSpace(field.Name)) errors.Add($"{where}: every parameter and response needs a name.");
+                if (!CustomApiTypes.ContainsKey(field.Type ?? "")) errors.Add($"{where}.{field.Name}: type must be one of {string.Join(", ", CustomApiTypes.Keys)}.");
+            }
+        }
+        foreach (var duplicate in model.CustomApis.GroupBy(a => a.UniqueName).Where(g => g.Count() > 1))
+        {
+            errors.Add($"custom-apis.json: {duplicate.Key} is defined twice.");
+        }
+    }
+
     private static T Invalid<T>(List<string> errors, string message, T fallback)
     {
         errors.Add(message);
@@ -468,6 +520,7 @@ public static class ModelLoader
         public string Description { get; set; }
         public string[] Columns { get; set; }
         public string Filter { get; set; }
+        public string Join { get; set; }
         public string Sort { get; set; }
     }
 
@@ -507,6 +560,27 @@ public static class ModelLoader
         public string[] Key { get; set; }
         public bool Upsert { get; set; }
         public List<Dictionary<string, JsonElement>> Rows { get; set; }
+    }
+
+    private sealed class CustomApisFile { public List<CustomApiJson> CustomApis { get; set; } = new(); }
+
+    private sealed class CustomApiJson
+    {
+        public string UniqueName { get; set; }
+        public string DisplayName { get; set; }
+        public string Description { get; set; }
+        public string Plugin { get; set; }
+        public bool IsFunction { get; set; }
+        public List<CustomApiFieldJson> Parameters { get; set; }
+        public List<CustomApiFieldJson> Responses { get; set; }
+    }
+
+    private sealed class CustomApiFieldJson
+    {
+        public string Name { get; set; }
+        public string Type { get; set; }
+        public bool Optional { get; set; }
+        public string Description { get; set; }
     }
 
     private sealed class EnvironmentVariablesFile { public List<VariableJson> EnvironmentVariables { get; set; } = new(); }

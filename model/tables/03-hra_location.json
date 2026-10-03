@@ -45,6 +45,13 @@
         "Sunday + alternate Saturdays"
       ],
       "default": "Saturday and Sunday"
+    },
+    {
+      "name": "hra_HolidayCalendar",
+      "label": "Holiday Calendar",
+      "type": "Lookup",
+      "target": "hra_holidaycalendar",
+      "description": "Current year's calendar, for reference. Leave counting uses all calendars of the state."
     }
   ],
   "form": [
@@ -58,7 +65,8 @@
       ],
       "right": [
         "hra_weeklyoffpattern",
-        "hra_address"
+        "hra_address",
+        "hra_holidaycalendar"
       ]
     }
   ],

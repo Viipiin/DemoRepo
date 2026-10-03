@@ -10,6 +10,8 @@
     <!-- The rules have no Dataverse dependency, so the source files are compiled straight into the tests. -->
     <Compile Include="..\HRAutomation.Plugins\HrRules.cs" Link="HrRules.cs" />
     <Compile Include="..\HRAutomation.Plugins\Schema.cs" Link="Schema.cs" />
+    <Compile Include="..\HRAutomation.Plugins\LeaveSchema.cs" Link="LeaveSchema.cs" />
+    <Compile Include="..\HRAutomation.Plugins\LeaveRules.cs" Link="LeaveRules.cs" />
   </ItemGroup>
 
   <ItemGroup>

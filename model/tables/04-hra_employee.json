@@ -241,6 +241,15 @@
       "label": "Annual CTC",
       "type": "Currency",
       "secured": true
+    },
+    {
+      "name": "hra_LeavePolicy",
+      "label": "Leave Policy",
+      "type": "Lookup",
+      "required": "Recommended",
+      "target": "hra_leavepolicy",
+      "onDelete": "Restrict",
+      "description": "Defaults to the default leave policy."
     }
   ],
   "keys": [
@@ -286,7 +295,8 @@
         "hra_designation",
         "hra_location",
         "hra_reportingmanager",
-        "hra_hrbusinesspartner"
+        "hra_hrbusinesspartner",
+        "hra_leavepolicy"
       ],
       "right": [
         "hra_dateofjoining",

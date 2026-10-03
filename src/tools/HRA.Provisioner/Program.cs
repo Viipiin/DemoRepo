@@ -26,6 +26,10 @@ if (command is null or "help")
                              teams and column security. Also turns on auditing and adds INR.
           register-plugins   Upload the built plugin assembly and register the steps in model/plugins.json.
                              Build first: dotnet build src/plugins/HRAutomation.Plugins -c Release
+          run-api <name>     Run a Custom API from model/custom-apis.json, e.g.
+                               run-api hra_RunLeaveAccrual --param Period=2026-10
+          init-balances      Create missing leave balances for every active employee (one call per employee).
+                             Optional: --param LeaveYear=2026-27
           seed               Load the sample data in model/sample-data.json (synthetic: departments, a Bengaluru
                              office, 50 employees).
 
@@ -95,6 +99,14 @@ try
         case "seed":
             new Seeder(client, model).Run();
             break;
+        case "run-api":
+            var apiName = args.Where(a => !a.StartsWith("--")).Skip(1).FirstOrDefault()
+                ?? throw new ArgumentException("Give the Custom API name, e.g. run-api hra_RunLeaveAccrual");
+            new ApiRunner(client, model).Run(apiName, ApiParameters());
+            break;
+        case "init-balances":
+            new ApiRunner(client, model).InitializeBalancesForAll(ApiParameters());
+            break;
         default:
             Log.Error($"Unknown command '{command}'. Run with 'help' to see the commands.");
             return 1;
@@ -116,3 +128,16 @@ catch (Exception ex)
 
 Log.Ok("Done.");
 return 0;
+
+// --param Name=Value pairs for run-api.
+Dictionary<string, string> ApiParameters()
+{
+    var result = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+    for (var i = 0; i < args.Length - 1; i++)
+    {
+        if (!args[i].Equals("--param", StringComparison.OrdinalIgnoreCase)) continue;
+        var pair = args[i + 1].Split('=', 2);
+        if (pair.Length == 2) result[pair[0]] = pair[1];
+    }
+    return result;
+}

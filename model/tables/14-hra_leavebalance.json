@@ -1,0 +1,204 @@
+{
+  "phase": 2,
+  "name": "hra_LeaveBalance",
+  "label": "Leave Balance",
+  "pluralLabel": "Leave Balances",
+  "description": "Balance per employee, leave type and leave year. Changed only by plugins: leave requests, adjustments and accrual.",
+  "ownership": "User",
+  "audited": true,
+  "primaryName": {
+    "name": "hra_Name",
+    "label": "Name",
+    "type": "Text",
+    "maxLength": 100,
+    "readOnly": true,
+    "description": "Set by plugin, e.g. EMP-0012 EL 2026-27."
+  },
+  "columns": [
+    {
+      "name": "hra_Employee",
+      "label": "Employee",
+      "type": "Lookup",
+      "required": "Required",
+      "target": "hra_employee",
+      "onDelete": "Restrict"
+    },
+    {
+      "name": "hra_LeaveType",
+      "label": "Leave Type",
+      "type": "Lookup",
+      "required": "Required",
+      "target": "hra_leavetype",
+      "onDelete": "Restrict"
+    },
+    {
+      "name": "hra_LeaveYear",
+      "label": "Leave Year",
+      "type": "Text",
+      "required": "Required",
+      "maxLength": 7,
+      "description": "For example 2026-27."
+    },
+    {
+      "name": "hra_Opening",
+      "label": "Opening",
+      "type": "Decimal",
+      "min": -400,
+      "max": 400,
+      "precision": 2,
+      "readOnly": true,
+      "audited": true
+    },
+    {
+      "name": "hra_Accrued",
+      "label": "Accrued",
+      "type": "Decimal",
+      "min": -400,
+      "max": 400,
+      "precision": 2,
+      "readOnly": true,
+      "audited": true
+    },
+    {
+      "name": "hra_Taken",
+      "label": "Taken",
+      "type": "Decimal",
+      "min": -400,
+      "max": 400,
+      "precision": 2,
+      "readOnly": true,
+      "audited": true
+    },
+    {
+      "name": "hra_Adjusted",
+      "label": "Adjusted",
+      "type": "Decimal",
+      "min": -400,
+      "max": 400,
+      "precision": 2,
+      "readOnly": true,
+      "audited": true
+    },
+    {
+      "name": "hra_CarriedForward",
+      "label": "Carried Forward",
+      "type": "Decimal",
+      "min": -400,
+      "max": 400,
+      "precision": 2,
+      "readOnly": true,
+      "audited": true
+    },
+    {
+      "name": "hra_Encashed",
+      "label": "Encashed",
+      "type": "Decimal",
+      "min": -400,
+      "max": 400,
+      "precision": 2,
+      "readOnly": true,
+      "audited": true
+    },
+    {
+      "name": "hra_PendingApproval",
+      "label": "Pending Approval",
+      "type": "Decimal",
+      "min": -400,
+      "max": 400,
+      "precision": 2,
+      "readOnly": true,
+      "audited": true
+    },
+    {
+      "name": "hra_Available",
+      "label": "Available",
+      "type": "Decimal",
+      "min": -400,
+      "max": 400,
+      "precision": 2,
+      "readOnly": true,
+      "audited": true
+    },
+    {
+      "name": "hra_LastAccrualPeriod",
+      "label": "Last Accrual Period",
+      "type": "Text",
+      "maxLength": 7,
+      "readOnly": true
+    }
+  ],
+  "keys": [
+    {
+      "name": "hra_key_leavebalance_employeetypeyear",
+      "label": "Employee, Leave Type and Year",
+      "columns": [
+        "hra_employee",
+        "hra_leavetype",
+        "hra_leaveyear"
+      ]
+    }
+  ],
+  "form": [
+    {
+      "tab": "general",
+      "label": "General",
+      "left": [
+        "hra_name",
+        "hra_employee",
+        "hra_leavetype",
+        "hra_leaveyear",
+        "hra_available",
+        "hra_lastaccrualperiod"
+      ],
+      "right": [
+        "hra_opening",
+        "hra_accrued",
+        "hra_carriedforward",
+        "hra_adjusted",
+        "hra_taken",
+        "hra_encashed",
+        "hra_pendingapproval"
+      ]
+    }
+  ],
+  "views": [
+    {
+      "default": true,
+      "columns": [
+        "hra_employee",
+        "hra_leavetype",
+        "hra_leaveyear",
+        "hra_available",
+        "hra_taken",
+        "hra_pendingapproval"
+      ],
+      "sort": "hra_name"
+    },
+    {
+      "name": "My Leave Balances",
+      "description": "Balances of the employee linked to my user.",
+      "columns": [
+        "hra_leavetype",
+        "hra_leaveyear",
+        "hra_available",
+        "hra_taken",
+        "hra_pendingapproval"
+      ],
+      "join": "<link-entity name=\"hra_employee\" from=\"hra_employeeid\" to=\"hra_employee\" link-type=\"inner\" alias=\"me\"><filter><condition attribute=\"hra_systemuser\" operator=\"eq-userid\" /></filter></link-entity>",
+      "sort": "hra_name"
+    },
+    {
+      "name": "My Team's Leave Balances",
+      "description": "Balances owned by me or people below me in the manager hierarchy.",
+      "columns": [
+        "hra_employee",
+        "hra_leavetype",
+        "hra_leaveyear",
+        "hra_available",
+        "hra_taken"
+      ],
+      "filter": "<condition attribute=\"ownerid\" operator=\"eq-useroruserhierarchy\" />",
+      "sort": "hra_name"
+    }
+  ]
+}
