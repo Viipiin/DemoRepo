@@ -85,7 +85,12 @@ solution files that I can pack and import using the Power Platform CLI (pac).
 - Accessibility and responsive forms; meaningful views (Active, My, My Team, Pending Approval).
 
 ## How I want you to work
-- Before writing anything, inspect the repo and run `pac solution list` / `pac org who` to confirm context.
+- I RUN ALL COMMANDS MYSELF in the VS Code terminal (Windows PowerShell). You write and edit files only;
+  never run pac, dotnet, npm, git or scripts yourself. For every step, give me the exact commands to copy,
+  in order, in a PowerShell code block, with one line saying what each does and what output to expect.
+  Then wait for me to paste the output (or errors) back before continuing.
+- Before writing anything, ask me to run `pac org who` and `pac solution list` and paste the output, so you
+  can confirm I am connected to the Dev environment and the hrautomation solution exists.
 - The Dataverse table design is in docs/hr-automation/data-model.md. Follow it (tables, columns, choices,
   relationships, ownership, security). If you need to change it, propose the change, update that file,
   and then build.
@@ -94,8 +99,11 @@ solution files that I can pack and import using the Power Platform CLI (pac).
 - Keep the solution source unpacked under `src/solution/` (pac solution unpack / clone format),
   plugins under `src/plugins/`, web resources under `src/webresources/`, flows inside the solution,
   Power BI under `src/powerbi/`, docs under `docs/`.
-- After each phase: pack the solution, import it into DEV (`pac solution import`), publish, run
-  `pac solution check` and fix all critical/high findings, then commit with a clear message.
+- After each phase: give me the commands to build plugins/web resources, pack the solution, import it into
+  DEV (`pac solution import`), publish, run `pac solution check` and commit. Fix all critical/high
+  checker findings from the output I paste back.
+- Prefer one PowerShell script per repeated task (for example `scripts/build-and-import.ps1`) so I only
+  run one command each time, and keep a `docs/commands.md` cheat sheet up to date.
 - If something cannot be created reliably via files/CLI (e.g. some Power BI or Copilot Studio steps),
   say so and give me exact manual maker-portal steps instead of guessing.
 - Never delete or overwrite components in my environment without asking first.
