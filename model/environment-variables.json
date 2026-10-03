@@ -41,6 +41,13 @@
       "type": "Number",
       "default": "500",
       "description": "Expense lines above this amount need a receipt."
+    },
+    {
+      "name": "hra_HRTeamEmail",
+      "label": "HR Team Email",
+      "type": "String",
+      "default": "admin@them365dev.onmicrosoft.com",
+      "description": "Mailbox for leave approvals when the approver has no Dataverse user, and for escalations. Use the HR shared mailbox in Prod."
     }
   ]
 }

@@ -71,6 +71,8 @@ Each step can also be run on its own, for example `./scripts/hra.ps1 init-balanc
 
 ## Step 3: Schedule monthly accrual (manual, about 3 minutes)
 
+> **Replaced in Phase 2b:** the accrual flow is now defined in `model/flows/03-monthly-leave-accrual.json` and created by `provision`. If you already built this flow by hand, delete it once the Phase 2b flow is on. Running both is harmless, because accrual runs once per month per balance, but it's untidy.
+
 1. In **make.powerapps.com**, go to **Solutions**, then **HR Automation**, then **New**, then **Automation**, then **Cloud flow**, then **Scheduled**.
 2. Name the flow `HRA - Monthly Leave Accrual`. Set it to repeat every **1 Month**, starting on the 1st of next month at **02:00**, time zone **(UTC+05:30) Chennai, Kolkata, Mumbai, New Delhi**.
 3. Add a step: **Microsoft Dataverse**, then **Perform an unbound action**, then **Action name** `hra_RunLeaveAccrual`. Leave **Period** empty, which means the current month.

@@ -155,6 +155,33 @@ namespace HRAutomation.Plugins
             return Math.Round(amount, 2);
         }
 
+        /// <summary>
+        /// Splits what's left of a balance at year end into the part carried forward (up to the policy's
+        /// limit; 0 = nothing carries) and the part that lapses. Negative balances carry nothing.
+        /// </summary>
+        public static (decimal CarryForward, decimal Lapse) YearEndSplit(decimal available, decimal maxCarryForward)
+        {
+            var left = Math.Max(0m, available);
+            var carry = Math.Min(left, Math.Max(0m, maxCarryForward));
+            return (carry, left - carry);
+        }
+
+        /// <summary>The leave year after the given one: "2026-27" gives "2027-28", "2026" gives "2027".</summary>
+        public static string NextLeaveYear(string leaveYear) => ShiftLeaveYear(leaveYear, 1);
+
+        /// <summary>The leave year before the given one: "2026-27" gives "2025-26".</summary>
+        public static string PreviousLeaveYear(string leaveYear) => ShiftLeaveYear(leaveYear, -1);
+
+        private static string ShiftLeaveYear(string leaveYear, int years)
+        {
+            if (string.IsNullOrWhiteSpace(leaveYear) || leaveYear.Length < 4 || !int.TryParse(leaveYear.Substring(0, 4), out var start))
+            {
+                throw new ArgumentException($"'{leaveYear}' is not a leave year like 2026-27.");
+            }
+            start += years;
+            return leaveYear.Length == 4 ? start.ToString() : $"{start}-{(start + 1) % 100:00}";
+        }
+
         /// <summary>Month number within the leave year (1 = first month).</summary>
         public static int MonthOfLeaveYear(DateTime date, int startMonth) => (date.Month - startMonth + 12) % 12 + 1;
     }

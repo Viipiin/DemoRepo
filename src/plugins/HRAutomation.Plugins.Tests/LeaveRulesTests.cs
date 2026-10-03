@@ -117,6 +117,26 @@ public class LeaveRulesTests
     }
 
     [Theory]
+    [InlineData(40, 30, 30, 10)]   // EL: carry 30, lapse 10
+    [InlineData(12.5, 30, 12.5, 0)]
+    [InlineData(5, 0, 0, 5)]       // CL: nothing carries
+    [InlineData(-2, 30, 0, 0)]     // overdrawn: nothing to carry or lapse
+    public void YearEndSplit(double available, double max, double carry, double lapse)
+    {
+        Assert.Equal(((decimal)carry, (decimal)lapse), LeaveRules.YearEndSplit((decimal)available, (decimal)max));
+    }
+
+    [Theory]
+    [InlineData("2026-27", "2027-28", "2025-26")]
+    [InlineData("2099-00", "2100-01", "2098-99")]
+    [InlineData("2026", "2027", "2025")]
+    public void NextAndPreviousLeaveYear(string year, string next, string previous)
+    {
+        Assert.Equal(next, LeaveRules.NextLeaveYear(year));
+        Assert.Equal(previous, LeaveRules.PreviousLeaveYear(year));
+    }
+
+    [Theory]
     [InlineData("2026-04-10", 4, 1)]
     [InlineData("2026-10-03", 4, 7)]
     [InlineData("2027-03-01", 4, 12)]

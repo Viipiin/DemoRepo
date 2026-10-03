@@ -47,6 +47,33 @@
           "description": "Number of balances that received accrual."
         }
       ]
+    },
+    {
+      "uniqueName": "hra_RunYearEndRollover",
+      "displayName": "Run Year-End Leave Rollover",
+      "description": "Closes a leave year: carries forward up to each policy line's Max Carry Forward into next year's balance and records the rest as a Lapse. Run on 1 April, once per employee.",
+      "plugin": "HRAutomation.Plugins.RunYearEndRolloverApi",
+      "parameters": [
+        {
+          "name": "EmployeeId",
+          "type": "Guid",
+          "optional": true,
+          "description": "Only this employee. Empty = all (may hit the 2-minute limit for large companies)."
+        },
+        {
+          "name": "FromLeaveYear",
+          "type": "String",
+          "optional": true,
+          "description": "The year to close, e.g. 2026-27. Empty = the previous leave year."
+        }
+      ],
+      "responses": [
+        {
+          "name": "RolledOver",
+          "type": "Integer",
+          "description": "Number of balances rolled over."
+        }
+      ]
     }
   ]
 }

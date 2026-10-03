@@ -23,13 +23,16 @@ if (command is null or "help")
           check              Connect, show who you are and confirm the HRAutomation solution exists.
           provision          Create or update everything defined in model/: choices, tables, columns,
                              relationships, keys, forms, views, environment variables, security roles,
-                             teams and column security. Also turns on auditing and adds INR.
+                             teams, column security, connection references and cloud flows (created off).
+                             Also turns on auditing and adds INR.
           register-plugins   Upload the built plugin assembly and register the steps in model/plugins.json.
                              Build first: dotnet build src/plugins/HRAutomation.Plugins -c Release
           run-api <name>     Run a Custom API from model/custom-apis.json, e.g.
                                run-api hra_RunLeaveAccrual --param Period=2026-10
           init-balances      Create missing leave balances for every active employee (one call per employee).
                              Optional: --param LeaveYear=2026-27
+          rollover           Year-end rollover for every active employee (one call per employee): carry forward
+                             up to the policy limit, lapse the rest. Optional: --param FromLeaveYear=2026-27
           seed               Load the sample data in model/sample-data.json (synthetic: departments, a Bengaluru
                              office, 50 employees).
 
@@ -55,7 +58,8 @@ catch (Exception ex)
 }
 Log.Ok($"Model loaded: {model.Choices.Count} global choices, {model.Tables.Count} tables, " +
        $"{model.Tables.Sum(t => t.Columns.Count + 1)} columns, {model.Roles.Count} roles, " +
-       $"{model.PluginSteps.Count} plugin steps, {model.SampleData.Sum(g => g.Rows.Count)} sample rows");
+       $"{model.PluginSteps.Count} plugin steps, {model.CustomApis.Count} custom APIs, {model.Flows.Count} flows, " +
+       $"{model.SampleData.Sum(g => g.Rows.Count)} sample rows");
 if (command == "validate")
 {
     Log.Ok("Model is valid.");
@@ -84,6 +88,7 @@ try
             var formFailures = new FormAndViewProvisioner(client, model).Run();
             new SecurityProvisioner(client, model).Run();
             new EnvironmentSettings(client, model).Run();
+            new FlowProvisioner(client, model).Run();
             metadata.PublishAll();
             if (formFailures.Count > 0)
             {
@@ -105,7 +110,10 @@ try
             new ApiRunner(client, model).Run(apiName, ApiParameters());
             break;
         case "init-balances":
-            new ApiRunner(client, model).InitializeBalancesForAll(ApiParameters());
+            new ApiRunner(client, model).RunForEachEmployee("hra_InitializeLeaveBalances", "Created", "balance(s) created", ApiParameters());
+            break;
+        case "rollover":
+            new ApiRunner(client, model).RunForEachEmployee("hra_RunYearEndRollover", "RolledOver", "balance(s) rolled over", ApiParameters());
             break;
         default:
             Log.Error($"Unknown command '{command}'. Run with 'help' to see the commands.");

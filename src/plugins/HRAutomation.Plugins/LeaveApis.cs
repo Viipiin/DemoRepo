@@ -45,4 +45,23 @@ namespace HRAutomation.Plugins
             local.Context.OutputParameters["Updated"] = new LeaveService(local).RunAccrual(period);
         }
     }
+
+    /// <summary>
+    /// Custom API hra_RunYearEndRollover. Inputs: EmployeeId (Guid, optional), FromLeaveYear (String, optional,
+    /// default the leave year before the current one). Output: RolledOver (Integer).
+    /// Run on 1 April, one call per employee (the yearly flow does this).
+    /// </summary>
+    public class RunYearEndRolloverApi : PluginBase
+    {
+        protected override void ExecuteInternal(LocalContext local)
+        {
+            var leave = new LeaveService(local);
+            var input = local.Context.InputParameters;
+            Guid? employeeId = input.Contains("EmployeeId") && input["EmployeeId"] is Guid id && id != Guid.Empty ? id : (Guid?)null;
+            var fromYear = input.Contains("FromLeaveYear") && input["FromLeaveYear"] is string text && !string.IsNullOrWhiteSpace(text)
+                ? text.Trim()
+                : LeaveRules.PreviousLeaveYear(leave.CurrentLeaveYear());
+            local.Context.OutputParameters["RolledOver"] = leave.RunYearEndRollover(employeeId, fromYear);
+        }
+    }
 }

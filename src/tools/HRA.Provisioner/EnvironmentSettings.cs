@@ -9,7 +9,12 @@ namespace HRA.Provisioner;
 /// <summary>Environment variables, auditing and INR currency.</summary>
 public sealed class EnvironmentSettings
 {
-    private const int NumberType = 100000001;
+    private static readonly Dictionary<string, int> VariableTypes = new()
+    {
+        ["String"] = 100000000,
+        ["Number"] = 100000001,
+        ["Boolean"] = 100000002,
+    };
     // Used only when the base currency is USD. Update it in Settings > Business Management > Currencies if needed.
     private const decimal InrPerUsd = 88.0m;
 
@@ -46,7 +51,7 @@ public sealed class EnvironmentSettings
                     ["schemaname"] = variable.SchemaName,
                     ["displayname"] = variable.Label,
                     ["description"] = variable.Description,
-                    ["type"] = new OptionSetValue(NumberType),
+                    ["type"] = new OptionSetValue(VariableTypes[variable.Type]),
                     ["defaultvalue"] = variable.DefaultValue,
                 },
             };

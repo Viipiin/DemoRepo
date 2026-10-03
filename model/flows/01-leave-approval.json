@@ -1,0 +1,338 @@
+{
+  "name": "HRA - Leave Approval",
+  "description": "When a leave request is submitted, sends an approval to the approver's user (or the HR mailbox when the approver has no user) and records the decision. Escalates to HR by email after 2 days without a response.",
+  "connectionReferences": {
+    "shared_commondataserviceforapps": "hra_Dataverse",
+    "shared_approvals": "hra_Approvals",
+    "shared_office365": "hra_Office365Outlook"
+  },
+  "environmentVariables": [
+    "hra_HRTeamEmail"
+  ],
+  "definition": {
+    "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+    "contentVersion": "1.0.0.0",
+    "triggers": {
+      "When_a_leave_request_is_submitted": {
+        "type": "OpenApiConnectionWebhook",
+        "inputs": {
+          "host": {
+            "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+            "connectionName": "shared_commondataserviceforapps",
+            "operationId": "SubscribeWebhookTrigger"
+          },
+          "parameters": {
+            "subscriptionRequest/message": 4,
+            "subscriptionRequest/entityname": "hra_leaverequest",
+            "subscriptionRequest/scope": 4,
+            "subscriptionRequest/filteringattributes": "hra_status",
+            "subscriptionRequest/filterexpression": "hra_status eq 817990001"
+          },
+          "authentication": "@parameters('$authentication')"
+        }
+      }
+    },
+    "actions": {
+      "Initialize_approver_email": {
+        "type": "InitializeVariable",
+        "inputs": {
+          "variables": [
+            {
+              "name": "ApproverEmail",
+              "type": "string",
+              "value": "@parameters('HR Team Email (hra_HRTeamEmail)')"
+            }
+          ]
+        },
+        "runAfter": {}
+      },
+      "Get_employee": {
+        "type": "OpenApiConnection",
+        "inputs": {
+          "host": {
+            "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+            "connectionName": "shared_commondataserviceforapps",
+            "operationId": "GetItem"
+          },
+          "parameters": {
+            "entityName": "hra_employees",
+            "recordId": "@triggerOutputs()?['body/_hra_employee_value']",
+            "$select": "hra_fullname,hra_employeenumber"
+          },
+          "authentication": "@parameters('$authentication')"
+        },
+        "runAfter": {
+          "Initialize_approver_email": [
+            "Succeeded"
+          ]
+        }
+      },
+      "Get_leave_type": {
+        "type": "OpenApiConnection",
+        "inputs": {
+          "host": {
+            "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+            "connectionName": "shared_commondataserviceforapps",
+            "operationId": "GetItem"
+          },
+          "parameters": {
+            "entityName": "hra_leavetypes",
+            "recordId": "@triggerOutputs()?['body/_hra_leavetype_value']",
+            "$select": "hra_name"
+          },
+          "authentication": "@parameters('$authentication')"
+        },
+        "runAfter": {
+          "Get_employee": [
+            "Succeeded"
+          ]
+        }
+      },
+      "If_the_approver_has_a_user": {
+        "type": "If",
+        "expression": {
+          "and": [
+            {
+              "not": {
+                "equals": [
+                  "@empty(triggerOutputs()?['body/_hra_approver_value'])",
+                  true
+                ]
+              }
+            }
+          ]
+        },
+        "actions": {
+          "Get_approver": {
+            "type": "OpenApiConnection",
+            "inputs": {
+              "host": {
+                "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                "connectionName": "shared_commondataserviceforapps",
+                "operationId": "GetItem"
+              },
+              "parameters": {
+                "entityName": "hra_employees",
+                "recordId": "@triggerOutputs()?['body/_hra_approver_value']",
+                "$select": "hra_systemuser"
+              },
+              "authentication": "@parameters('$authentication')"
+            },
+            "runAfter": {}
+          },
+          "If_linked_to_a_user": {
+            "type": "If",
+            "expression": {
+              "and": [
+                {
+                  "not": {
+                    "equals": [
+                      "@empty(outputs('Get_approver')?['body/_hra_systemuser_value'])",
+                      true
+                    ]
+                  }
+                }
+              ]
+            },
+            "actions": {
+              "Get_approver_user": {
+                "type": "OpenApiConnection",
+                "inputs": {
+                  "host": {
+                    "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                    "connectionName": "shared_commondataserviceforapps",
+                    "operationId": "GetItem"
+                  },
+                  "parameters": {
+                    "entityName": "systemusers",
+                    "recordId": "@outputs('Get_approver')?['body/_hra_systemuser_value']",
+                    "$select": "internalemailaddress"
+                  },
+                  "authentication": "@parameters('$authentication')"
+                },
+                "runAfter": {}
+              },
+              "Use_the_approver_email": {
+                "type": "SetVariable",
+                "inputs": {
+                  "name": "ApproverEmail",
+                  "value": "@outputs('Get_approver_user')?['body/internalemailaddress']"
+                },
+                "runAfter": {
+                  "Get_approver_user": [
+                    "Succeeded"
+                  ]
+                }
+              }
+            },
+            "else": {
+              "actions": {}
+            },
+            "runAfter": {
+              "Get_approver": [
+                "Succeeded"
+              ]
+            }
+          }
+        },
+        "else": {
+          "actions": {}
+        },
+        "runAfter": {
+          "Get_leave_type": [
+            "Succeeded"
+          ]
+        }
+      },
+      "Start_approval": {
+        "type": "OpenApiConnectionWebhook",
+        "inputs": {
+          "host": {
+            "apiId": "/providers/Microsoft.PowerApps/apis/shared_approvals",
+            "connectionName": "shared_approvals",
+            "operationId": "StartAndWaitForAnApproval"
+          },
+          "parameters": {
+            "approvalType": "Basic",
+            "WebhookApprovalCreationInput/title": "Leave request @{triggerOutputs()?['body/hra_name']}: @{outputs('Get_employee')?['body/hra_fullname']}, @{triggerOutputs()?['body/hra_numberofdays']} day(s) of @{outputs('Get_leave_type')?['body/hra_name']}",
+            "WebhookApprovalCreationInput/assignedTo": "@variables('ApproverEmail')",
+            "WebhookApprovalCreationInput/details": "**Employee:** @{outputs('Get_employee')?['body/hra_fullname']} (@{outputs('Get_employee')?['body/hra_employeenumber']})\n\n**Leave type:** @{outputs('Get_leave_type')?['body/hra_name']}\n\n**Dates:** @{formatDateTime(triggerOutputs()?['body/hra_fromdate'], 'dd-MM-yyyy')} to @{formatDateTime(triggerOutputs()?['body/hra_todate'], 'dd-MM-yyyy')}\n\n**Days:** @{triggerOutputs()?['body/hra_numberofdays']}\n\n**Reason:** @{triggerOutputs()?['body/hra_reason']}",
+            "WebhookApprovalCreationInput/enableNotifications": true,
+            "WebhookApprovalCreationInput/enableReassignment": true
+          },
+          "authentication": "@parameters('$authentication')"
+        },
+        "limit": {
+          "timeout": "P2D"
+        },
+        "runAfter": {
+          "If_the_approver_has_a_user": [
+            "Succeeded"
+          ]
+        }
+      },
+      "Get_current_request": {
+        "type": "OpenApiConnection",
+        "inputs": {
+          "host": {
+            "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+            "connectionName": "shared_commondataserviceforapps",
+            "operationId": "GetItem"
+          },
+          "parameters": {
+            "entityName": "hra_leaverequests",
+            "recordId": "@triggerOutputs()?['body/hra_leaverequestid']",
+            "$select": "hra_status"
+          },
+          "authentication": "@parameters('$authentication')"
+        },
+        "runAfter": {
+          "Start_approval": [
+            "Succeeded"
+          ]
+        }
+      },
+      "If_still_submitted": {
+        "type": "If",
+        "expression": {
+          "and": [
+            {
+              "equals": [
+                "@outputs('Get_current_request')?['body/hra_status']",
+                817990001
+              ]
+            }
+          ]
+        },
+        "actions": {
+          "If_approved": {
+            "type": "If",
+            "expression": {
+              "and": [
+                {
+                  "equals": [
+                    "@outputs('Start_approval')?['body/outcome']",
+                    "Approve"
+                  ]
+                }
+              ]
+            },
+            "actions": {
+              "Approve_the_request": {
+                "type": "OpenApiConnection",
+                "inputs": {
+                  "host": {
+                    "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                    "connectionName": "shared_commondataserviceforapps",
+                    "operationId": "UpdateRecord"
+                  },
+                  "parameters": {
+                    "entityName": "hra_leaverequests",
+                    "recordId": "@triggerOutputs()?['body/hra_leaverequestid']",
+                    "item/hra_status": 817990002,
+                    "item/hra_approvercomments": "@{first(outputs('Start_approval')?['body/responses'])?['comments']}"
+                  },
+                  "authentication": "@parameters('$authentication')"
+                },
+                "runAfter": {}
+              }
+            },
+            "else": {
+              "actions": {
+                "Reject_the_request": {
+                  "type": "OpenApiConnection",
+                  "inputs": {
+                    "host": {
+                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                      "connectionName": "shared_commondataserviceforapps",
+                      "operationId": "UpdateRecord"
+                    },
+                    "parameters": {
+                      "entityName": "hra_leaverequests",
+                      "recordId": "@triggerOutputs()?['body/hra_leaverequestid']",
+                      "item/hra_status": 817990003,
+                      "item/hra_approvercomments": "@{first(outputs('Start_approval')?['body/responses'])?['comments']}"
+                    },
+                    "authentication": "@parameters('$authentication')"
+                  },
+                  "runAfter": {}
+                }
+              }
+            },
+            "runAfter": {}
+          }
+        },
+        "else": {
+          "actions": {}
+        },
+        "runAfter": {
+          "Get_current_request": [
+            "Succeeded"
+          ]
+        }
+      },
+      "Escalate_to_HR": {
+        "type": "OpenApiConnection",
+        "inputs": {
+          "host": {
+            "apiId": "/providers/Microsoft.PowerApps/apis/shared_office365",
+            "connectionName": "shared_office365",
+            "operationId": "SendEmailV2"
+          },
+          "parameters": {
+            "emailMessage/To": "@parameters('HR Team Email (hra_HRTeamEmail)')",
+            "emailMessage/Subject": "Leave request @{triggerOutputs()?['body/hra_name']} has waited 2 days for approval",
+            "emailMessage/Body": "<p>Leave request <b>@{triggerOutputs()?['body/hra_name']}</b> for <b>@{outputs('Get_employee')?['body/hra_fullname']}</b> (@{triggerOutputs()?['body/hra_numberofdays']} day(s) of @{outputs('Get_leave_type')?['body/hra_name']}, @{formatDateTime(triggerOutputs()?['body/hra_fromdate'], 'dd-MM-yyyy')} to @{formatDateTime(triggerOutputs()?['body/hra_todate'], 'dd-MM-yyyy')}) was sent to @{variables('ApproverEmail')} and has had no response for 2 days.</p><p>Please follow up, or approve or reject it in HR Hub.</p>",
+            "emailMessage/Importance": "Normal"
+          },
+          "authentication": "@parameters('$authentication')"
+        },
+        "runAfter": {
+          "Start_approval": [
+            "TimedOut"
+          ]
+        }
+      }
+    }
+  }
+}

@@ -125,6 +125,13 @@
       "type": "Text",
       "maxLength": 7,
       "readOnly": true
+    },
+    {
+      "name": "hra_RolledOver",
+      "label": "Rolled Over",
+      "type": "YesNo",
+      "readOnly": true,
+      "description": "Set by the year-end rollover after carry forward and lapse are recorded."
     }
   ],
   "keys": [
@@ -148,7 +155,8 @@
         "hra_leavetype",
         "hra_leaveyear",
         "hra_available",
-        "hra_lastaccrualperiod"
+        "hra_lastaccrualperiod",
+        "hra_rolledover"
       ],
       "right": [
         "hra_opening",

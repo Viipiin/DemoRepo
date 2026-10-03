@@ -1,0 +1,166 @@
+{
+  "name": "HRA - Leave Decision Notification",
+  "description": "Emails the employee when their leave request is approved or rejected, whether by the approval flow or in HR Hub.",
+  "connectionReferences": {
+    "shared_commondataserviceforapps": "hra_Dataverse",
+    "shared_office365": "hra_Office365Outlook"
+  },
+  "environmentVariables": [],
+  "definition": {
+    "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+    "contentVersion": "1.0.0.0",
+    "triggers": {
+      "When_a_leave_request_is_approved_or_rejected": {
+        "type": "OpenApiConnectionWebhook",
+        "inputs": {
+          "host": {
+            "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+            "connectionName": "shared_commondataserviceforapps",
+            "operationId": "SubscribeWebhookTrigger"
+          },
+          "parameters": {
+            "subscriptionRequest/message": 3,
+            "subscriptionRequest/entityname": "hra_leaverequest",
+            "subscriptionRequest/scope": 4,
+            "subscriptionRequest/filteringattributes": "hra_status",
+            "subscriptionRequest/filterexpression": "hra_status eq 817990002 or hra_status eq 817990003"
+          },
+          "authentication": "@parameters('$authentication')"
+        }
+      }
+    },
+    "actions": {
+      "Get_employee": {
+        "type": "OpenApiConnection",
+        "inputs": {
+          "host": {
+            "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+            "connectionName": "shared_commondataserviceforapps",
+            "operationId": "GetItem"
+          },
+          "parameters": {
+            "entityName": "hra_employees",
+            "recordId": "@triggerOutputs()?['body/_hra_employee_value']",
+            "$select": "hra_fullname,hra_workemail,hra_systemuser"
+          },
+          "authentication": "@parameters('$authentication')"
+        },
+        "runAfter": {}
+      },
+      "Initialize_employee_email": {
+        "type": "InitializeVariable",
+        "inputs": {
+          "variables": [
+            {
+              "name": "EmployeeEmail",
+              "type": "string",
+              "value": "@outputs('Get_employee')?['body/hra_workemail']"
+            }
+          ]
+        },
+        "runAfter": {
+          "Get_employee": [
+            "Succeeded"
+          ]
+        }
+      },
+      "If_linked_to_a_user": {
+        "type": "If",
+        "expression": {
+          "and": [
+            {
+              "not": {
+                "equals": [
+                  "@empty(outputs('Get_employee')?['body/_hra_systemuser_value'])",
+                  true
+                ]
+              }
+            }
+          ]
+        },
+        "actions": {
+          "Get_employee_user": {
+            "type": "OpenApiConnection",
+            "inputs": {
+              "host": {
+                "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                "connectionName": "shared_commondataserviceforapps",
+                "operationId": "GetItem"
+              },
+              "parameters": {
+                "entityName": "systemusers",
+                "recordId": "@outputs('Get_employee')?['body/_hra_systemuser_value']",
+                "$select": "internalemailaddress"
+              },
+              "authentication": "@parameters('$authentication')"
+            },
+            "runAfter": {}
+          },
+          "Use_the_user_email": {
+            "type": "SetVariable",
+            "inputs": {
+              "name": "EmployeeEmail",
+              "value": "@outputs('Get_employee_user')?['body/internalemailaddress']"
+            },
+            "runAfter": {
+              "Get_employee_user": [
+                "Succeeded"
+              ]
+            }
+          }
+        },
+        "else": {
+          "actions": {}
+        },
+        "runAfter": {
+          "Initialize_employee_email": [
+            "Succeeded"
+          ]
+        }
+      },
+      "Get_leave_type": {
+        "type": "OpenApiConnection",
+        "inputs": {
+          "host": {
+            "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+            "connectionName": "shared_commondataserviceforapps",
+            "operationId": "GetItem"
+          },
+          "parameters": {
+            "entityName": "hra_leavetypes",
+            "recordId": "@triggerOutputs()?['body/_hra_leavetype_value']",
+            "$select": "hra_name"
+          },
+          "authentication": "@parameters('$authentication')"
+        },
+        "runAfter": {
+          "If_linked_to_a_user": [
+            "Succeeded"
+          ]
+        }
+      },
+      "Email_the_employee": {
+        "type": "OpenApiConnection",
+        "inputs": {
+          "host": {
+            "apiId": "/providers/Microsoft.PowerApps/apis/shared_office365",
+            "connectionName": "shared_office365",
+            "operationId": "SendEmailV2"
+          },
+          "parameters": {
+            "emailMessage/To": "@variables('EmployeeEmail')",
+            "emailMessage/Subject": "Your leave request @{triggerOutputs()?['body/hra_name']} was @{if(equals(triggerOutputs()?['body/hra_status'], 817990002), 'approved', 'rejected')}",
+            "emailMessage/Body": "<p>Hi @{outputs('Get_employee')?['body/hra_fullname']},</p><p>Your request for @{triggerOutputs()?['body/hra_numberofdays']} day(s) of @{outputs('Get_leave_type')?['body/hra_name']} from @{formatDateTime(triggerOutputs()?['body/hra_fromdate'], 'dd-MM-yyyy')} to @{formatDateTime(triggerOutputs()?['body/hra_todate'], 'dd-MM-yyyy')} was <b>@{if(equals(triggerOutputs()?['body/hra_status'], 817990002), 'approved', 'rejected')}</b>.</p><p>Comments: @{coalesce(triggerOutputs()?['body/hra_approvercomments'], '-')}</p>",
+            "emailMessage/Importance": "Normal"
+          },
+          "authentication": "@parameters('$authentication')"
+        },
+        "runAfter": {
+          "Get_leave_type": [
+            "Succeeded"
+          ]
+        }
+      }
+    }
+  }
+}

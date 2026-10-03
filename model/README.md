@@ -10,6 +10,8 @@ model/
   environment-variables.json    configurable settings
   plugins.json                  which plugin runs on which table, message and stage
   custom-apis.json              callable actions backed by plugins (e.g. leave accrual)
+  connection-references.json    connectors the flows use (Dataverse, Approvals, Outlook)
+  flows/NN-<name>.json          cloud flows (Power Automate definitions)
   sample-data.json              SYNTHETIC test data loaded by 'seed'
 ```
 
@@ -128,6 +130,23 @@ A Custom API is an action you (or a flow) can call. Its logic lives in a plugin 
 - **Types:** Boolean, DateTime, Decimal, Integer, Money, String, StringArray, Guid.
 - **Registration:** `register-plugins` creates the API, its parameters and its responses.
 - **Running it:** `./scripts/hra.ps1 run-api hra_RunLeaveAccrual --param Period=2026-10`, or use **Perform an unbound action** in Power Automate.
+
+## Cloud flows (`flows/*.json`)
+
+Each file holds a flow's name, the connection references it uses, the environment variables it reads, and the Power Automate **definition** (triggers and actions, in the same format Power Automate exports):
+
+```json
+{ "name": "HRA - Monthly Leave Accrual",
+  "connectionReferences": { "shared_commondataserviceforapps": "hra_Dataverse" },
+  "environmentVariables": [],
+  "definition": { "triggers": { ... }, "actions": { ... } } }
+```
+
+- **Connections:** every `connectionName` used in the definition must be listed in `connectionReferences` (connector → reference from `connection-references.json`).
+- **Environment variables:** read them as `@parameters('Label (schema)')`, for example `@parameters('HR Team Email (hra_HRTeamEmail)')`, and list the schema name in `environmentVariables`.
+- **Turning flows on:** `provision` creates flows **turned off**. Link each connection reference to a connection and turn the flows on in the maker portal (see `docs/phase-2b-runbook.md`).
+- **Editing a flow that's on:** turn it off before `provision` can update it.
+- **Editing in the designer:** you can also change a flow in the Power Automate designer, but then copy the change back into the JSON, or the next `provision` (while the flow is off) overwrites it.
 
 ## Sample data (`sample-data.json`)
 

@@ -1,0 +1,22 @@
+{
+  "connectionReferences": [
+    {
+      "name": "hra_Dataverse",
+      "label": "HRA Dataverse",
+      "connector": "shared_commondataserviceforapps",
+      "description": "Dataverse connection used by all HR Automation flows."
+    },
+    {
+      "name": "hra_Approvals",
+      "label": "HRA Approvals",
+      "connector": "shared_approvals",
+      "description": "Approvals (Teams/Outlook approval cards)."
+    },
+    {
+      "name": "hra_Office365Outlook",
+      "label": "HRA Office 365 Outlook",
+      "connector": "shared_office365",
+      "description": "Sends notification emails. Use the HR shared mailbox's connection in Prod."
+    }
+  ]
+}
